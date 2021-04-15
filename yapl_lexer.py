@@ -1,37 +1,86 @@
 import ply.lex as lex
 import re
 
-# TOKEN IDENTIFIERS, have to match name of our token
-
-# list of all possible tokens
 tokens = [
     'INT',
+    'STRING',
+    'FLOAT',
+    'CHAR',
+    'BOOL',
     'PLUS',
     'MINUS',
-    'SEMICOL',
-    'PRINT'
+    'DIVIDE',
+    'MULTIPLY',
+    'POWER',
+    'MODULUS',
+    'PLUSPLUS',
+    'MINUSMINUS',
+    'LESSTHAN',
+    'GREATERTHAN',
+    'LESSTHANEQUALTO',
+    'GREATERTHANEQUALTO',
+    'NOTEQUAL',
+    'EQUALEQUAL',
+    'NOT',
+    'AND',
+    'OR',
+    'LPAREN',
+    'RPAREN',
+    'SEMICOLON',
+    'EQUAL',
+    'PRINT',
+    'NAME'
 ]
 
-t_PLUS = r'\+' # recognise regular expression symbol
+t_PLUS = r'\+'
 t_MINUS = r'\-'
-t_SEMICOL = r'\;'
+t_DIVIDE = r'/'
+t_MULTIPLY = r'\*'
+t_POWER = r'\^'
+t_MODULUS = r'\%'
+t_PLUSPLUS = r'\+\+'
+t_MINUSMINUS = r'\-\-'
+t_LESSTHAN = r'\<'
+t_GREATERTHAN = r'\>'
+t_LESSTHANEQUALTO = r'\<='
+t_GREATERTHANEQUALTO = r'\>='
+t_NOTEQUAL = r'\!='
+t_EQUALEQUAL = r'\=='
+t_NOT = r'\!'
+t_AND = r'\&\&'
+t_OR = r'\|\|'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_SEMICOLON = r'\;'
+t_EQUAL = r'\='
+t_STRING = r'\".*?\"'
+t_CHAR = r'\'[a-zA-Z_0-9]\''
 t_ignore = ' \t\r\n\f\v' # ignore spaces, better lexing performance, special case
 
-# variable or function names (including predefined functions like print)
+
 def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     if t.value == 'print':
         t.type = 'PRINT'
+    elif t.value == "TRUE" or t.value == "FALSE":
+        t.type = 'BOOL'
     else:
-        t.type = 'NAME'
+        t.type = "NAME"
         
     return t
 
 
-def t_INT(t): # parameter t is the token
-    r'\d+' # atleast one digit
-    t.value = int(t.value) # convert to int
+def t_FLOAT(t):
+    r'(\d*\.\d+)|(\d+\.\d*)'
+    t.value = float(t.value)
     return t
+
+
+def t_INT(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
 
 
 def t_lineno(t):
@@ -44,16 +93,15 @@ def t_error(t): # error while lexing
     print(f"Illegal character: {t.value}")
     t.lexer.skip(1) # skips illegal character
 
-# create lexer
+
 lexer = lex.lex()
 
-# ENABLE THIS TO TEST YOUR LEXER DIRECTLY
-# while True:
-#     print("YAPL_LEXER>>",end='')
-#     lexer.input(input()) # reset lexer, store new input
+while True:
+    print("YAPL_LEXER>>",end='')
+    lexer.input(input()) # reset lexer, store new input
         
-#     while True: # necessary to lex all tokens
-#         tokenEntered = lexer.token() # return next token from lexer
-#         if not tokenEntered: # lexer error also given
-#             break
-#         print(tokenEntered)
+    while True: # necessary to lex all tokens
+        tokenEntered = lexer.token() # return next token from lexer
+        if not tokenEntered: # lexer error also given
+            break
+        print(tokenEntered)
