@@ -29,6 +29,7 @@ tokens = [
     'SEMICOLON',
     'EQUAL',
     'PRINT',
+    'COMMA',
     'NAME'
 ]
 
@@ -55,6 +56,7 @@ t_SEMICOLON = r'\;'
 t_EQUAL = r'\='
 t_STRING = r'\".*?\"'
 t_CHAR = r'\'[a-zA-Z_0-9]\''
+t_COMMA = r'\,'
 t_ignore = ' \t\r\n\f\v' # ignore spaces, better lexing performance, special case
 
 
@@ -96,12 +98,12 @@ def t_error(t): # error while lexing
 
 lexer = lex.lex()
 
-while True:
-    print("YAPL_LEXER>>",end='')
-    lexer.input(input()) # reset lexer, store new input
+# while True:
+#     print("YAPL_LEXER>>",end='')
+#     lexer.input(input()) # reset lexer, store new input
         
-    while True: # necessary to lex all tokens
-        tokenEntered = lexer.token() # return next token from lexer
-        if not tokenEntered: # lexer error also given
-            break
-        print(tokenEntered)
+#     while True: # necessary to lex all tokens
+#         tokenEntered = lexer.token() # return next token from lexer
+#         if not tokenEntered: # lexer error also given
+#             break
+#         print(tokenEntered)

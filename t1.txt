@@ -1,0 +1,9 @@
+print (1 + 2 + 3);
+print ("STANDARD OUTPUT" + "hello" + "WORLD");
+print ('g');
+print ("STANDARD OUTPUT" , "hello", 1+1);
+
+
+
+
+

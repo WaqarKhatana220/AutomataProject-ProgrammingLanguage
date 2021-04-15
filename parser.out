@@ -1,0 +1,491 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    BOOL
+    EQUAL
+    EQUALEQUAL
+    GREATERTHAN
+    GREATERTHANEQUALTO
+    LESSTHAN
+    LESSTHANEQUALTO
+    MINUSMINUS
+    MODULUS
+    NAME
+    NOT
+    NOTEQUAL
+    OR
+    PLUSPLUS
+    POWER
+
+Grammar
+
+Rule 0     S' -> S
+Rule 1     S -> stmt S
+Rule 2     S -> <empty>
+Rule 3     stmt -> PRINT LPAREN exp RPAREN SEMICOLON
+Rule 4     exp -> exp PLUS exp
+Rule 5     exp -> exp MINUS exp
+Rule 6     exp -> exp DIVIDE exp
+Rule 7     exp -> exp MULTIPLY exp
+Rule 8     exp -> exp COMMA exp
+Rule 9     exp -> INT
+Rule 10    exp -> FLOAT
+Rule 11    exp -> STRING
+Rule 12    exp -> CHAR
+
+Terminals, with rules where they appear
+
+AND                  : 
+BOOL                 : 
+CHAR                 : 12
+COMMA                : 8
+DIVIDE               : 6
+EQUAL                : 
+EQUALEQUAL           : 
+FLOAT                : 10
+GREATERTHAN          : 
+GREATERTHANEQUALTO   : 
+INT                  : 9
+LESSTHAN             : 
+LESSTHANEQUALTO      : 
+LPAREN               : 3
+MINUS                : 5
+MINUSMINUS           : 
+MODULUS              : 
+MULTIPLY             : 7
+NAME                 : 
+NOT                  : 
+NOTEQUAL             : 
+OR                   : 
+PLUS                 : 4
+PLUSPLUS             : 
+POWER                : 
+PRINT                : 3
+RPAREN               : 3
+SEMICOLON            : 3
+STRING               : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+S                    : 1 0
+exp                  : 3 4 4 5 5 6 6 7 7 8 8
+stmt                 : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . stmt S
+    (2) S -> .
+    (3) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
+
+    $end            reduce using rule 2 (S -> .)
+    PRINT           shift and go to state 3
+
+    S                              shift and go to state 1
+    stmt                           shift and go to state 2
+
+state 1
+
+    (0) S' -> S .
+
+
+
+state 2
+
+    (1) S -> stmt . S
+    (1) S -> . stmt S
+    (2) S -> .
+    (3) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
+
+    $end            reduce using rule 2 (S -> .)
+    PRINT           shift and go to state 3
+
+    stmt                           shift and go to state 2
+    S                              shift and go to state 4
+
+state 3
+
+    (3) stmt -> PRINT . LPAREN exp RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 5
+
+
+state 4
+
+    (1) S -> stmt S .
+
+    $end            reduce using rule 1 (S -> stmt S .)
+
+
+state 5
+
+    (3) stmt -> PRINT LPAREN . exp RPAREN SEMICOLON
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 6
+
+state 6
+
+    (3) stmt -> PRINT LPAREN exp . RPAREN SEMICOLON
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+    RPAREN          shift and go to state 11
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+
+state 7
+
+    (9) exp -> INT .
+
+    RPAREN          reduce using rule 9 (exp -> INT .)
+    PLUS            reduce using rule 9 (exp -> INT .)
+    MINUS           reduce using rule 9 (exp -> INT .)
+    DIVIDE          reduce using rule 9 (exp -> INT .)
+    MULTIPLY        reduce using rule 9 (exp -> INT .)
+    COMMA           reduce using rule 9 (exp -> INT .)
+
+
+state 8
+
+    (10) exp -> FLOAT .
+
+    RPAREN          reduce using rule 10 (exp -> FLOAT .)
+    PLUS            reduce using rule 10 (exp -> FLOAT .)
+    MINUS           reduce using rule 10 (exp -> FLOAT .)
+    DIVIDE          reduce using rule 10 (exp -> FLOAT .)
+    MULTIPLY        reduce using rule 10 (exp -> FLOAT .)
+    COMMA           reduce using rule 10 (exp -> FLOAT .)
+
+
+state 9
+
+    (11) exp -> STRING .
+
+    RPAREN          reduce using rule 11 (exp -> STRING .)
+    PLUS            reduce using rule 11 (exp -> STRING .)
+    MINUS           reduce using rule 11 (exp -> STRING .)
+    DIVIDE          reduce using rule 11 (exp -> STRING .)
+    MULTIPLY        reduce using rule 11 (exp -> STRING .)
+    COMMA           reduce using rule 11 (exp -> STRING .)
+
+
+state 10
+
+    (12) exp -> CHAR .
+
+    RPAREN          reduce using rule 12 (exp -> CHAR .)
+    PLUS            reduce using rule 12 (exp -> CHAR .)
+    MINUS           reduce using rule 12 (exp -> CHAR .)
+    DIVIDE          reduce using rule 12 (exp -> CHAR .)
+    MULTIPLY        reduce using rule 12 (exp -> CHAR .)
+    COMMA           reduce using rule 12 (exp -> CHAR .)
+
+
+state 11
+
+    (3) stmt -> PRINT LPAREN exp RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 17
+
+
+state 12
+
+    (4) exp -> exp PLUS . exp
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 18
+
+state 13
+
+    (5) exp -> exp MINUS . exp
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 19
+
+state 14
+
+    (6) exp -> exp DIVIDE . exp
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 20
+
+state 15
+
+    (7) exp -> exp MULTIPLY . exp
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 21
+
+state 16
+
+    (8) exp -> exp COMMA . exp
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    CHAR            shift and go to state 10
+
+    exp                            shift and go to state 22
+
+state 17
+
+    (3) stmt -> PRINT LPAREN exp RPAREN SEMICOLON .
+
+    PRINT           reduce using rule 3 (stmt -> PRINT LPAREN exp RPAREN SEMICOLON .)
+    $end            reduce using rule 3 (stmt -> PRINT LPAREN exp RPAREN SEMICOLON .)
+
+
+state 18
+
+    (4) exp -> exp PLUS exp .
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RPAREN          reduce using rule 4 (exp -> exp PLUS exp .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+  ! PLUS            [ reduce using rule 4 (exp -> exp PLUS exp .) ]
+  ! MINUS           [ reduce using rule 4 (exp -> exp PLUS exp .) ]
+  ! DIVIDE          [ reduce using rule 4 (exp -> exp PLUS exp .) ]
+  ! MULTIPLY        [ reduce using rule 4 (exp -> exp PLUS exp .) ]
+  ! COMMA           [ reduce using rule 4 (exp -> exp PLUS exp .) ]
+
+
+state 19
+
+    (5) exp -> exp MINUS exp .
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RPAREN          reduce using rule 5 (exp -> exp MINUS exp .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+  ! PLUS            [ reduce using rule 5 (exp -> exp MINUS exp .) ]
+  ! MINUS           [ reduce using rule 5 (exp -> exp MINUS exp .) ]
+  ! DIVIDE          [ reduce using rule 5 (exp -> exp MINUS exp .) ]
+  ! MULTIPLY        [ reduce using rule 5 (exp -> exp MINUS exp .) ]
+  ! COMMA           [ reduce using rule 5 (exp -> exp MINUS exp .) ]
+
+
+state 20
+
+    (6) exp -> exp DIVIDE exp .
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RPAREN          reduce using rule 6 (exp -> exp DIVIDE exp .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+  ! PLUS            [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
+  ! MINUS           [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
+  ! DIVIDE          [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
+  ! MULTIPLY        [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
+  ! COMMA           [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
+
+
+state 21
+
+    (7) exp -> exp MULTIPLY exp .
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RPAREN          reduce using rule 7 (exp -> exp MULTIPLY exp .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+  ! PLUS            [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
+  ! MINUS           [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
+  ! DIVIDE          [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
+  ! MULTIPLY        [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
+  ! COMMA           [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
+
+
+state 22
+
+    (8) exp -> exp COMMA exp .
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for COMMA resolved as shift
+    RPAREN          reduce using rule 8 (exp -> exp COMMA exp .)
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
+    DIVIDE          shift and go to state 14
+    MULTIPLY        shift and go to state 15
+    COMMA           shift and go to state 16
+
+  ! PLUS            [ reduce using rule 8 (exp -> exp COMMA exp .) ]
+  ! MINUS           [ reduce using rule 8 (exp -> exp COMMA exp .) ]
+  ! DIVIDE          [ reduce using rule 8 (exp -> exp COMMA exp .) ]
+  ! MULTIPLY        [ reduce using rule 8 (exp -> exp COMMA exp .) ]
+  ! COMMA           [ reduce using rule 8 (exp -> exp COMMA exp .) ]
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 18 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 18 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 18 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 18 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 18 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 19 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 19 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 19 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 19 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 19 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 20 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 20 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 20 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 20 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 20 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 21 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 21 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 21 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 21 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 21 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 22 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 22 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 22 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 22 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 22 resolved as shift
