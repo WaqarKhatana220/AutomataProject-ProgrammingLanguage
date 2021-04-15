@@ -1,9 +1,15 @@
-print (1 + 2 + 3);
-print ("STANDARD OUTPUT" + "hello" + "WORLD");
-print ('g');
-print ("STANDARD OUTPUT" , "hello", 1+1);
 
+string s = "hello";
+int b = 7;
+char d = 's';
+float f = 5.5;
+int a  = 5;
+print(a);
 
+a = 5 + 5;
+print(a);
+ a = "helo" + "hello";
+print (a);
 
-
-
+a = b;
+print(a);

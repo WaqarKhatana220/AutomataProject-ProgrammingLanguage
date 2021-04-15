@@ -30,6 +30,11 @@ tokens = [
     'EQUAL',
     'PRINT',
     'COMMA',
+    'string',
+    'int',
+    'float',
+    'bool',
+    'char',
     'NAME'
 ]
 
@@ -64,8 +69,18 @@ def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     if t.value == 'print':
         t.type = 'PRINT'
-    elif t.value == "TRUE" or t.value == "FALSE":
+    elif t.value == "True" or t.value == "False":
         t.type = 'BOOL'
+    elif t.value == 'string':
+        t.type = 'string'
+    elif t.value == 'int':
+        t.type = 'int'
+    elif t.value == 'float':
+        t.type = 'float'
+    elif t.value == 'bool':
+        t.type = 'bool'
+    elif t.value == 'char':
+        t.type = 'char'
     else:
         t.type = "NAME"
         
