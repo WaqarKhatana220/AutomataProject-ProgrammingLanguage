@@ -96,17 +96,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         result = exp_eval(condition)
         if result == True:
             stype = statement[0]
-            if stype == "DECLARATION":
-                if statement[2] not in local_variable_dictionary:
-                    stmt_eval(p[3])
-            elif stype == "ASSIGNMENT":
-                stmt_eval(p[3])
-            elif stype == "PRINT":
-                stmt_eval(p[3])
-            elif stype == "CONDITIONAL":
-                stmt_eval(p[3])
-            elif stype == "CONDITIONALELSE":
-                stmt_eval(p[3])
+            stmt_eval(p[3])
         else:
             if_check = False
     elif stype == "CONDITIONALELSE":
@@ -119,17 +109,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 statement = p[1]
                 print ("statement", statement)
                 stype = statement[0]
-                if stype == "DECLARATION":
-                    if statement[2] not in local_variable_dictionary:
-                        stmt_eval(p[1])
-                elif stype == "ASSIGNMENT":
-                    stmt_eval(p[1])
-                elif stype == "PRINT":
-                    stmt_eval(p[1])
-                elif stype == "CONDITIONAL":
-                    stmt_eval(p[1])
-                elif stype == "CONDITIONALELSE":
-                    stmt_eval(p[3])
+                stmt_eval(p[1])
                 print(variable_dictionary)
                 if_check = True
             if_exists = False
