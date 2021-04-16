@@ -4,8 +4,10 @@ import sys
 
 # other global variables
 variable_dictionary = {}
-
-
+global if_exists
+if_exists = False
+global if_check
+if_check = True
 
 def exp_eval(p): # evaluate expression
     operator = p[0]
@@ -51,10 +53,12 @@ def exp_eval(p): # evaluate expression
 
 def stmt_eval(p): # p is the parsed statement subtree / program
     stype = p[0] # node type of parse tree
+    global if_check
+    global if_exists
     if stype == 'PRINT':
         exp = p[1]
         result = exp_eval(exp)
-        print(result)
+        print(result)        
     elif stype == "DECLARATION":
         if p[2] not in variable_dictionary:
             exp = p[3]
@@ -83,6 +87,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             result = inc_dec_calculator(p[1], p[2])
             variable_dictionary[p[1]][1] = result
     elif stype == "CONDITIONAL":
+        if_exists = True
         local_variable_dictionary = {}
         print ("conditional", p[1], p[2], p[3])
         level = p[1]
@@ -100,7 +105,37 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 stmt_eval(p[3])
             elif stype == "CONDITIONAL":
                 stmt_eval(p[3])
-    # print(variable_dictionary)
+            elif stype == "CONDITIONALELSE":
+                stmt_eval(p[3])
+        else:
+            if_check = False
+    elif stype == "CONDITIONALELSE":
+        print ("else block")
+        if if_exists == True:
+            if if_check == False:
+                print("inside else")
+                local_variable_dictionary = {}
+                print ("conditional", p[1])
+                statement = p[1]
+                print ("statement", statement)
+                stype = statement[0]
+                if stype == "DECLARATION":
+                    if statement[2] not in local_variable_dictionary:
+                        stmt_eval(p[1])
+                elif stype == "ASSIGNMENT":
+                    stmt_eval(p[1])
+                elif stype == "PRINT":
+                    stmt_eval(p[1])
+                elif stype == "CONDITIONAL":
+                    stmt_eval(p[1])
+                elif stype == "CONDITIONALELSE":
+                    stmt_eval(p[3])
+                print(variable_dictionary)
+                if_check = True
+            if_exists = False
+        else:
+            print("else without if")
+
          
 
 

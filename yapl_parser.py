@@ -32,6 +32,18 @@ def p_conditional_if(p):
     """
     p[0] = ('CONDITIONAL', p[1], p[3], p[6])
 
+def p_conditional_elif(p):
+    """
+    stmt : ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONALELIF', p[1], p[3], p[6])
+
+def p_conditional_else(p):
+    """
+    stmt : ELSE LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONALELSE', p[3])
+
 
 def p_print_stmt(p):
     """

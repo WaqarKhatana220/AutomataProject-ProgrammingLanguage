@@ -1,7 +1,2 @@
-if (2>=2) {
-    if (2>=2) {
-    print("hello");
-}
-}
-
-print("by");
+string myString = ("hello");
+print (myString);
