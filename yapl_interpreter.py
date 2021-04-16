@@ -5,6 +5,8 @@ import sys
 # other global variables
 variable_dictionary = {}
 
+
+
 def exp_eval(p): # evaluate expression
     operator = p[0]
     if operator == '+':
@@ -19,6 +21,14 @@ def exp_eval(p): # evaluate expression
         return exp_eval(p[1]) % exp_eval(p[2])
     elif operator == '^':
         return exp_eval(p[1]) ** exp_eval(p[2])
+    elif operator == '>':
+        return exp_eval(p[1]) > exp_eval(p[2])
+    elif operator == '<':
+        return exp_eval(p[1]) < exp_eval(p[2])
+    elif operator == '>=':
+        return exp_eval(p[1]) >= exp_eval(p[2])
+    elif operator == '<=':
+        return exp_eval(p[1]) <= exp_eval(p[2])
     elif operator == 'COMMA':
         return exp_eval(p[1]) , exp_eval(p[2])
     else: # operator was 'NUM' so its just a number
@@ -48,6 +58,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     elif stype == "DECLARATION":
         if p[2] not in variable_dictionary:
             exp = p[3]
+            # print("declaration", p[1], p[2], p[3])
             result = exp_eval(exp)
             # print("result", result)
             check = declaration_handler(p[1], result)
@@ -64,11 +75,34 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             result = exp_eval(exp)
             variable_dictionary[p[1]][1] = result
             # print("after assignment", variable_dictionary)
+        else:
+            print("variable '", p[1], "' used but not defined")
     elif stype == "INC_DEC":
         print("INC_DEC CALLED")
         if p[1] in variable_dictionary:
             result = inc_dec_calculator(p[1], p[2])
             variable_dictionary[p[1]][1] = result
+    elif stype == "CONDITIONAL":
+        local_variable_dictionary = {}
+        print ("conditional", p[1], p[2], p[3])
+        level = p[1]
+        condition = p[2]
+        statement = p[3]
+        result = exp_eval(condition)
+        if result == True:
+            stype = statement[0]
+            if stype == "DECLARATION":
+                if statement[2] not in local_variable_dictionary:
+                    stmt_eval(p[3])
+            elif stype == "ASSIGNMENT":
+                stmt_eval(p[3])
+            elif stype == "PRINT":
+                stmt_eval(p[3])
+            elif stype == "CONDITIONAL":
+                stmt_eval(p[3])
+    # print(variable_dictionary)
+         
+
 
 
 

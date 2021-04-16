@@ -35,9 +35,16 @@ tokens = [
     'float',
     'bool',
     'char',
+    'IF',
+    'ELSE',
+    'ELIF',
+    'LCBRACKET',
+    'RCBRACKET',
     'NAME'
 ]
 
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_PLUSPLUS = r'\+\+'
 t_MINUSMINUS = r'\-\-'
 t_PLUS = r'\+'
@@ -55,8 +62,8 @@ t_EQUALEQUAL = r'\=='
 t_NOT = r'\!'
 t_AND = r'\&\&'
 t_OR = r'\|\|'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
+t_LCBRACKET = r'\{'
+t_RCBRACKET = r'\}'
 t_SEMICOLON = r'\;'
 t_EQUAL = r'\='
 t_STRING = r'\".*?\"'
@@ -81,6 +88,12 @@ def t_NAME(t):
         t.type = 'bool'
     elif t.value == 'char':
         t.type = 'char'
+    elif t.value == 'if':
+        t.type = 'IF'
+    elif t.value == 'else':
+        t.type = 'ELSE'
+    elif t.value == 'elif':
+        t.type = 'ELIF'
     else:
         t.type = "NAME"
         

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'SAND BOOL CHAR COMMA DIVIDE EQUAL EQUALEQUAL FLOAT GREATERTHAN GREATERTHANEQUALTO INT LESSTHAN LESSTHANEQUALTO LPAREN MINUS MINUSMINUS MODULUS MULTIPLY NAME NOT NOTEQUAL OR PLUS PLUSPLUS POWER PRINT RPAREN SEMICOLON STRING bool char float int string\n    S : stmt S\n    \n    S :\n    \n    stmt : PRINT LPAREN exp RPAREN SEMICOLON\n     \n    exp : exp PLUS exp\n        | exp MINUS exp\n        | exp DIVIDE exp\n        | exp MULTIPLY exp\n        | exp MODULUS exp\n        | exp POWER exp\n     \n    exp : exp COMMA exp\n    \n    exp : INT\n        | FLOAT\n    \n    exp : STRING\n    \n    exp : CHAR\n    \n    exp : BOOL\n    \n    exp : NAME\n    \n    stmt : DTYPE NAME EQUAL exp SEMICOLON\n    \n    DTYPE : int\n        | string\n        | float\n        | bool\n        | char\n    \n    stmt : NAME EQUAL exp SEMICOLON\n    '
+_lr_signature = 'SAND BOOL CHAR COMMA DIVIDE ELIF ELSE EQUAL EQUALEQUAL FLOAT GREATERTHAN GREATERTHANEQUALTO IF INT LCBRACKET LESSTHAN LESSTHANEQUALTO LPAREN MINUS MINUSMINUS MODULUS MULTIPLY NAME NOT NOTEQUAL OR PLUS PLUSPLUS POWER PRINT RCBRACKET RPAREN SEMICOLON STRING bool char float int string\n    S : stmt S\n    \n    S :\n    \n    stmt : IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET\n    \n    stmt : PRINT LPAREN exp RPAREN SEMICOLON\n     \n    exp : exp PLUS exp\n        | exp MINUS exp\n        | exp DIVIDE exp\n        | exp MULTIPLY exp\n        | exp MODULUS exp\n        | exp POWER exp\n        | exp LESSTHAN exp\n        | exp GREATERTHAN exp\n        | exp GREATERTHANEQUALTO exp\n        | exp LESSTHANEQUALTO exp\n\n     \n    exp : exp COMMA exp\n    \n    exp : INT\n        | FLOAT\n    \n    exp : STRING\n    \n    exp : CHAR\n    \n    exp : BOOL\n    \n    exp : NAME\n    \n    stmt : DTYPE NAME EQUAL exp SEMICOLON\n    \n    DTYPE : int\n        | string\n        | float\n        | bool\n        | char\n    \n    stmt : NAME EQUAL exp SEMICOLON\n    '
     
-_lr_action_items = {'$end':([0,1,2,11,33,34,42,],[-2,0,-2,-1,-23,-3,-17,]),'PRINT':([0,2,33,34,42,],[3,3,-23,-3,-17,]),'NAME':([0,2,4,6,7,8,9,10,12,14,22,25,26,27,28,29,30,31,33,34,42,],[5,5,13,-18,-19,-20,-21,-22,21,21,21,21,21,21,21,21,21,21,-23,-3,-17,]),'int':([0,2,33,34,42,],[6,6,-23,-3,-17,]),'string':([0,2,33,34,42,],[7,7,-23,-3,-17,]),'float':([0,2,33,34,42,],[8,8,-23,-3,-17,]),'bool':([0,2,33,34,42,],[9,9,-23,-3,-17,]),'char':([0,2,33,34,42,],[10,10,-23,-3,-17,]),'LPAREN':([3,],[12,]),'EQUAL':([5,13,],[14,22,]),'INT':([12,14,22,25,26,27,28,29,30,31,],[16,16,16,16,16,16,16,16,16,16,]),'FLOAT':([12,14,22,25,26,27,28,29,30,31,],[17,17,17,17,17,17,17,17,17,17,]),'STRING':([12,14,22,25,26,27,28,29,30,31,],[18,18,18,18,18,18,18,18,18,18,]),'CHAR':([12,14,22,25,26,27,28,29,30,31,],[19,19,19,19,19,19,19,19,19,19,]),'BOOL':([12,14,22,25,26,27,28,29,30,31,],[20,20,20,20,20,20,20,20,20,20,]),'RPAREN':([15,16,17,18,19,20,21,35,36,37,38,39,40,41,],[24,-11,-12,-13,-14,-15,-16,-4,-5,-6,-7,-8,-9,-10,]),'PLUS':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[25,-11,-12,-13,-14,-15,-16,25,25,25,25,25,25,25,25,25,]),'MINUS':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[26,-11,-12,-13,-14,-15,-16,26,26,26,26,26,26,26,26,26,]),'DIVIDE':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[27,-11,-12,-13,-14,-15,-16,27,27,27,27,27,27,27,27,27,]),'MULTIPLY':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[28,-11,-12,-13,-14,-15,-16,28,28,28,28,28,28,28,28,28,]),'MODULUS':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[29,-11,-12,-13,-14,-15,-16,29,29,29,29,29,29,29,29,29,]),'POWER':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[30,-11,-12,-13,-14,-15,-16,30,30,30,30,30,30,30,30,30,]),'COMMA':([15,16,17,18,19,20,21,23,32,35,36,37,38,39,40,41,],[31,-11,-12,-13,-14,-15,-16,31,31,31,31,31,31,31,31,31,]),'SEMICOLON':([16,17,18,19,20,21,23,24,32,35,36,37,38,39,40,41,],[-11,-12,-13,-14,-15,-16,33,34,42,-4,-5,-6,-7,-8,-9,-10,]),}
+_lr_action_items = {'$end':([0,1,2,12,41,54,55,57,],[-2,0,-2,-1,-28,-4,-22,-3,]),'IF':([0,2,41,42,54,55,57,],[3,3,-28,3,-4,-22,-3,]),'PRINT':([0,2,41,42,54,55,57,],[4,4,-28,4,-4,-22,-3,]),'NAME':([0,2,5,7,8,9,10,11,13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,41,42,54,55,57,],[6,6,15,-23,-24,-25,-26,-27,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,-28,6,-4,-22,-3,]),'int':([0,2,41,42,54,55,57,],[7,7,-28,7,-4,-22,-3,]),'string':([0,2,41,42,54,55,57,],[8,8,-28,8,-4,-22,-3,]),'float':([0,2,41,42,54,55,57,],[9,9,-28,9,-4,-22,-3,]),'bool':([0,2,41,42,54,55,57,],[10,10,-28,10,-4,-22,-3,]),'char':([0,2,41,42,54,55,57,],[11,11,-28,11,-4,-22,-3,]),'LPAREN':([3,4,],[13,14,]),'EQUAL':([6,15,],[16,25,]),'INT':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'FLOAT':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'STRING':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,]),'CHAR':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,]),'BOOL':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,]),'RPAREN':([17,18,19,20,21,22,23,24,43,44,45,46,47,48,49,50,51,52,53,],[27,-16,-17,-18,-19,-20,-21,39,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,]),'PLUS':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[28,-16,-17,-18,-19,-20,-21,28,28,28,28,28,28,28,28,28,28,28,28,28,28,]),'MINUS':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[29,-16,-17,-18,-19,-20,-21,29,29,29,29,29,29,29,29,29,29,29,29,29,29,]),'DIVIDE':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[30,-16,-17,-18,-19,-20,-21,30,30,30,30,30,30,30,30,30,30,30,30,30,30,]),'MULTIPLY':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[31,-16,-17,-18,-19,-20,-21,31,31,31,31,31,31,31,31,31,31,31,31,31,31,]),'MODULUS':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[32,-16,-17,-18,-19,-20,-21,32,32,32,32,32,32,32,32,32,32,32,32,32,32,]),'POWER':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[33,-16,-17,-18,-19,-20,-21,33,33,33,33,33,33,33,33,33,33,33,33,33,33,]),'LESSTHAN':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[34,-16,-17,-18,-19,-20,-21,34,34,34,34,34,34,34,34,34,34,34,34,34,34,]),'GREATERTHAN':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[35,-16,-17,-18,-19,-20,-21,35,35,35,35,35,35,35,35,35,35,35,35,35,35,]),'GREATERTHANEQUALTO':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[36,-16,-17,-18,-19,-20,-21,36,36,36,36,36,36,36,36,36,36,36,36,36,36,]),'LESSTHANEQUALTO':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[37,-16,-17,-18,-19,-20,-21,37,37,37,37,37,37,37,37,37,37,37,37,37,37,]),'COMMA':([17,18,19,20,21,22,23,24,26,40,43,44,45,46,47,48,49,50,51,52,53,],[38,-16,-17,-18,-19,-20,-21,38,38,38,38,38,38,38,38,38,38,38,38,38,38,]),'SEMICOLON':([18,19,20,21,22,23,26,39,40,43,44,45,46,47,48,49,50,51,52,53,],[-16,-17,-18,-19,-20,-21,41,54,55,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,]),'LCBRACKET':([27,],[42,]),'RCBRACKET':([41,54,55,56,57,],[-28,-4,-22,57,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'S':([0,2,],[1,11,]),'stmt':([0,2,],[2,2,]),'DTYPE':([0,2,],[4,4,]),'exp':([12,14,22,25,26,27,28,29,30,31,],[15,23,32,35,36,37,38,39,40,41,]),}
+_lr_goto_items = {'S':([0,2,],[1,12,]),'stmt':([0,2,42,],[2,2,56,]),'DTYPE':([0,2,42,],[5,5,5,]),'exp':([13,14,16,25,28,29,30,31,32,33,34,35,36,37,38,],[17,24,26,40,43,44,45,46,47,48,49,50,51,52,53,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -29,25 +29,30 @@ _lr_productions = [
   ("S' -> S","S'",1,None,None,None),
   ('S -> stmt S','S',2,'p_start','yapl_parser.py',17),
   ('S -> <empty>','S',0,'p_start_empty','yapl_parser.py',24),
-  ('stmt -> PRINT LPAREN exp RPAREN SEMICOLON','stmt',5,'p_print_stmt','yapl_parser.py',31),
-  ('exp -> exp PLUS exp','exp',3,'p_exp_bin','yapl_parser.py',37),
-  ('exp -> exp MINUS exp','exp',3,'p_exp_bin','yapl_parser.py',38),
-  ('exp -> exp DIVIDE exp','exp',3,'p_exp_bin','yapl_parser.py',39),
-  ('exp -> exp MULTIPLY exp','exp',3,'p_exp_bin','yapl_parser.py',40),
-  ('exp -> exp MODULUS exp','exp',3,'p_exp_bin','yapl_parser.py',41),
-  ('exp -> exp POWER exp','exp',3,'p_exp_bin','yapl_parser.py',42),
-  ('exp -> exp COMMA exp','exp',3,'p_exp_comma','yapl_parser.py',48),
-  ('exp -> INT','exp',1,'p_exp_num','yapl_parser.py',55),
-  ('exp -> FLOAT','exp',1,'p_exp_num','yapl_parser.py',56),
-  ('exp -> STRING','exp',1,'p_exp_string','yapl_parser.py',62),
-  ('exp -> CHAR','exp',1,'p_exp_char','yapl_parser.py',68),
-  ('exp -> BOOL','exp',1,'p_exp_bool','yapl_parser.py',74),
-  ('exp -> NAME','exp',1,'p_exp_vriable','yapl_parser.py',80),
-  ('stmt -> DTYPE NAME EQUAL exp SEMICOLON','stmt',5,'p_dec','yapl_parser.py',86),
-  ('DTYPE -> int','DTYPE',1,'p_dec_dtype','yapl_parser.py',92),
-  ('DTYPE -> string','DTYPE',1,'p_dec_dtype','yapl_parser.py',93),
-  ('DTYPE -> float','DTYPE',1,'p_dec_dtype','yapl_parser.py',94),
-  ('DTYPE -> bool','DTYPE',1,'p_dec_dtype','yapl_parser.py',95),
-  ('DTYPE -> char','DTYPE',1,'p_dec_dtype','yapl_parser.py',96),
-  ('stmt -> NAME EQUAL exp SEMICOLON','stmt',4,'p_assign','yapl_parser.py',104),
+  ('stmt -> IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET','stmt',7,'p_conditional','yapl_parser.py',31),
+  ('stmt -> PRINT LPAREN exp RPAREN SEMICOLON','stmt',5,'p_print_stmt','yapl_parser.py',39),
+  ('exp -> exp PLUS exp','exp',3,'p_exp_bin','yapl_parser.py',45),
+  ('exp -> exp MINUS exp','exp',3,'p_exp_bin','yapl_parser.py',46),
+  ('exp -> exp DIVIDE exp','exp',3,'p_exp_bin','yapl_parser.py',47),
+  ('exp -> exp MULTIPLY exp','exp',3,'p_exp_bin','yapl_parser.py',48),
+  ('exp -> exp MODULUS exp','exp',3,'p_exp_bin','yapl_parser.py',49),
+  ('exp -> exp POWER exp','exp',3,'p_exp_bin','yapl_parser.py',50),
+  ('exp -> exp LESSTHAN exp','exp',3,'p_exp_bin','yapl_parser.py',51),
+  ('exp -> exp GREATERTHAN exp','exp',3,'p_exp_bin','yapl_parser.py',52),
+  ('exp -> exp GREATERTHANEQUALTO exp','exp',3,'p_exp_bin','yapl_parser.py',53),
+  ('exp -> exp LESSTHANEQUALTO exp','exp',3,'p_exp_bin','yapl_parser.py',54),
+  ('exp -> exp COMMA exp','exp',3,'p_exp_comma','yapl_parser.py',61),
+  ('exp -> INT','exp',1,'p_exp_num','yapl_parser.py',68),
+  ('exp -> FLOAT','exp',1,'p_exp_num','yapl_parser.py',69),
+  ('exp -> STRING','exp',1,'p_exp_string','yapl_parser.py',75),
+  ('exp -> CHAR','exp',1,'p_exp_char','yapl_parser.py',81),
+  ('exp -> BOOL','exp',1,'p_exp_bool','yapl_parser.py',87),
+  ('exp -> NAME','exp',1,'p_exp_vriable','yapl_parser.py',93),
+  ('stmt -> DTYPE NAME EQUAL exp SEMICOLON','stmt',5,'p_dec','yapl_parser.py',99),
+  ('DTYPE -> int','DTYPE',1,'p_dec_dtype','yapl_parser.py',105),
+  ('DTYPE -> string','DTYPE',1,'p_dec_dtype','yapl_parser.py',106),
+  ('DTYPE -> float','DTYPE',1,'p_dec_dtype','yapl_parser.py',107),
+  ('DTYPE -> bool','DTYPE',1,'p_dec_dtype','yapl_parser.py',108),
+  ('DTYPE -> char','DTYPE',1,'p_dec_dtype','yapl_parser.py',109),
+  ('stmt -> NAME EQUAL exp SEMICOLON','stmt',4,'p_assign','yapl_parser.py',118),
 ]

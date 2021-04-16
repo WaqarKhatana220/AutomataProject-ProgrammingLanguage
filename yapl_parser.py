@@ -26,6 +26,13 @@ def p_start_empty(p):
     p[0] = []
 
 
+def p_conditional_if(p):
+    """
+    stmt : IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONAL', p[1], p[3], p[6])
+
+
 def p_print_stmt(p):
     """
     stmt : PRINT LPAREN exp RPAREN SEMICOLON
@@ -40,6 +47,11 @@ def p_exp_bin(p):
         | exp MULTIPLY exp
         | exp MODULUS exp
         | exp POWER exp
+        | exp LESSTHAN exp
+        | exp GREATERTHAN exp
+        | exp GREATERTHANEQUALTO exp
+        | exp LESSTHANEQUALTO exp
+
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')
 
@@ -99,25 +111,14 @@ def p_dec_dtype(p):
 
 
 
+
 def p_assign(p):
     """
     stmt : NAME EQUAL exp SEMICOLON
     """
     p[0] = ('ASSIGNMENT', p[1], p[3])
 
-# def inc_dec_rement(p):
-#     """
-#     stmt : NAME op SEMICOLON
-#     """
-#     print(p[1], p[2])
 
-#     p[0] = ('INC_DEC', p[1], p[2])
-
-def op_rement(p):
-    """
-    op : PLUSPLUS
-    """
-    p[0] = p[1]
 
 
 def p_error(p):

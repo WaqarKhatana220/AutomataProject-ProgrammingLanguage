@@ -1,1 +1,5 @@
-print (2**4)
+def check():
+    return 5>2
+
+result = check()
+print(result)
