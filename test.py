@@ -1,1 +1,1 @@
-print (type(True))
+print (2**4)

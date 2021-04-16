@@ -38,6 +38,8 @@ def p_exp_bin(p):
         | exp MINUS exp
         | exp DIVIDE exp
         | exp MULTIPLY exp
+        | exp MODULUS exp
+        | exp POWER exp
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')
 
@@ -84,7 +86,6 @@ def p_dec(p):
     stmt : DTYPE NAME EQUAL exp SEMICOLON
     """
     p[0] = ('DECLARATION',p[1], p[2], p[4])
-    print(p[0])
 
 def p_dec_dtype(p):
     """
@@ -106,9 +107,18 @@ def p_assign(p):
 
 # def inc_dec_rement(p):
 #     """
-#     stmt : NAME exp
+#     stmt : NAME op SEMICOLON
 #     """
-#     p[0] = 
+#     print(p[1], p[2])
+
+#     p[0] = ('INC_DEC', p[1], p[2])
+
+def op_rement(p):
+    """
+    op : PLUSPLUS
+    """
+    p[0] = p[1]
+
 
 def p_error(p):
     print("Syntax error at token", p.value, p.type, p.lexpos)

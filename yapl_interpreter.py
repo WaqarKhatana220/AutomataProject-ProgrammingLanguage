@@ -15,6 +15,10 @@ def exp_eval(p): # evaluate expression
         return exp_eval(p[1]) * exp_eval(p[2])
     elif operator == '/':
         return exp_eval(p[1]) / exp_eval(p[2])
+    elif operator == '%':
+        return exp_eval(p[1]) % exp_eval(p[2])
+    elif operator == '^':
+        return exp_eval(p[1]) ** exp_eval(p[2])
     elif operator == 'COMMA':
         return exp_eval(p[1]) , exp_eval(p[2])
     else: # operator was 'NUM' so its just a number
@@ -60,9 +64,21 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             result = exp_eval(exp)
             variable_dictionary[p[1]][1] = result
             # print("after assignment", variable_dictionary)
+    elif stype == "INC_DEC":
+        print("INC_DEC CALLED")
+        if p[1] in variable_dictionary:
+            result = inc_dec_calculator(p[1], p[2])
+            variable_dictionary[p[1]][1] = result
 
 
 
+def inc_dec_calculator(vname, operator):
+    if operator == "++":
+        return variable_dictionary[vname][1] + 1
+    if operator == "--":
+        return variable_dictionary[vname][1] - 1
+    else:
+        return("invalid operator")
 
 
 def declaration_handler(data_type, value):
