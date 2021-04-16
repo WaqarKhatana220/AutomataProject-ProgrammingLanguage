@@ -19,6 +19,19 @@ def p_start(p): # non-terminal, starting
     p[0] = [p[1]] + p[2] # list comprehension used to solve recursive grammar, added/appending as well
     
 
+def p_inc_dec_rement(p):
+    """
+    stmt : NAME operator SEMICOLON
+    """
+    p[0] = ("INC_DEC", p[1], p[2])
+
+def p_operator(p):
+    """
+    operator : PLUSPLUS
+            | MINUSMINUS
+    """
+    p[0] = p[1]
+
 def p_start_empty(p):
     """
     S :
@@ -63,6 +76,8 @@ def p_exp_bin(p):
         | exp GREATERTHAN exp
         | exp GREATERTHANEQUALTO exp
         | exp LESSTHANEQUALTO exp
+        | exp NOTEQUAL exp
+        | exp EQUALEQUAL exp
 
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')

@@ -11,44 +11,51 @@ if_check = True
 
 def exp_eval(p): # evaluate expression
     operator = p[0]
-    if operator == '+':
-        return exp_eval(p[1]) + exp_eval(p[2])
-    elif operator == '-':
-        return exp_eval(p[1]) - exp_eval(p[2])
-    elif operator == '*':
-        return exp_eval(p[1]) * exp_eval(p[2])
-    elif operator == '/':
-        return exp_eval(p[1]) / exp_eval(p[2])
-    elif operator == '%':
-        return exp_eval(p[1]) % exp_eval(p[2])
-    elif operator == '^':
-        return exp_eval(p[1]) ** exp_eval(p[2])
-    elif operator == '>':
-        return exp_eval(p[1]) > exp_eval(p[2])
-    elif operator == '<':
-        return exp_eval(p[1]) < exp_eval(p[2])
-    elif operator == '>=':
-        return exp_eval(p[1]) >= exp_eval(p[2])
-    elif operator == '<=':
-        return exp_eval(p[1]) <= exp_eval(p[2])
-    elif operator == 'COMMA':
-        return exp_eval(p[1]) , exp_eval(p[2])
-    else: # operator was 'NUM' so its just a number
-        if operator == 'STRING':
-            return (p[1][1:len(p[1])-1])
-        elif operator == 'CHAR':
-            return p[1][1:2]
-        elif operator == 'BOOL':
-            return p[1]
-        elif operator == 'NAME':
-            if p[1] not in variable_dictionary:
-                return p[1] + " used but not declared"
-            else:
-                return (variable_dictionary[p[1]][1])
-        elif operator == 'NUM':
+    try:
+        if operator == '+':
+            return exp_eval(p[1]) + exp_eval(p[2])
+        elif operator == '-':
+            return exp_eval(p[1]) - exp_eval(p[2])
+        elif operator == '*':
+            return exp_eval(p[1]) * exp_eval(p[2])
+        elif operator == '/':
+            return exp_eval(p[1]) / exp_eval(p[2])
+        elif operator == '%':
+            return exp_eval(p[1]) % exp_eval(p[2])
+        elif operator == '^':
+            return exp_eval(p[1]) ** exp_eval(p[2])
+        elif operator == '>':
+            return exp_eval(p[1]) > exp_eval(p[2])
+        elif operator == '<':
+            return exp_eval(p[1]) < exp_eval(p[2])
+        elif operator == '>=':
+            return exp_eval(p[1]) >= exp_eval(p[2])
+        elif operator == '<=':
+            return exp_eval(p[1]) <= exp_eval(p[2])
+        elif operator == '!=':
+            return exp_eval(p[1]) != exp_eval(p[2])
+        elif operator == '==':
+            return exp_eval(p[1]) == exp_eval(p[2])
+        elif operator == 'COMMA':
+            return exp_eval(p[1]) , exp_eval(p[2])
+        else: # operator was 'NUM' so its just a number
+            if operator == 'STRING':
+                return (p[1][1:len(p[1])-1])
+            elif operator == 'CHAR':
+                return p[1][1:2]
+            elif operator == 'BOOL':
                 return p[1]
-        else:
-            return p[1]
+            elif operator == 'NAME':
+                if p[1] not in variable_dictionary:
+                    return p[1] + " used but not declared"
+                else:
+                    return (variable_dictionary[p[1]][1])
+            elif operator == 'NUM':
+                    return p[1]
+            else:
+                return p[1]
+    except TypeError:
+        return "typeError"
 
 
 def stmt_eval(p): # p is the parsed statement subtree / program

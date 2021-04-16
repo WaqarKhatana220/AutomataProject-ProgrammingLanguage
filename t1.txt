@@ -1,8 +1,1 @@
-if (7>11)
-{
-    print ("yes");
-}
-else
-{
-    print ("no");
-}
+print (4 + "A");
