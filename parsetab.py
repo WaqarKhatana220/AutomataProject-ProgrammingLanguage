@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'SAND BOOL CHAR COMMA DIVIDE EQUAL EQUALEQUAL FLOAT GREATERTHAN GREATERTHANEQUALTO INT LESSTHAN LESSTHANEQUALTO LPAREN MINUS MINUSMINUS MODULUS MULTIPLY NAME NOT NOTEQUAL OR PLUS PLUSPLUS POWER PRINT RPAREN SEMICOLON STRING bool char float int string\n    S : stmt S\n    \n    S :\n    \n    stmt : PRINT LPAREN exp RPAREN SEMICOLON\n     \n    exp : exp PLUS exp\n        | exp MINUS exp\n        | exp DIVIDE exp\n        | exp MULTIPLY exp\n     \n    exp : exp COMMA exp\n    \n    exp : INT\n        | FLOAT\n    \n    exp : STRING\n    \n    exp : CHAR\n    \n    exp : BOOL\n    \n    exp : NAME\n    \n    stmt : DTYPE NAME EQUAL VALUE SEMICOLON\n    \n    DTYPE : int\n        | string\n        | float\n        | bool\n        | char\n    \n    VALUE : STRING\n        | INT\n        | FLOAT\n        | BOOL\n        | CHAR\n    \n    stmt : NAME EQUAL exp SEMICOLON\n    '
+_lr_signature = 'SAND BOOL CHAR COMMA DIVIDE EQUAL EQUALEQUAL FLOAT GREATERTHAN GREATERTHANEQUALTO INT LESSTHAN LESSTHANEQUALTO LPAREN MINUS MINUSMINUS MODULUS MULTIPLY NAME NOT NOTEQUAL OR PLUS PLUSPLUS POWER PRINT RPAREN SEMICOLON STRING bool char float int string\n    S : stmt S\n    \n    S :\n    \n    stmt : PRINT LPAREN exp RPAREN SEMICOLON\n     \n    exp : exp PLUS exp\n        | exp MINUS exp\n        | exp DIVIDE exp\n        | exp MULTIPLY exp\n     \n    exp : exp COMMA exp\n    \n    exp : INT\n        | FLOAT\n    \n    exp : STRING\n    \n    exp : CHAR\n    \n    exp : BOOL\n    \n    exp : NAME\n    \n    stmt : DTYPE NAME EQUAL exp SEMICOLON\n    \n    DTYPE : int\n        | string\n        | float\n        | bool\n        | char\n    \n    stmt : NAME EQUAL exp SEMICOLON\n    '
     
-_lr_action_items = {'$end':([0,1,2,11,36,37,43,],[-2,0,-2,-1,-26,-3,-15,]),'PRINT':([0,2,36,37,43,],[3,3,-26,-3,-15,]),'NAME':([0,2,4,6,7,8,9,10,12,14,25,26,27,28,29,36,37,43,],[5,5,13,-16,-17,-18,-19,-20,21,21,21,21,21,21,21,-26,-3,-15,]),'int':([0,2,36,37,43,],[6,6,-26,-3,-15,]),'string':([0,2,36,37,43,],[7,7,-26,-3,-15,]),'float':([0,2,36,37,43,],[8,8,-26,-3,-15,]),'bool':([0,2,36,37,43,],[9,9,-26,-3,-15,]),'char':([0,2,36,37,43,],[10,10,-26,-3,-15,]),'LPAREN':([3,],[12,]),'EQUAL':([5,13,],[14,22,]),'INT':([12,14,22,25,26,27,28,29,],[16,16,32,16,16,16,16,16,]),'FLOAT':([12,14,22,25,26,27,28,29,],[17,17,33,17,17,17,17,17,]),'STRING':([12,14,22,25,26,27,28,29,],[18,18,31,18,18,18,18,18,]),'CHAR':([12,14,22,25,26,27,28,29,],[19,19,35,19,19,19,19,19,]),'BOOL':([12,14,22,25,26,27,28,29,],[20,20,34,20,20,20,20,20,]),'RPAREN':([15,16,17,18,19,20,21,38,39,40,41,42,],[24,-9,-10,-11,-12,-13,-14,-4,-5,-6,-7,-8,]),'PLUS':([15,16,17,18,19,20,21,23,38,39,40,41,42,],[25,-9,-10,-11,-12,-13,-14,25,25,25,25,25,25,]),'MINUS':([15,16,17,18,19,20,21,23,38,39,40,41,42,],[26,-9,-10,-11,-12,-13,-14,26,26,26,26,26,26,]),'DIVIDE':([15,16,17,18,19,20,21,23,38,39,40,41,42,],[27,-9,-10,-11,-12,-13,-14,27,27,27,27,27,27,]),'MULTIPLY':([15,16,17,18,19,20,21,23,38,39,40,41,42,],[28,-9,-10,-11,-12,-13,-14,28,28,28,28,28,28,]),'COMMA':([15,16,17,18,19,20,21,23,38,39,40,41,42,],[29,-9,-10,-11,-12,-13,-14,29,29,29,29,29,29,]),'SEMICOLON':([16,17,18,19,20,21,23,24,30,31,32,33,34,35,38,39,40,41,42,],[-9,-10,-11,-12,-13,-14,36,37,43,-21,-22,-23,-24,-25,-4,-5,-6,-7,-8,]),}
+_lr_action_items = {'$end':([0,1,2,11,31,32,38,],[-2,0,-2,-1,-21,-3,-15,]),'PRINT':([0,2,31,32,38,],[3,3,-21,-3,-15,]),'NAME':([0,2,4,6,7,8,9,10,12,14,22,25,26,27,28,29,31,32,38,],[5,5,13,-16,-17,-18,-19,-20,21,21,21,21,21,21,21,21,-21,-3,-15,]),'int':([0,2,31,32,38,],[6,6,-21,-3,-15,]),'string':([0,2,31,32,38,],[7,7,-21,-3,-15,]),'float':([0,2,31,32,38,],[8,8,-21,-3,-15,]),'bool':([0,2,31,32,38,],[9,9,-21,-3,-15,]),'char':([0,2,31,32,38,],[10,10,-21,-3,-15,]),'LPAREN':([3,],[12,]),'EQUAL':([5,13,],[14,22,]),'INT':([12,14,22,25,26,27,28,29,],[16,16,16,16,16,16,16,16,]),'FLOAT':([12,14,22,25,26,27,28,29,],[17,17,17,17,17,17,17,17,]),'STRING':([12,14,22,25,26,27,28,29,],[18,18,18,18,18,18,18,18,]),'CHAR':([12,14,22,25,26,27,28,29,],[19,19,19,19,19,19,19,19,]),'BOOL':([12,14,22,25,26,27,28,29,],[20,20,20,20,20,20,20,20,]),'RPAREN':([15,16,17,18,19,20,21,33,34,35,36,37,],[24,-9,-10,-11,-12,-13,-14,-4,-5,-6,-7,-8,]),'PLUS':([15,16,17,18,19,20,21,23,30,33,34,35,36,37,],[25,-9,-10,-11,-12,-13,-14,25,25,25,25,25,25,25,]),'MINUS':([15,16,17,18,19,20,21,23,30,33,34,35,36,37,],[26,-9,-10,-11,-12,-13,-14,26,26,26,26,26,26,26,]),'DIVIDE':([15,16,17,18,19,20,21,23,30,33,34,35,36,37,],[27,-9,-10,-11,-12,-13,-14,27,27,27,27,27,27,27,]),'MULTIPLY':([15,16,17,18,19,20,21,23,30,33,34,35,36,37,],[28,-9,-10,-11,-12,-13,-14,28,28,28,28,28,28,28,]),'COMMA':([15,16,17,18,19,20,21,23,30,33,34,35,36,37,],[29,-9,-10,-11,-12,-13,-14,29,29,29,29,29,29,29,]),'SEMICOLON':([16,17,18,19,20,21,23,24,30,33,34,35,36,37,],[-9,-10,-11,-12,-13,-14,31,32,38,-4,-5,-6,-7,-8,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'S':([0,2,],[1,11,]),'stmt':([0,2,],[2,2,]),'DTYPE':([0,2,],[4,4,]),'exp':([12,14,25,26,27,28,29,],[15,23,38,39,40,41,42,]),'VALUE':([22,],[30,]),}
+_lr_goto_items = {'S':([0,2,],[1,11,]),'stmt':([0,2,],[2,2,]),'DTYPE':([0,2,],[4,4,]),'exp':([12,14,22,25,26,27,28,29,],[15,23,30,33,34,35,36,37,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -41,16 +41,11 @@ _lr_productions = [
   ('exp -> CHAR','exp',1,'p_exp_char','yapl_parser.py',66),
   ('exp -> BOOL','exp',1,'p_exp_bool','yapl_parser.py',72),
   ('exp -> NAME','exp',1,'p_exp_vriable','yapl_parser.py',78),
-  ('stmt -> DTYPE NAME EQUAL VALUE SEMICOLON','stmt',5,'p_dec','yapl_parser.py',84),
+  ('stmt -> DTYPE NAME EQUAL exp SEMICOLON','stmt',5,'p_dec','yapl_parser.py',84),
   ('DTYPE -> int','DTYPE',1,'p_dec_dtype','yapl_parser.py',91),
   ('DTYPE -> string','DTYPE',1,'p_dec_dtype','yapl_parser.py',92),
   ('DTYPE -> float','DTYPE',1,'p_dec_dtype','yapl_parser.py',93),
   ('DTYPE -> bool','DTYPE',1,'p_dec_dtype','yapl_parser.py',94),
   ('DTYPE -> char','DTYPE',1,'p_dec_dtype','yapl_parser.py',95),
-  ('VALUE -> STRING','VALUE',1,'p_dec_value','yapl_parser.py',101),
-  ('VALUE -> INT','VALUE',1,'p_dec_value','yapl_parser.py',102),
-  ('VALUE -> FLOAT','VALUE',1,'p_dec_value','yapl_parser.py',103),
-  ('VALUE -> BOOL','VALUE',1,'p_dec_value','yapl_parser.py',104),
-  ('VALUE -> CHAR','VALUE',1,'p_dec_value','yapl_parser.py',105),
   ('stmt -> NAME EQUAL exp SEMICOLON','stmt',4,'p_assign','yapl_parser.py',111),
 ]

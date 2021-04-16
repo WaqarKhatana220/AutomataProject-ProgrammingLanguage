@@ -81,9 +81,9 @@ def p_exp_vriable(p):
 
 def p_dec(p):
     """
-    stmt : DTYPE NAME EQUAL VALUE SEMICOLON
+    stmt : DTYPE NAME EQUAL exp SEMICOLON
     """
-    p[0] = ('DECLARATION',(p[1], p[2], p[4]))
+    p[0] = ('DECLARATION',p[1], p[2], p[4])
     print(p[0])
 
 def p_dec_dtype(p):
@@ -96,15 +96,7 @@ def p_dec_dtype(p):
     """
     p[0] = p[1]
 
-def p_dec_value(p):
-    """
-    VALUE : STRING
-        | INT
-        | FLOAT
-        | BOOL
-        | CHAR
-    """
-    p[0] = p[1]
+
 
 def p_assign(p):
     """
@@ -112,7 +104,11 @@ def p_assign(p):
     """
     p[0] = ('ASSIGNMENT', p[1], p[3])
 
-
+# def inc_dec_rement(p):
+#     """
+#     stmt : NAME exp
+#     """
+#     p[0] = 
 
 def p_error(p):
     print("Syntax error at token", p.value, p.type, p.lexpos)

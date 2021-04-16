@@ -42,81 +42,50 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         result = exp_eval(exp)
         print(result)
     elif stype == "DECLARATION":
-        exp = p[1]
-        declaration_handler(exp)
+        if p[2] not in variable_dictionary:
+            exp = p[3]
+            result = exp_eval(exp)
+            # print("result", result)
+            check = declaration_handler(p[1], result)
+            if check == True:
+                variable_dictionary[p[2]] = [p[1], result]
+            else:
+                print("type not matched")
+        else:
+            print("redeclaration error")
+        # print (variable_dictionary)
     elif stype == "ASSIGNMENT":
         exp = p[2]
         if p[1] in variable_dictionary:
-            result = assignment_handler(exp)
+            result = exp_eval(exp)
             variable_dictionary[p[1]][1] = result
             # print("after assignment", variable_dictionary)
 
 
 
-def assignment_handler(p):
-    # print("here")
-    # print (p[0])
-    # print (p[1])
-    operator = p[0]
-    if operator == '+':
-        return exp_eval(p[1]) + exp_eval(p[2])
-    elif operator == '-':
-        return exp_eval(p[1]) - exp_eval(p[2])
-    elif operator == '*':
-        return exp_eval(p[1]) * exp_eval(p[2])
-    elif operator == '/':
-        return exp_eval(p[1]) / exp_eval(p[2])
-    elif operator == 'COMMA':
-        return "invalid assignment"
-    else: # operator was 'NUM' so its just a number
-        if operator == 'STRING':
-            return (p[1][1:len(p[1])-1])
-        elif operator == 'CHAR':
-            return p[1][1:2]
-        elif operator == 'BOOL':
-            return "invalid assignment"
-        elif operator == 'NAME':
-            if p[1] not in variable_dictionary:
-                return p[1] + " used but not declared"
-            else:
-                return (variable_dictionary[p[1]][1])
-        elif operator == 'NUM':
-                return p[1]
-        else:
-            return p[1]
 
 
-
-
-def declaration_handler(p):
-    if p[0] == "int" and type(p[2]) == int:
-        if p[1] not in variable_dictionary:
-            variable_dictionary[p[1]] = [p[0], p[2]]
-        else:
-            print("redeclaration error")
-    elif p[0] == "string" and type(p[2]) == str:
-        if p[1] not in variable_dictionary:
-            variable_dictionary[p[1]] = [p[0], p[2]]
-        else:
-            print("redeclaration error")
-    elif p[0] == "bool" and p[2] == 'True' or p[2] == 'False':
-        if p[1] not in variable_dictionary:
-            variable_dictionary[p[1]] = [p[0], p[2]]
-        else:
-            print("redeclaration error")
-    elif p[0] == "char" and type(p[2]) == str:
-        if p[1] not in variable_dictionary:
-            variable_dictionary[p[1]] = [p[0], p[2]]
-        else:
-            print("redeclaration error")
-    elif p[0] == "float" and type(p[2]) == float:
-        if p[1] not in variable_dictionary:
-            variable_dictionary[p[1]] = [p[0], p[2]]
-        else:
-            print("redeclaration error")
+def declaration_handler(data_type, value):
+    check = False
+    if data_type == "int" and type(value) == int:
+        # print("data_type", data_type, "value", value)
+        check = True
+    elif data_type == "string" and type(value) == str:
+        # print("data_type", data_type, "value", value)
+        check = True
+    elif data_type == "bool" and value == 'True' or value == 'False':
+        # print("data_type", data_type, "value", value)
+        check = True
+    elif data_type == "char" and type(value) == str:
+        # print("data_type", data_type, "value", value)
+        check = True        
+    elif data_type == "float" and type(value) == float:
+        # print("data_type", data_type, "value", value)
+        check = True
     else:
-        print("type not matched")
-    # print ("at declaration", variable_dictionary)
+        # print("data_type", data_type, "value", value)
+        check = False
+    return check
 
 
 

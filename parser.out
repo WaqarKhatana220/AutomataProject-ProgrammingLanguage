@@ -33,32 +33,27 @@ Rule 11    exp -> STRING
 Rule 12    exp -> CHAR
 Rule 13    exp -> BOOL
 Rule 14    exp -> NAME
-Rule 15    stmt -> DTYPE NAME EQUAL VALUE SEMICOLON
+Rule 15    stmt -> DTYPE NAME EQUAL exp SEMICOLON
 Rule 16    DTYPE -> int
 Rule 17    DTYPE -> string
 Rule 18    DTYPE -> float
 Rule 19    DTYPE -> bool
 Rule 20    DTYPE -> char
-Rule 21    VALUE -> STRING
-Rule 22    VALUE -> INT
-Rule 23    VALUE -> FLOAT
-Rule 24    VALUE -> BOOL
-Rule 25    VALUE -> CHAR
-Rule 26    stmt -> NAME EQUAL exp SEMICOLON
+Rule 21    stmt -> NAME EQUAL exp SEMICOLON
 
 Terminals, with rules where they appear
 
 AND                  : 
-BOOL                 : 13 24
-CHAR                 : 12 25
+BOOL                 : 13
+CHAR                 : 12
 COMMA                : 8
 DIVIDE               : 6
-EQUAL                : 15 26
+EQUAL                : 15 21
 EQUALEQUAL           : 
-FLOAT                : 10 23
+FLOAT                : 10
 GREATERTHAN          : 
 GREATERTHANEQUALTO   : 
-INT                  : 9 22
+INT                  : 9
 LESSTHAN             : 
 LESSTHANEQUALTO      : 
 LPAREN               : 3
@@ -66,7 +61,7 @@ MINUS                : 5
 MINUSMINUS           : 
 MODULUS              : 
 MULTIPLY             : 7
-NAME                 : 14 15 26
+NAME                 : 14 15 21
 NOT                  : 
 NOTEQUAL             : 
 OR                   : 
@@ -75,8 +70,8 @@ PLUSPLUS             :
 POWER                : 
 PRINT                : 3
 RPAREN               : 3
-SEMICOLON            : 3 15 26
-STRING               : 11 21
+SEMICOLON            : 3 15 21
+STRING               : 11
 bool                 : 19
 char                 : 20
 error                : 
@@ -88,8 +83,7 @@ Nonterminals, with rules where they appear
 
 DTYPE                : 15
 S                    : 1 0
-VALUE                : 15
-exp                  : 3 4 4 5 5 6 6 7 7 8 8 26
+exp                  : 3 4 4 5 5 6 6 7 7 8 8 15 21
 stmt                 : 1
 
 Parsing method: LALR
@@ -100,8 +94,8 @@ state 0
     (1) S -> . stmt S
     (2) S -> .
     (3) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (15) stmt -> . DTYPE NAME EQUAL VALUE SEMICOLON
-    (26) stmt -> . NAME EQUAL exp SEMICOLON
+    (15) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (21) stmt -> . NAME EQUAL exp SEMICOLON
     (16) DTYPE -> . int
     (17) DTYPE -> . string
     (18) DTYPE -> . float
@@ -133,8 +127,8 @@ state 2
     (1) S -> . stmt S
     (2) S -> .
     (3) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (15) stmt -> . DTYPE NAME EQUAL VALUE SEMICOLON
-    (26) stmt -> . NAME EQUAL exp SEMICOLON
+    (15) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (21) stmt -> . NAME EQUAL exp SEMICOLON
     (16) DTYPE -> . int
     (17) DTYPE -> . string
     (18) DTYPE -> . float
@@ -163,14 +157,14 @@ state 3
 
 state 4
 
-    (15) stmt -> DTYPE . NAME EQUAL VALUE SEMICOLON
+    (15) stmt -> DTYPE . NAME EQUAL exp SEMICOLON
 
     NAME            shift and go to state 13
 
 
 state 5
 
-    (26) stmt -> NAME . EQUAL exp SEMICOLON
+    (21) stmt -> NAME . EQUAL exp SEMICOLON
 
     EQUAL           shift and go to state 14
 
@@ -243,14 +237,14 @@ state 12
 
 state 13
 
-    (15) stmt -> DTYPE NAME . EQUAL VALUE SEMICOLON
+    (15) stmt -> DTYPE NAME . EQUAL exp SEMICOLON
 
     EQUAL           shift and go to state 22
 
 
 state 14
 
-    (26) stmt -> NAME EQUAL . exp SEMICOLON
+    (21) stmt -> NAME EQUAL . exp SEMICOLON
     (4) exp -> . exp PLUS exp
     (5) exp -> . exp MINUS exp
     (6) exp -> . exp DIVIDE exp
@@ -369,31 +363,38 @@ state 21
 
 state 22
 
-    (15) stmt -> DTYPE NAME EQUAL . VALUE SEMICOLON
-    (21) VALUE -> . STRING
-    (22) VALUE -> . INT
-    (23) VALUE -> . FLOAT
-    (24) VALUE -> . BOOL
-    (25) VALUE -> . CHAR
+    (15) stmt -> DTYPE NAME EQUAL . exp SEMICOLON
+    (4) exp -> . exp PLUS exp
+    (5) exp -> . exp MINUS exp
+    (6) exp -> . exp DIVIDE exp
+    (7) exp -> . exp MULTIPLY exp
+    (8) exp -> . exp COMMA exp
+    (9) exp -> . INT
+    (10) exp -> . FLOAT
+    (11) exp -> . STRING
+    (12) exp -> . CHAR
+    (13) exp -> . BOOL
+    (14) exp -> . NAME
 
-    STRING          shift and go to state 31
-    INT             shift and go to state 32
-    FLOAT           shift and go to state 33
-    BOOL            shift and go to state 34
-    CHAR            shift and go to state 35
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 18
+    CHAR            shift and go to state 19
+    BOOL            shift and go to state 20
+    NAME            shift and go to state 21
 
-    VALUE                          shift and go to state 30
+    exp                            shift and go to state 30
 
 state 23
 
-    (26) stmt -> NAME EQUAL exp . SEMICOLON
+    (21) stmt -> NAME EQUAL exp . SEMICOLON
     (4) exp -> exp . PLUS exp
     (5) exp -> exp . MINUS exp
     (6) exp -> exp . DIVIDE exp
     (7) exp -> exp . MULTIPLY exp
     (8) exp -> exp . COMMA exp
 
-    SEMICOLON       shift and go to state 36
+    SEMICOLON       shift and go to state 31
     PLUS            shift and go to state 25
     MINUS           shift and go to state 26
     DIVIDE          shift and go to state 27
@@ -405,7 +406,7 @@ state 24
 
     (3) stmt -> PRINT LPAREN exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 37
+    SEMICOLON       shift and go to state 32
 
 
 state 25
@@ -430,7 +431,7 @@ state 25
     BOOL            shift and go to state 20
     NAME            shift and go to state 21
 
-    exp                            shift and go to state 38
+    exp                            shift and go to state 33
 
 state 26
 
@@ -454,7 +455,7 @@ state 26
     BOOL            shift and go to state 20
     NAME            shift and go to state 21
 
-    exp                            shift and go to state 39
+    exp                            shift and go to state 34
 
 state 27
 
@@ -478,7 +479,7 @@ state 27
     BOOL            shift and go to state 20
     NAME            shift and go to state 21
 
-    exp                            shift and go to state 40
+    exp                            shift and go to state 35
 
 state 28
 
@@ -502,7 +503,7 @@ state 28
     BOOL            shift and go to state 20
     NAME            shift and go to state 21
 
-    exp                            shift and go to state 41
+    exp                            shift and go to state 36
 
 state 29
 
@@ -526,65 +527,40 @@ state 29
     BOOL            shift and go to state 20
     NAME            shift and go to state 21
 
-    exp                            shift and go to state 42
+    exp                            shift and go to state 37
 
 state 30
 
-    (15) stmt -> DTYPE NAME EQUAL VALUE . SEMICOLON
+    (15) stmt -> DTYPE NAME EQUAL exp . SEMICOLON
+    (4) exp -> exp . PLUS exp
+    (5) exp -> exp . MINUS exp
+    (6) exp -> exp . DIVIDE exp
+    (7) exp -> exp . MULTIPLY exp
+    (8) exp -> exp . COMMA exp
 
-    SEMICOLON       shift and go to state 43
+    SEMICOLON       shift and go to state 38
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 26
+    DIVIDE          shift and go to state 27
+    MULTIPLY        shift and go to state 28
+    COMMA           shift and go to state 29
 
 
 state 31
 
-    (21) VALUE -> STRING .
+    (21) stmt -> NAME EQUAL exp SEMICOLON .
 
-    SEMICOLON       reduce using rule 21 (VALUE -> STRING .)
+    PRINT           reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    NAME            reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    int             reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    string          reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    float           reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    bool            reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    char            reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
+    $end            reduce using rule 21 (stmt -> NAME EQUAL exp SEMICOLON .)
 
 
 state 32
-
-    (22) VALUE -> INT .
-
-    SEMICOLON       reduce using rule 22 (VALUE -> INT .)
-
-
-state 33
-
-    (23) VALUE -> FLOAT .
-
-    SEMICOLON       reduce using rule 23 (VALUE -> FLOAT .)
-
-
-state 34
-
-    (24) VALUE -> BOOL .
-
-    SEMICOLON       reduce using rule 24 (VALUE -> BOOL .)
-
-
-state 35
-
-    (25) VALUE -> CHAR .
-
-    SEMICOLON       reduce using rule 25 (VALUE -> CHAR .)
-
-
-state 36
-
-    (26) stmt -> NAME EQUAL exp SEMICOLON .
-
-    PRINT           reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    NAME            reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    int             reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    string          reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    float           reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    bool            reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    char            reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-    $end            reduce using rule 26 (stmt -> NAME EQUAL exp SEMICOLON .)
-
-
-state 37
 
     (3) stmt -> PRINT LPAREN exp RPAREN SEMICOLON .
 
@@ -598,7 +574,7 @@ state 37
     $end            reduce using rule 3 (stmt -> PRINT LPAREN exp RPAREN SEMICOLON .)
 
 
-state 38
+state 33
 
     (4) exp -> exp PLUS exp .
     (4) exp -> exp . PLUS exp
@@ -627,7 +603,7 @@ state 38
   ! COMMA           [ reduce using rule 4 (exp -> exp PLUS exp .) ]
 
 
-state 39
+state 34
 
     (5) exp -> exp MINUS exp .
     (4) exp -> exp . PLUS exp
@@ -656,7 +632,7 @@ state 39
   ! COMMA           [ reduce using rule 5 (exp -> exp MINUS exp .) ]
 
 
-state 40
+state 35
 
     (6) exp -> exp DIVIDE exp .
     (4) exp -> exp . PLUS exp
@@ -685,7 +661,7 @@ state 40
   ! COMMA           [ reduce using rule 6 (exp -> exp DIVIDE exp .) ]
 
 
-state 41
+state 36
 
     (7) exp -> exp MULTIPLY exp .
     (4) exp -> exp . PLUS exp
@@ -714,7 +690,7 @@ state 41
   ! COMMA           [ reduce using rule 7 (exp -> exp MULTIPLY exp .) ]
 
 
-state 42
+state 37
 
     (8) exp -> exp COMMA exp .
     (4) exp -> exp . PLUS exp
@@ -743,44 +719,44 @@ state 42
   ! COMMA           [ reduce using rule 8 (exp -> exp COMMA exp .) ]
 
 
-state 43
+state 38
 
-    (15) stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .
+    (15) stmt -> DTYPE NAME EQUAL exp SEMICOLON .
 
-    PRINT           reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    NAME            reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    int             reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    string          reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    float           reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    bool            reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    char            reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
-    $end            reduce using rule 15 (stmt -> DTYPE NAME EQUAL VALUE SEMICOLON .)
+    PRINT           reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    NAME            reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    int             reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    string          reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    float           reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    bool            reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    char            reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    $end            reduce using rule 15 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 38 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 38 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 38 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 38 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 38 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 39 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 39 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 39 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 39 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 39 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 40 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 40 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 40 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 40 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 40 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 41 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 41 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 41 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 41 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 41 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 42 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 42 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 42 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 42 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 42 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 33 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 33 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 33 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 34 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 34 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 35 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 35 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 35 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 35 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 35 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 36 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 36 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 36 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 36 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 36 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 37 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 37 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 37 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 37 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 37 resolved as shift
