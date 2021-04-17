@@ -173,6 +173,25 @@ def p_assign(p):
     """
     p[0] = ('ASSIGNMENT', p[1], p[3])
 
+def p_for_loop(p):
+    """
+    stmt : FOR NAME EQUAL FROM TO END stmt NEXT
+    """
+    p[0] = ("FOR", p[2], p[4], p[6], p[7], p[8]) #(FOR, NAME, INT, INT, stmt, NEXT)
+
+def p_for_from(p):
+    """
+    FROM : INT
+        | NAME
+    """
+    p[0] = p[1]
+
+def p_for_end(p):
+    """
+    END : INT
+        | NAME
+    """
+    p[0] = p[1]
 
 
 

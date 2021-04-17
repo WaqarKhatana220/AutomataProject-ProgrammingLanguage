@@ -41,9 +41,7 @@ def exp_eval(p): # evaluate expression
         elif operator == '!':
             return not exp_eval(p[1])
         elif operator == '||':
-            print("||")
             return exp_eval(p[1]) or exp_eval(p[2])
-        
         elif operator == 'COMMA':
             return exp_eval(p[1]) , exp_eval(p[2])
         else: # operator was 'NUM' so its just a number
@@ -106,14 +104,34 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             print("variable '", p[1], "' used but not defined")
     elif stype == "INC_DEC":
-        print("INC_DEC CALLED")
         if p[1] in variable_dictionary:
             result = inc_dec_calculator(p[1], p[2])
             variable_dictionary[p[1]][1] = result
+    elif stype == "FOR":
+        start = p[2]
+        stop = p[3]
+        if type(start) == str:
+            if start not in variable_dictionary:
+                print (start, " used but not defined")
+                exit(1)
+            else:
+                start = int(variable_dictionary[start][1])
+        if type(stop) == str:
+            if stop not in variable_dictionary:
+                print (stop, " used but not defined")
+                exit(1)
+            else:
+                stop = int(variable_dictionary[stop][1])
+        statement = p[4]
+        if p[1] not in variable_dictionary:
+                variable_dictionary[p[1]] = ['int', 0]
+        for i in range (start, stop):
+            variable_dictionary[p[1]] = ['int', i]
+            stmt_eval(p[4])
+
     elif stype == "CONDITIONAL":
         if_exists = True
         local_variable_dictionary = {}
-        print ("conditional", p[1], p[2], p[3])
         level = p[1]
         condition = p[2]
         statement = p[3]
@@ -124,23 +142,18 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             if_check = False
     elif stype == "CONDITIONALELSE":
-        print ("else block")
         if if_exists == True:
             if if_check == False:
-                print("inside else")
                 local_variable_dictionary = {}
-                print ("conditional", p[1])
                 statement = p[1]
-                print ("statement", statement)
                 stype = statement[0]
                 stmt_eval(p[1])
-                print(variable_dictionary)
                 if_check = True
             if_exists = False
         else:
             print("else without if")
 
-         
+    # print(variable_dictionary)   
 
 
 

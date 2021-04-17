@@ -40,6 +40,10 @@ tokens = [
     'ELIF',
     'LCBRACKET',
     'RCBRACKET',
+    'FOR',
+    'TO',
+    'STEP',
+    'NEXT',
     'NAME'
 ]
 
@@ -96,6 +100,14 @@ def t_NAME(t):
         t.type = 'ELSE'
     elif t.value == 'elif':
         t.type = 'ELIF'
+    elif t.value == 'for':
+        t.type = 'FOR'
+    elif t.value == 'to':
+        t.type = 'TO'
+    elif t.value == 'stpe':
+        t.type = 'STEP'
+    elif t.value == 'next':
+        t.type = 'NEXT'
     else:
         t.type = "NAME"
         
