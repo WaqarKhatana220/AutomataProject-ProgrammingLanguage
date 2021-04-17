@@ -1,1 +1,1 @@
-print (7>11 and 3<4)
+print (type(False))

@@ -8,5 +8,6 @@ float determinant = b ^ 2 - 4 * a * c;
 float quadratic_root1 = (0 - b + determinant^(1/2)) / (2.0 * a);
 print (quadratic_root1);
 bool d = False;
+print(!True == (!(!d)) && (True != 0));
 print (4 + "A");
-print ("hi");
+print ("HI");

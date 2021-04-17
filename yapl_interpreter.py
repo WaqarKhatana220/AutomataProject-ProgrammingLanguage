@@ -37,8 +37,9 @@ def exp_eval(p): # evaluate expression
         elif operator == '==':
             return exp_eval(p[1]) == exp_eval(p[2])
         elif operator == '&&':
-            print("&&")
             return exp_eval(p[1]) and exp_eval(p[2])
+        elif operator == '!':
+            return not exp_eval(p[1])
         elif operator == '||':
             print("||")
             return exp_eval(p[1]) or exp_eval(p[2])
@@ -51,7 +52,10 @@ def exp_eval(p): # evaluate expression
             elif operator == 'CHAR':
                 return p[1][1:2]
             elif operator == 'BOOL':
-                return p[1]
+                if p[1] == 'True':
+                    return True
+                elif p[1] == 'False':
+                    return False
             elif operator == 'NAME':
                 if p[1] not in variable_dictionary:
                     return p[1] + " used but not declared"
@@ -63,8 +67,9 @@ def exp_eval(p): # evaluate expression
                 return p[1]
             else:
                 return p[1]
-    except TypeError as t:
-        return t
+    except TypeError:
+        print ("TypeError")
+        exit(1)
     except Exception as e:
         return e
         
@@ -157,7 +162,7 @@ def declaration_handler(data_type, value):
     elif data_type == "string" and type(value) == str:
         # print("data_type", data_type, "value", value)
         check = True
-    elif data_type == "bool" and value == 'True' or value == 'False':
+    elif data_type == "bool" and type(value) == bool:
         # print("data_type", data_type, "value", value)
         check = True
     elif data_type == "char" and type(value) == str:

@@ -76,7 +76,9 @@ def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     if t.value == 'print':
         t.type = 'PRINT'
-    elif t.value == "True" or t.value == "False":
+    elif t.value == 'True':
+        t.type = 'BOOL'
+    elif t.value == 'False':
         t.type = 'BOOL'
     elif t.value == 'string':
         t.type = 'string'

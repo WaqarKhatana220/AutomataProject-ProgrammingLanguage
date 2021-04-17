@@ -100,6 +100,12 @@ def p_exp_parens(p):
     """
     p[0] = p[2]
 
+def p_exp_not(p):
+    """
+    exp : NOT exp
+    """
+    p[0] = (p[1], p[2])
+
 def p_exp_comma(p):
     """ 
     exp : exp COMMA exp
