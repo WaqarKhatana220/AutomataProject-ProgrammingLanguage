@@ -7,6 +7,17 @@ from yapl_lexer import *
 # tokens ordered from lowest to highest precedence, rightmost terminal judged
 
 
+precedence = (
+    ('left', 'LPAREN', 'RPAREN'), # +, - same precedence, left associative
+    # ('left', 'POWER', 'PLUSPLUS', 'MINUSMINUS',
+    # 'MULTIPLY', 'DIVIDE', 'MODULUS',
+    # 'PLUS', 'MINUS',
+    # 'EQUALEQUAL', 'NOTEQUAL', 'GREATERTHAN', 'GREATERTHANEQUALTO',
+    # 'LESSTHAN', 'LESSTHANEQUALTO', 
+    # 'NOT', 'AND', 'OR')
+)
+
+
 start = 'S'
 # multiple variables, assigning data from one variable to another
 
@@ -19,11 +30,43 @@ def p_start(p): # non-terminal, starting
     p[0] = [p[1]] + p[2] # list comprehension used to solve recursive grammar, added/appending as well
     
 
+def p_inc_dec_rement(p):
+    """
+    stmt : NAME operator SEMICOLON
+    """
+    p[0] = ("INC_DEC", p[1], p[2])
+
+def p_operator(p):
+    """
+    operator : PLUSPLUS
+            | MINUSMINUS
+    """
+    p[0] = p[1]
+
 def p_start_empty(p):
     """
     S :
     """
     p[0] = []
+
+
+def p_conditional_if(p):
+    """
+    stmt : IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONAL', p[1], p[3], p[6])
+
+def p_conditional_elif(p):
+    """
+    stmt : ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONALELIF', p[1], p[3], p[6])
+
+def p_conditional_else(p):
+    """
+    stmt : ELSE LCBRACKET stmt RCBRACKET
+    """
+    p[0] = ('CONDITIONALELSE', p[3])
 
 
 def p_print_stmt(p):
@@ -38,8 +81,30 @@ def p_exp_bin(p):
         | exp MINUS exp
         | exp DIVIDE exp
         | exp MULTIPLY exp
+        | exp MODULUS exp
+        | exp POWER exp
+        | exp LESSTHAN exp
+        | exp GREATERTHAN exp
+        | exp GREATERTHANEQUALTO exp
+        | exp LESSTHANEQUALTO exp
+        | exp NOTEQUAL exp
+        | exp EQUALEQUAL exp
+        | exp AND exp
+        | exp OR exp
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')
+
+def p_exp_parens(p):
+    """
+    exp : LPAREN exp RPAREN
+    """
+    p[0] = p[2]
+
+def p_exp_not(p):
+    """
+    exp : NOT exp
+    """
+    p[0] = (p[1], p[2])
 
 def p_exp_comma(p):
     """ 
@@ -54,6 +119,8 @@ def p_exp_num(p):
         | FLOAT
     """
     p[0] = ('NUM', p[1])
+
+
     
 def p_exp_string(p):
     """
@@ -79,12 +146,13 @@ def p_exp_vriable(p):
     """
     p[0] = ('NAME', p[1])
 
+
+
 def p_dec(p):
     """
     stmt : DTYPE NAME EQUAL exp SEMICOLON
     """
     p[0] = ('DECLARATION',p[1], p[2], p[4])
-    print(p[0])
 
 def p_dec_dtype(p):
     """
@@ -98,17 +166,15 @@ def p_dec_dtype(p):
 
 
 
+
 def p_assign(p):
     """
     stmt : NAME EQUAL exp SEMICOLON
     """
     p[0] = ('ASSIGNMENT', p[1], p[3])
 
-# def inc_dec_rement(p):
-#     """
-#     stmt : NAME exp
-#     """
-#     p[0] = 
+
+
 
 def p_error(p):
     print("Syntax error at token", p.value, p.type, p.lexpos)

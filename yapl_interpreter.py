@@ -4,46 +4,89 @@ import sys
 
 # other global variables
 variable_dictionary = {}
+global if_exists
+if_exists = False
+global if_check
+if_check = True
 
 def exp_eval(p): # evaluate expression
     operator = p[0]
-    if operator == '+':
-        return exp_eval(p[1]) + exp_eval(p[2])
-    elif operator == '-':
-        return exp_eval(p[1]) - exp_eval(p[2])
-    elif operator == '*':
-        return exp_eval(p[1]) * exp_eval(p[2])
-    elif operator == '/':
-        return exp_eval(p[1]) / exp_eval(p[2])
-    elif operator == 'COMMA':
-        return exp_eval(p[1]) , exp_eval(p[2])
-    else: # operator was 'NUM' so its just a number
-        if operator == 'STRING':
-            return (p[1][1:len(p[1])-1])
-        elif operator == 'CHAR':
-            return p[1][1:2]
-        elif operator == 'BOOL':
-            return p[1]
-        elif operator == 'NAME':
-            if p[1] not in variable_dictionary:
-                return p[1] + " used but not declared"
-            else:
-                return (variable_dictionary[p[1]][1])
-        elif operator == 'NUM':
+    try:
+        if operator == '+':
+            return exp_eval(p[1]) + exp_eval(p[2])
+        elif operator == '-':
+            return exp_eval(p[1]) - exp_eval(p[2])
+        elif operator == '*':
+            return exp_eval(p[1]) * exp_eval(p[2])
+        elif operator == '/':
+            return exp_eval(p[1]) / exp_eval(p[2])
+        elif operator == '%':
+            return exp_eval(p[1]) % exp_eval(p[2])
+        elif operator == '^':
+            return exp_eval(p[1]) ** exp_eval(p[2])
+        elif operator == '>':
+            return exp_eval(p[1]) > exp_eval(p[2])
+        elif operator == '<':
+            return exp_eval(p[1]) < exp_eval(p[2])
+        elif operator == '>=':
+            return exp_eval(p[1]) >= exp_eval(p[2])
+        elif operator == '<=':
+            return exp_eval(p[1]) <= exp_eval(p[2])
+        elif operator == '!=':
+            return exp_eval(p[1]) != exp_eval(p[2])
+        elif operator == '==':
+            return exp_eval(p[1]) == exp_eval(p[2])
+        elif operator == '&&':
+            return exp_eval(p[1]) and exp_eval(p[2])
+        elif operator == '!':
+            return not exp_eval(p[1])
+        elif operator == '||':
+            print("||")
+            return exp_eval(p[1]) or exp_eval(p[2])
+        
+        elif operator == 'COMMA':
+            return exp_eval(p[1]) , exp_eval(p[2])
+        else: # operator was 'NUM' so its just a number
+            if operator == 'STRING':
+                return (p[1][1:len(p[1])-1])
+            elif operator == 'CHAR':
+                return p[1][1:2]
+            elif operator == 'BOOL':
+                if p[1] == 'True':
+                    return True
+                elif p[1] == 'False':
+                    return False
+            elif operator == 'NAME':
+                if p[1] not in variable_dictionary:
+                    return p[1] + " used but not declared"
+                else:
+                    return (variable_dictionary[p[1]][1])
+            elif operator == 'NUM':
+                    return p[1]
+            elif operator == 'PAREN':
                 return p[1]
-        else:
-            return p[1]
+            else:
+                return p[1]
+    except TypeError:
+        print ("TypeError")
+        exit(1)
+    except Exception as e:
+        return e
+        
 
 
 def stmt_eval(p): # p is the parsed statement subtree / program
     stype = p[0] # node type of parse tree
+    global if_check
+    global if_exists
     if stype == 'PRINT':
         exp = p[1]
         result = exp_eval(exp)
-        print(result)
+        print(result)        
     elif stype == "DECLARATION":
         if p[2] not in variable_dictionary:
             exp = p[3]
+            # print("declaration", p[1], p[2], p[3])
             result = exp_eval(exp)
             # print("result", result)
             check = declaration_handler(p[1], result)
@@ -60,9 +103,55 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             result = exp_eval(exp)
             variable_dictionary[p[1]][1] = result
             # print("after assignment", variable_dictionary)
+        else:
+            print("variable '", p[1], "' used but not defined")
+    elif stype == "INC_DEC":
+        print("INC_DEC CALLED")
+        if p[1] in variable_dictionary:
+            result = inc_dec_calculator(p[1], p[2])
+            variable_dictionary[p[1]][1] = result
+    elif stype == "CONDITIONAL":
+        if_exists = True
+        local_variable_dictionary = {}
+        print ("conditional", p[1], p[2], p[3])
+        level = p[1]
+        condition = p[2]
+        statement = p[3]
+        result = exp_eval(condition)
+        if result == True:
+            stype = statement[0]
+            stmt_eval(p[3])
+        else:
+            if_check = False
+    elif stype == "CONDITIONALELSE":
+        print ("else block")
+        if if_exists == True:
+            if if_check == False:
+                print("inside else")
+                local_variable_dictionary = {}
+                print ("conditional", p[1])
+                statement = p[1]
+                print ("statement", statement)
+                stype = statement[0]
+                stmt_eval(p[1])
+                print(variable_dictionary)
+                if_check = True
+            if_exists = False
+        else:
+            print("else without if")
+
+         
 
 
 
+
+def inc_dec_calculator(vname, operator):
+    if operator == "++":
+        return variable_dictionary[vname][1] + 1
+    if operator == "--":
+        return variable_dictionary[vname][1] - 1
+    else:
+        return("invalid operator")
 
 
 def declaration_handler(data_type, value):
@@ -73,7 +162,7 @@ def declaration_handler(data_type, value):
     elif data_type == "string" and type(value) == str:
         # print("data_type", data_type, "value", value)
         check = True
-    elif data_type == "bool" and value == 'True' or value == 'False':
+    elif data_type == "bool" and type(value) == bool:
         # print("data_type", data_type, "value", value)
         check = True
     elif data_type == "char" and type(value) == str:

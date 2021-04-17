@@ -1,8 +1,2 @@
-
-string s = "hello";
-print (s);
-print("Start");
-s = "first" + "second";
-print(s);
-print (7+7);
-print(7 + 7);
+bool d = False;
+print(!True == (!(!d)) && (True != 0));

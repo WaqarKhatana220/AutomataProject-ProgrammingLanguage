@@ -35,28 +35,35 @@ tokens = [
     'float',
     'bool',
     'char',
+    'IF',
+    'ELSE',
+    'ELIF',
+    'LCBRACKET',
+    'RCBRACKET',
     'NAME'
 ]
 
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_PLUSPLUS = r'\+\+'
+t_MINUSMINUS = r'\-\-'
 t_PLUS = r'\+'
 t_MINUS = r'\-'
 t_DIVIDE = r'/'
 t_MULTIPLY = r'\*'
 t_POWER = r'\^'
 t_MODULUS = r'\%'
-t_PLUSPLUS = r'\+\+'
-t_MINUSMINUS = r'\-\-'
-t_LESSTHAN = r'\<'
-t_GREATERTHAN = r'\>'
 t_LESSTHANEQUALTO = r'\<='
 t_GREATERTHANEQUALTO = r'\>='
+t_LESSTHAN = r'\<'
+t_GREATERTHAN = r'\>'
 t_NOTEQUAL = r'\!='
 t_EQUALEQUAL = r'\=='
 t_NOT = r'\!'
 t_AND = r'\&\&'
 t_OR = r'\|\|'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
+t_LCBRACKET = r'\{'
+t_RCBRACKET = r'\}'
 t_SEMICOLON = r'\;'
 t_EQUAL = r'\='
 t_STRING = r'\".*?\"'
@@ -69,7 +76,9 @@ def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     if t.value == 'print':
         t.type = 'PRINT'
-    elif t.value == "True" or t.value == "False":
+    elif t.value == 'True':
+        t.type = 'BOOL'
+    elif t.value == 'False':
         t.type = 'BOOL'
     elif t.value == 'string':
         t.type = 'string'
@@ -81,6 +90,12 @@ def t_NAME(t):
         t.type = 'bool'
     elif t.value == 'char':
         t.type = 'char'
+    elif t.value == 'if':
+        t.type = 'IF'
+    elif t.value == 'else':
+        t.type = 'ELSE'
+    elif t.value == 'elif':
+        t.type = 'ELIF'
     else:
         t.type = "NAME"
         
