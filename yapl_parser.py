@@ -7,6 +7,17 @@ from yapl_lexer import *
 # tokens ordered from lowest to highest precedence, rightmost terminal judged
 
 
+precedence = (
+    ('left', 'LPAREN', 'RPAREN'), # +, - same precedence, left associative
+    # ('left', 'POWER', 'PLUSPLUS', 'MINUSMINUS',
+    # 'MULTIPLY', 'DIVIDE', 'MODULUS',
+    # 'PLUS', 'MINUS',
+    # 'EQUALEQUAL', 'NOTEQUAL', 'GREATERTHAN', 'GREATERTHANEQUALTO',
+    # 'LESSTHAN', 'LESSTHANEQUALTO', 
+    # 'NOT', 'AND', 'OR')
+)
+
+
 start = 'S'
 # multiple variables, assigning data from one variable to another
 
@@ -78,9 +89,16 @@ def p_exp_bin(p):
         | exp LESSTHANEQUALTO exp
         | exp NOTEQUAL exp
         | exp EQUALEQUAL exp
-
+        | exp AND exp
+        | exp OR exp
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')
+
+def p_exp_parens(p):
+    """
+    exp : LPAREN exp RPAREN
+    """
+    p[0] = p[2]
 
 def p_exp_comma(p):
     """ 
@@ -95,6 +113,8 @@ def p_exp_num(p):
         | FLOAT
     """
     p[0] = ('NUM', p[1])
+
+
     
 def p_exp_string(p):
     """
@@ -119,6 +139,8 @@ def p_exp_vriable(p):
     exp : NAME
     """
     p[0] = ('NAME', p[1])
+
+
 
 def p_dec(p):
     """

@@ -36,6 +36,13 @@ def exp_eval(p): # evaluate expression
             return exp_eval(p[1]) != exp_eval(p[2])
         elif operator == '==':
             return exp_eval(p[1]) == exp_eval(p[2])
+        elif operator == '&&':
+            print("&&")
+            return exp_eval(p[1]) and exp_eval(p[2])
+        elif operator == '||':
+            print("||")
+            return exp_eval(p[1]) or exp_eval(p[2])
+        
         elif operator == 'COMMA':
             return exp_eval(p[1]) , exp_eval(p[2])
         else: # operator was 'NUM' so its just a number
@@ -52,10 +59,15 @@ def exp_eval(p): # evaluate expression
                     return (variable_dictionary[p[1]][1])
             elif operator == 'NUM':
                     return p[1]
+            elif operator == 'PAREN':
+                return p[1]
             else:
                 return p[1]
-    except TypeError:
-        return "typeError"
+    except TypeError as t:
+        return t
+    except Exception as e:
+        return e
+        
 
 
 def stmt_eval(p): # p is the parsed statement subtree / program

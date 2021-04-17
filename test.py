@@ -1,1 +1,1 @@
-print (4 + "A")
+print (7>11 and 3<4)
