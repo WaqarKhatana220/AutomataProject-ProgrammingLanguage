@@ -3,6 +3,6 @@ struct BookStruct{
 }
 
 
-BookStruct Booki;
+BookStruct Book1;
 
 Book1->title = "hello";

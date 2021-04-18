@@ -21,11 +21,9 @@ def exp_eval(p): # evaluate expression
                 if p[2] in object_dictionary[p[1]]:
                     return object_dictionary[p[1]][p[2]]
                 else:
-                    print("AttributeError")
-                    exit(1)
+                    print("attribute", p[2], "does not exist")
             else:
                 print("struct object", p[1], "does not exist")
-                exit(1)
         elif operator == '+':
             return exp_eval(p[1]) + exp_eval(p[2])
         elif operator == '-':
@@ -70,8 +68,7 @@ def exp_eval(p): # evaluate expression
                     return False
             elif operator == 'NAME':
                 if p[1] not in variable_dictionary:
-                    print (p[1], " used but not declared")
-                    exit(1)
+                    return p[1] + " used but not declared"
                 else:
                     return (variable_dictionary[p[1]][1])
             elif operator == 'NUM':
@@ -134,8 +131,8 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         # print("struct_dictionary struct_dec", struct_dictionary)
 
     elif stype == "OBJDEC":
-        # print("struct_dictionary objdec 1", struct_dictionary)
-        # print ("object_dictionary obgdec 1", object_dictionary)
+        print("struct_dictionary objdec 1", struct_dictionary)
+        print ("object_dictionary obgdec 1", object_dictionary)
         
         if p[1] in struct_dictionary:
             if p[2] not in object_dictionary:
@@ -143,28 +140,28 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 for keyss in struct_dictionary[p[1]]:
                     var = keyss
                     types = struct_dictionary[p[1]][keyss]
-                    # print("p[2]",p[2], "var", var, "types", types)
+                    print("p[2]",p[2], "var", var, "types", types)
                     object_dictionary[p[2]][var] = types
-                # print("phasn gye", object_dictionary)
+                print("phasn gye", object_dictionary)
 
-                # print("struct_dictionary objdec 2", struct_dictionary)
-                # print ("object_dictionary obgdec 2", object_dictionary)
+                print("struct_dictionary objdec 2", struct_dictionary)
+                print ("object_dictionary obgdec 2", object_dictionary)
                 # object_dictionary[p[2]] = struct_dictionary[p[1]]
                 # print("var", var, "types", types)
-                # print("struct_dictionary objdec 3", struct_dictionary)
-                # print ("object_dictionary obgdec 3", object_dictionary)
+                print("struct_dictionary objdec 3", struct_dictionary)
+                print ("object_dictionary obgdec 3", object_dictionary)
                 # print("object_dictionaryyyy", object_dictionary)
                 for keys in object_dictionary[p[2]]:
                     if object_dictionary[p[2]][keys] == 'int':
                         object_dictionary[p[2]][keys] = 0
                     elif object_dictionary[p[2]][keys] == 'string':
                         # print("var", var, "types", types)
-                        # print("struct_dictionary objdec 4", struct_dictionary)
-                        # print ("object_dictionary obgdec 4", object_dictionary)
+                        print("struct_dictionary objdec 4", struct_dictionary)
+                        print ("object_dictionary obgdec 4", object_dictionary)
                         object_dictionary[p[2]][keys] = "s"
                         # print("var", var, "types", types)
-                        # print("struct_dictionary objdec 5", struct_dictionary)
-                        # print ("object_dictionary obgdec 5", object_dictionary)
+                        print("struct_dictionary objdec 5", struct_dictionary)
+                        print ("object_dictionary obgdec 5", object_dictionary)
                     elif object_dictionary[p[2]][keys] == 'char':
                         object_dictionary[p[2]][keys] = 's'
                     elif object_dictionary[p[2]][keys] == 'float':
@@ -180,8 +177,8 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             print("invalid data type")
             exit(1)
-        # print("struct_dictionary objdec n", struct_dictionary)
-        # print ("object_dictionary obgdec n", object_dictionary)
+        print("struct_dictionary objdec n", struct_dictionary)
+        print ("object_dictionary obgdec n", object_dictionary)
     elif stype == "OBJASSIGN":
 
         # ('OBJASSIGN', NAME, NAME, VALUE)
@@ -198,18 +195,42 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 else:
                     print("TypeError")
                     exit(1)
-            else:
-                print("AttributeError")
-                exit(1)
 
         else:
             print("object", p[1], "does not exist")
             exit(1)
 
-        # print ("object_dictionary objassign", object_dictionary)
-        # print("struct_dictionary objassign", struct_dictionary)
-    
+        print ("object_dictionary objassign", object_dictionary)
+        print("struct_dictionary objassign", struct_dictionary)
 
+
+
+        # if p[1] in object_dictionary:
+        #     if p[2] in object_dictionary[p[1]]:
+        #         print("p1", p[1], "p2", p[2], "obj[p[1]]", object_dictionary[p[1]])
+        #         # print("ok", object_dictionary)
+        #         exp = p[3]
+        #         result = exp_eval(exp)
+        #         # print("this", object_dictionary[p[1]][p[2]])
+        #         if type(object_dictionary[p[1]][p[2]]) == type(result):
+        #             object_dictionary[p[1]][p[2]] = result
+        #             print("done kr k", object_dictionary)
+        #             # print("this", object_dictionary)
+        #             # print("done")    
+        #         else:
+        #             print("TypeError")
+        #         # print ("struct_dictionary", struct_dictionary)
+        #         # print ("object_dictionary", object_dictionary)
+        #         # print ("result", result)
+
+        #     else:
+        #         print ("attribute", p[2], "does not exist")
+        # else:
+        #     print("struct object", p[1], "does not exist")
+    elif stype == "PRINTOBJ":
+        if p[1] in object_dictionary:
+            if p[2] in object_dictionary[p[1]]:
+                print(object_dictionary[p[1]][p[2]])
     elif stype == "ASSIGNMENT":
         exp = p[2]
         if p[1] in variable_dictionary:
