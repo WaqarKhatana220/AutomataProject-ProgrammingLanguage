@@ -2,6 +2,7 @@ from yapl_lexer import *
 from yapl_parser import *
 import sys
 
+
 # other global variables
 variable_dictionary = {}
 global struct_dictionary
@@ -123,55 +124,30 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             struct_dictionary[p[1]] = {}
             for i in range(0, len(p[2])):
                 exp = p[2][i]
-                # print("exp is", exp)
-                # print("struct_dictionary", struct_dictionary)
+                
                 struct_dictionary[p[1]][exp[1]] = exp[0]
-                # print("struct_dictionary", struct_dictionary)
         else:
             print("struct", p[1], " already defined")
             exit(1)
-        # print ("object_dictionary struct_dec", object_dictionary)
-        # print("struct_dictionary struct_dec", struct_dictionary)
-
     elif stype == "OBJDEC":
-        # print("struct_dictionary objdec 1", struct_dictionary)
-        # print ("object_dictionary obgdec 1", object_dictionary)
-        
         if p[1] in struct_dictionary:
             if p[2] not in object_dictionary:
                 object_dictionary[p[2]] = {}
                 for keyss in struct_dictionary[p[1]]:
                     var = keyss
                     types = struct_dictionary[p[1]][keyss]
-                    # print("p[2]",p[2], "var", var, "types", types)
                     object_dictionary[p[2]][var] = types
-                # print("phasn gye", object_dictionary)
-
-                # print("struct_dictionary objdec 2", struct_dictionary)
-                # print ("object_dictionary obgdec 2", object_dictionary)
-                # object_dictionary[p[2]] = struct_dictionary[p[1]]
-                # print("var", var, "types", types)
-                # print("struct_dictionary objdec 3", struct_dictionary)
-                # print ("object_dictionary obgdec 3", object_dictionary)
-                # print("object_dictionaryyyy", object_dictionary)
                 for keys in object_dictionary[p[2]]:
                     if object_dictionary[p[2]][keys] == 'int':
                         object_dictionary[p[2]][keys] = 0
                     elif object_dictionary[p[2]][keys] == 'string':
-                        # print("var", var, "types", types)
-                        # print("struct_dictionary objdec 4", struct_dictionary)
-                        # print ("object_dictionary obgdec 4", object_dictionary)
                         object_dictionary[p[2]][keys] = "s"
-                        # print("var", var, "types", types)
-                        # print("struct_dictionary objdec 5", struct_dictionary)
-                        # print ("object_dictionary obgdec 5", object_dictionary)
                     elif object_dictionary[p[2]][keys] == 'char':
                         object_dictionary[p[2]][keys] = 's'
                     elif object_dictionary[p[2]][keys] == 'float':
                         object_dictionary[p[2]][keys] = 0.2
                     elif object_dictionary[p[2]][keys] == 'bool':
                         object_dictionary[p[2]][keys] = True
-                    # print("object_dictionary[p[2]][keys]", object_dictionary[p[2]][keys])
 
             else:
                 print ("object", p[2], "already defined")
@@ -180,42 +156,29 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             print("invalid data type")
             exit(1)
-        # print("struct_dictionary objdec n", struct_dictionary)
-        # print ("object_dictionary obgdec n", object_dictionary)
     elif stype == "OBJASSIGN":
 
         # ('OBJASSIGN', NAME, NAME, VALUE)
 
         if p[1] in object_dictionary:
-            # print("before", object_dictionary)
             if p[2] in object_dictionary[p[1]]:
                 if type(object_dictionary[p[1]][p[2]]) == type(exp_eval(p[3])):
                     object_dictionary[p[1]][p[2]] = exp_eval(p[3])
-                    # print(p[1], p[2], "found")
-                    # print("here", object_dictionary[p[1]][p[2]])
-                    # print("after", object_dictionary)
-
                 else:
                     print("TypeError")
                     exit(1)
             else:
                 print("AttributeError")
                 exit(1)
-
         else:
             print("object", p[1], "does not exist")
             exit(1)
-
-        # print ("object_dictionary objassign", object_dictionary)
-        # print("struct_dictionary objassign", struct_dictionary)
-    
 
     elif stype == "ASSIGNMENT":
         exp = p[2]
         if p[1] in variable_dictionary:
             result = exp_eval(exp)
             variable_dictionary[p[1]][1] = result
-            # print("after assignment", variable_dictionary)
         else:
             print("variable '", p[1], "' used but not defined")
             exit(1)
@@ -252,8 +215,6 @@ def stmt_eval(p): # p is the parsed statement subtree / program
 
     elif stype == "CONDITIONAL":
         if_exists = True
-        local_variable_dictionary = {}
-        level = p[1]
         condition = p[2]
         statement = p[3]
         result = exp_eval(condition)
@@ -267,7 +228,6 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     elif stype == "CONDITIONALELSE":
         if if_exists == True:
             if if_check == False:
-                local_variable_dictionary = {}
                 statement = p[1]
                 for i in range(0, len(statement)):
                     statements = statement[i]
@@ -278,11 +238,6 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             print("else without if")
             exit(1)
-
-
-    # print(variable_dictionary)   
-
-
 
 
 def inc_dec_calculator(vname, operator):
@@ -297,33 +252,24 @@ def inc_dec_calculator(vname, operator):
 def declaration_handler(data_type, value):
     check = False
     if data_type == "int" and type(value) == int:
-        # print("data_type", data_type, "value", value)
         check = True
     elif data_type == "string" and type(value) == str:
-        # print("data_type", data_type, "value", value)
         check = True
     elif data_type == "bool" and type(value) == bool:
-        # print("data_type", data_type, "value", value)
         check = True
     elif data_type == "char" and type(value) == str:
-        # print("data_type", data_type, "value", value)
         check = True        
     elif data_type == "float" and type(value) == float:
-        # print("data_type", data_type, "value", value)
         check = True
     else:
-        # print("data_type", data_type, "value", value)
         check = False
     return check
-
-
 
 
 def run_program(p): # p[0] == 'Program': a bunch of statements
     for stmt in p: # statements in proglist
         if stmt != None:
             stmt_eval(stmt) # statement subtree as tuple
-
 
 if len(sys.argv) == 1:
     print('File name/path not provided as cmd arg.')

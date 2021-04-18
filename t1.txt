@@ -1,8 +1,0 @@
-struct BookStruct{
-    string title;
-}
-
-
-BookStruct Book1;
-
-Book1->title = "hello";
