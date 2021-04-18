@@ -104,13 +104,17 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 print("type not matched")
         else:
             print("redeclaration error")
-        # print (variable_dictionary)
+        # print (variable_dictionary)p[4]
     elif stype == "STRUCTDEC":
+        # print ("here bro", p)
         if p[1] not in struct_dictionary:
-            exp = p[2]
             struct_dictionary[p[1]] = {}
-            struct_dictionary[p[1]][exp[1]] = exp[0]
-            print ("here", struct_dictionary)
+            for i in range(0, len(p[2])):
+                exp = p[2][i]
+                # print("exp is", exp)
+                # print("struct_dictionary", struct_dictionary)
+                struct_dictionary[p[1]][exp[1]] = exp[0]
+                # print("struct_dictionary", struct_dictionary)
         else:
             print("struct", p[1], " already defined")
     elif stype == "OBJDEC":
@@ -137,13 +141,13 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     elif stype == "OBJASSIGN":
         if p[1] in object_dictionary:
             if p[2] in object_dictionary[p[1]]:
-                print("ok", object_dictionary)
+                # print("ok", object_dictionary)
                 exp = p[3]
                 result = exp_eval(exp)
                 # print("this", object_dictionary[p[1]][p[2]])
                 if type(object_dictionary[p[1]][p[2]]) == type(result):
                     object_dictionary[p[1]][p[2]] = result
-                    print("done")    
+                    # print("done")    
                 else:
                     print("TypeError")
                 # print ("struct_dictionary", struct_dictionary)

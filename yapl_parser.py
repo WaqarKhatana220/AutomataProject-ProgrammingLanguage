@@ -40,12 +40,23 @@ def p_struct_dec(p):
     stmt : STRUCT NAME LCBRACKET statement RCBRACKET
     """
     p[0] = ('STRUCTDEC', p[2], p[4])    # ('STRUCT', NAME, stmt)
+    print("1", p[0])
 
 def p_struct_dec_statement(p):
     """
-    statement : DTYPE NAME SEMICOLON
+    statement : DTYPE NAME SEMICOLON statement
     """
-    p[0] = (p[1], p[2])
+    p[0] = [(p[1], p[2])] + p[4]
+    print("2", p[0])
+
+
+def p_struct_dec_statement_empty(p):
+    """
+    statement : 
+    """
+    p[0] = []
+    print("3", p[0])
+
 
 def p_obj_dec(p):
     """

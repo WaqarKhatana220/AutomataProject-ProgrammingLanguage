@@ -1,1 +1,20 @@
-print ("hello", "by", "whatsup", "come", 2+2);
+struct name 
+{
+    string a;
+    int b;
+    float c;
+}
+struct age{
+    int a;
+    int b;
+}
+
+name myName;
+age myAge;
+myAge->a = 2;
+myAge->b = 5;
+myName->a = "waqar";
+myName->b = 21;
+myName->c = 2.7;
+print(myName->a, myName->b, myName->c);
+print(myAge->a, myAge->b);
