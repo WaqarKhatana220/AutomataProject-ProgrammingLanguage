@@ -28,7 +28,37 @@ def p_start(p): # non-terminal, starting
     S : stmt S
     """
     p[0] = [p[1]] + p[2] # list comprehension used to solve recursive grammar, added/appending as well
-    
+
+
+def p_struct_dec(p):
+    """
+    stmt : STRUCT NAME LCBRACKET statement RCBRACKET
+    """
+    p[0] = ('STRUCTDEC', p[2], p[4])    # ('STRUCT', NAME, stmt)
+
+def p_struct_dec_statement(p):
+    """
+    statement : DTYPE NAME SEMICOLON
+    """
+    p[0] = (p[1], p[2])
+
+def p_obj_dec(p):
+    """
+    stmt : NAME NAME SEMICOLON
+    """
+    p[0] = ('OBJDEC', p[1], p[2])
+
+def p_obj_assignment(p):
+    """
+    stmt : NAME ARROW NAME EQUAL exp SEMICOLON
+    """
+    p[0] = ('OBJASSIGN', p[1], p[3], p[5]) # ('OBJASSIGN', NAME, NAME, VALUE)
+
+def p_obj_print(p):
+    """
+    stmt : PRINT LPAREN NAME ARROW NAME RPAREN SEMICOLON
+    """
+    p[0] = ('PRINTOBJ', p[3], p[5])
 
 def p_inc_dec_rement(p):
     """

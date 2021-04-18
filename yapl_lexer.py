@@ -44,9 +44,13 @@ tokens = [
     'TO',
     'STEP',
     'NEXT',
+    'STRUCT',
+    'OBJECT',
+    'ARROW',
     'NAME'
 ]
 
+t_ARROW = r'->'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_PLUSPLUS = r'\+\+'
@@ -108,6 +112,10 @@ def t_NAME(t):
         t.type = 'STEP'
     elif t.value == 'next':
         t.type = 'NEXT'
+    elif t.value == 'struct':
+        t.type = 'STRUCT'
+    elif t.value == 'object':
+        t.type = 'OBJECT'
     else:
         t.type = "NAME"
         

@@ -4,6 +4,8 @@ import sys
 
 # other global variables
 variable_dictionary = {}
+struct_dictionary = {}
+object_dictionary = {}
 global if_exists
 if_exists = False
 global if_check
@@ -95,6 +97,59 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         else:
             print("redeclaration error")
         # print (variable_dictionary)
+    elif stype == "STRUCTDEC":
+        if p[1] not in struct_dictionary:
+            exp = p[2]
+            struct_dictionary[p[1]] = {}
+            struct_dictionary[p[1]][exp[1]] = exp[0]
+            print ("here", struct_dictionary)
+        else:
+            print("struct", p[1], " already defined")
+    elif stype == "OBJDEC":
+        if p[1] in struct_dictionary:
+            if p[2] not in object_dictionary:
+                object_dictionary[p[2]] = struct_dictionary[p[1]]
+                for keys in object_dictionary[p[2]]:
+                    if object_dictionary[p[2]][keys] == 'int':
+                        object_dictionary[p[2]][keys] = 0
+                    elif object_dictionary[p[2]][keys] == 'string':
+                        object_dictionary[p[2]][keys] = "s"
+                    elif object_dictionary[p[2]][keys] == 'char':
+                        object_dictionary[p[2]][keys] = 's'
+                    elif object_dictionary[p[2]][keys] == 'float':
+                        object_dictionary[p[2]][keys] = 0.2
+                    elif object_dictionary[p[2]][keys] == 'bool':
+                        object_dictionary[p[2]][keys] = True
+                    # print("object_dictionary[p[2]][keys]", object_dictionary[p[2]][keys])
+
+            else:
+                print ("object", p[2], "already defined")
+        else:
+            print("invalid data type")
+    elif stype == "OBJASSIGN":
+        if p[1] in object_dictionary:
+            if p[2] in object_dictionary[p[1]]:
+                print("ok", object_dictionary)
+                exp = p[3]
+                result = exp_eval(exp)
+                # print("this", object_dictionary[p[1]][p[2]])
+                if type(object_dictionary[p[1]][p[2]]) == type(result):
+                    object_dictionary[p[1]][p[2]] = result
+                    print("done")    
+                else:
+                    print("TypeError")
+                # print ("struct_dictionary", struct_dictionary)
+                # print ("object_dictionary", object_dictionary)
+                # print ("result", result)
+
+            else:
+                print ("attribute", p[2], "does not exist")
+        else:
+            print("struct object", p[1], "does not exist")
+    elif stype == "PRINTOBJ":
+        if p[1] in object_dictionary:
+            if p[2] in object_dictionary[p[1]]:
+                print(object_dictionary[p[1]][p[2]])
     elif stype == "ASSIGNMENT":
         exp = p[2]
         if p[1] in variable_dictionary:
