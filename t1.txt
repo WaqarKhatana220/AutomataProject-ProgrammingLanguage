@@ -10,3 +10,5 @@ my s;
 your d;
 s->a = "hello" + "by";
 print (s->a, 2+2);
+bool check_che = True;
+print(checkche);

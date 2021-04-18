@@ -45,7 +45,6 @@ tokens = [
     'STEP',
     'NEXT',
     'STRUCT',
-    'OBJECT',
     'ARROW',
     'NAME'
 ]
@@ -114,8 +113,6 @@ def t_NAME(t):
         t.type = 'NEXT'
     elif t.value == 'struct':
         t.type = 'STRUCT'
-    elif t.value == 'object':
-        t.type = 'OBJECT'
     else:
         t.type = "NAME"
         
