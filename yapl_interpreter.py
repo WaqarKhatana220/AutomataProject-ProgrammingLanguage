@@ -53,7 +53,7 @@ def exp_eval(p): # evaluate expression
         elif operator == '||':
             return exp_eval(p[1]) or exp_eval(p[2])
         elif operator == 'COMMA':
-            return exp_eval(p[1]) , exp_eval(p[2])
+            return str(exp_eval(p[1])) + " " + str(exp_eval(p[2]))
         else: # operator was 'NUM' so its just a number
             if operator == 'STRING':
                 return (p[1][1:len(p[1])-1])
@@ -89,7 +89,6 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     global if_exists
     if stype == 'PRINT':
         exp = p[1]
-        print(exp)
         result = exp_eval(exp)
         print(result)        
     elif stype == "DECLARATION":

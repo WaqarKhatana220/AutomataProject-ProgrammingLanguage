@@ -1,14 +1,1 @@
-struct my
-{
-    string a;
-}
-struct your
-{
-    int a;
-}
-my s;
-your d;
-s->a = "hello" + "by";
-print (s->a, 2+2);
-bool check_che = True;
-print(checkche);
+print ("hello", "by", "whatsup", "come", 2+2);
