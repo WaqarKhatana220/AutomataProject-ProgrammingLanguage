@@ -9,4 +9,4 @@ struct your
 my s;
 your d;
 s->a = "hello" + "by";
-print ("dasas", s->a);
+print (s->a, 2+2);

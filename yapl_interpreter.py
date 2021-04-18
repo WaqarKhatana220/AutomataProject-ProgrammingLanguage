@@ -14,7 +14,15 @@ if_check = True
 def exp_eval(p): # evaluate expression
     operator = p[0]
     try:
-        if operator == '+':
+        if operator == 'OBJPRINT':
+            if p[1] in object_dictionary:
+                if p[2] in object_dictionary[p[1]]:
+                    return object_dictionary[p[1]][p[2]]
+                else:
+                    print("attribute", p[2], "does not exist")
+            else:
+                print("struct object", p[1], "does not exist")
+        elif operator == '+':
             return exp_eval(p[1]) + exp_eval(p[2])
         elif operator == '-':
             return exp_eval(p[1]) - exp_eval(p[2])
@@ -81,6 +89,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     global if_exists
     if stype == 'PRINT':
         exp = p[1]
+        print(exp)
         result = exp_eval(exp)
         print(result)        
     elif stype == "DECLARATION":
