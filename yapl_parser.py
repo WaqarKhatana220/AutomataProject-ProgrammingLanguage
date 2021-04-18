@@ -43,9 +43,17 @@ def p_struct_dec(p):
 
 def p_struct_dec_statement(p):
     """
-    statement : DTYPE NAME SEMICOLON
+    statement : DTYPE NAME SEMICOLON statement
     """
-    p[0] = (p[1], p[2])
+    p[0] = [(p[1], p[2])] + p[4]
+
+
+def p_struct_dec_statement_empty(p):
+    """
+    statement : 
+    """
+    p[0] = []
+
 
 def p_obj_dec(p):
     """
@@ -58,8 +66,6 @@ def p_obj_assignment(p):
     stmt : NAME ARROW NAME EQUAL exp SEMICOLON
     """
     p[0] = ('OBJASSIGN', p[1], p[3], p[5]) # ('OBJASSIGN', NAME, NAME, VALUE)
-
-
 
 def p_inc_dec_rement(p):
     """
@@ -74,14 +80,30 @@ def p_operator(p):
     """
     p[0] = p[1]
 
-
-
-
 def p_conditional_if(p):
     """
-    stmt : IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    stmt : IF LPAREN exp RPAREN LCBRACKET stmts RCBRACKET
     """
     p[0] = ('CONDITIONAL', p[1], p[3], p[6])
+
+def p_conditional_else(p):
+    """
+    stmt : ELSE LCBRACKET stmts RCBRACKET
+    """
+    p[0] = ('CONDITIONALELSE', p[3])
+
+def p_stmts(p):
+    """
+    stmts : stmt stmts
+    """
+    p[0] = [p[1]] + p[2]
+
+def p_stmts_empty(p):
+    """
+    stmts : 
+    """
+    p[0] = []
+
 
 def p_conditional_elif(p):
     """
@@ -89,11 +111,6 @@ def p_conditional_elif(p):
     """
     p[0] = ('CONDITIONALELIF', p[1], p[3], p[6])
 
-def p_conditional_else(p):
-    """
-    stmt : ELSE LCBRACKET stmt RCBRACKET
-    """
-    p[0] = ('CONDITIONALELSE', p[3])
 
 
 def p_print_stmt(p):
@@ -139,6 +156,8 @@ def p_exp_not(p):
     """
     p[0] = (p[1], p[2])
 
+
+
 def p_exp_comma(p):
     """ 
     exp : exp COMMA exp
@@ -152,9 +171,7 @@ def p_exp_num(p):
         | FLOAT
     """
     p[0] = ('NUM', p[1])
-
-
-    
+ 
 def p_exp_string(p):
     """
     exp : STRING
@@ -179,8 +196,6 @@ def p_exp_vriable(p):
     """
     p[0] = ('NAME', p[1])
 
-
-
 def p_dec(p):
     """
     stmt : DTYPE NAME EQUAL exp SEMICOLON
@@ -197,9 +212,6 @@ def p_dec_dtype(p):
     """
     p[0] = p[1]
 
-
-
-
 def p_assign(p):
     """
     stmt : NAME EQUAL exp SEMICOLON
@@ -208,7 +220,7 @@ def p_assign(p):
 
 def p_for_loop(p):
     """
-    stmt : FOR NAME EQUAL FROM TO END stmt NEXT
+    stmt : FOR NAME EQUAL FROM TO END stmts NEXT
     """
     p[0] = ("FOR", p[2], p[4], p[6], p[7], p[8]) #(FOR, NAME, INT, INT, stmt, NEXT)
 
@@ -225,8 +237,6 @@ def p_for_end(p):
         | NAME
     """
     p[0] = p[1]
-
-
 
 def p_error(p):
     print("Syntax error at token", p.value, p.type, p.lexpos)

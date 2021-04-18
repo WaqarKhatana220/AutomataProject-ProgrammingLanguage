@@ -131,7 +131,6 @@ def t_INT(t):
     return t
 
 
-
 def t_lineno(t):
     r'\n'
     t.lexer.lineno += len(t.value) 

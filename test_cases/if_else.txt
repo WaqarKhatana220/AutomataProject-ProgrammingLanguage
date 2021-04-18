@@ -1,0 +1,37 @@
+bool isRaining = False;
+bool isSnowing = True;
+int temperature = 0;
+
+if (isRaining == True)
+{
+    if(temperature>45)
+    {
+        print ("wear lightweight raincoat");
+    }
+    if(temperature == 45)
+    {
+        print ("wear lightweight raincoat");
+
+    }
+    else{
+        print ("wear fleece and raincoat");
+    }
+}
+if (isSnowing != False)
+{
+    if (temperature > 20)
+    {
+        print ("wear soft shell jacket");
+    }
+    if (temperature >= 0)
+    {
+        print ("wear down jacket");
+    }
+    else{
+        print ("wear base layers and down jacket");
+    }
+}
+else
+{
+    print ("It is hard to come up with interesting examples");
+}
