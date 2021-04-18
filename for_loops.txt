@@ -1,7 +1,7 @@
 for i = 0 to 2
 for j = 0 to 2
 for k = 0 to 2
-print (i, j, k);
+print ("(", i, ",", j, ",", k, ")");
 next
 next
 next

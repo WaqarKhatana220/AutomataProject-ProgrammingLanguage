@@ -59,8 +59,6 @@ def p_obj_assignment(p):
     """
     p[0] = ('OBJASSIGN', p[1], p[3], p[5]) # ('OBJASSIGN', NAME, NAME, VALUE)
 
-
-
 def p_inc_dec_rement(p):
     """
     stmt : NAME operator SEMICOLON
@@ -73,9 +71,6 @@ def p_operator(p):
             | MINUSMINUS
     """
     p[0] = p[1]
-
-
-
 
 def p_conditional_if(p):
     """
@@ -94,7 +89,6 @@ def p_conditional_else(p):
     stmt : ELSE LCBRACKET stmt RCBRACKET
     """
     p[0] = ('CONDITIONALELSE', p[3])
-
 
 def p_print_stmt(p):
     """
@@ -152,9 +146,7 @@ def p_exp_num(p):
         | FLOAT
     """
     p[0] = ('NUM', p[1])
-
-
-    
+ 
 def p_exp_string(p):
     """
     exp : STRING
@@ -179,8 +171,6 @@ def p_exp_vriable(p):
     """
     p[0] = ('NAME', p[1])
 
-
-
 def p_dec(p):
     """
     stmt : DTYPE NAME EQUAL exp SEMICOLON
@@ -196,9 +186,6 @@ def p_dec_dtype(p):
         | char
     """
     p[0] = p[1]
-
-
-
 
 def p_assign(p):
     """
@@ -225,8 +212,6 @@ def p_for_end(p):
         | NAME
     """
     p[0] = p[1]
-
-
 
 def p_error(p):
     print("Syntax error at token", p.value, p.type, p.lexpos)
