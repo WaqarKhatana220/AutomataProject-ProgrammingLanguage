@@ -40,14 +40,12 @@ def p_struct_dec(p):
     stmt : STRUCT NAME LCBRACKET statement RCBRACKET
     """
     p[0] = ('STRUCTDEC', p[2], p[4])    # ('STRUCT', NAME, stmt)
-    print("1", p[0])
 
 def p_struct_dec_statement(p):
     """
     statement : DTYPE NAME SEMICOLON statement
     """
     p[0] = [(p[1], p[2])] + p[4]
-    print("2", p[0])
 
 
 def p_struct_dec_statement_empty(p):
@@ -55,7 +53,6 @@ def p_struct_dec_statement_empty(p):
     statement : 
     """
     p[0] = []
-    print("3", p[0])
 
 
 def p_obj_dec(p):
@@ -85,9 +82,28 @@ def p_operator(p):
 
 def p_conditional_if(p):
     """
-    stmt : IF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
+    stmt : IF LPAREN exp RPAREN LCBRACKET stmts RCBRACKET
     """
     p[0] = ('CONDITIONAL', p[1], p[3], p[6])
+
+def p_conditional_else(p):
+    """
+    stmt : ELSE LCBRACKET stmts RCBRACKET
+    """
+    p[0] = ('CONDITIONALELSE', p[3])
+
+def p_stmts(p):
+    """
+    stmts : stmt stmts
+    """
+    p[0] = [p[1]] + p[2]
+
+def p_stmts_empty(p):
+    """
+    stmts : 
+    """
+    p[0] = []
+
 
 def p_conditional_elif(p):
     """
@@ -95,11 +111,7 @@ def p_conditional_elif(p):
     """
     p[0] = ('CONDITIONALELIF', p[1], p[3], p[6])
 
-def p_conditional_else(p):
-    """
-    stmt : ELSE LCBRACKET stmt RCBRACKET
-    """
-    p[0] = ('CONDITIONALELSE', p[3])
+
 
 def p_print_stmt(p):
     """
@@ -206,7 +218,7 @@ def p_assign(p):
 
 def p_for_loop(p):
     """
-    stmt : FOR NAME EQUAL FROM TO END stmt NEXT
+    stmt : FOR NAME EQUAL FROM TO END stmts NEXT
     """
     p[0] = ("FOR", p[2], p[4], p[6], p[7], p[8]) #(FOR, NAME, INT, INT, stmt, NEXT)
 

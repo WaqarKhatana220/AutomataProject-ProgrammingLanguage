@@ -4,7 +4,9 @@ import sys
 
 # other global variables
 variable_dictionary = {}
+global struct_dictionary
 struct_dictionary = {}
+global object_dictionary
 object_dictionary = {}
 global if_exists
 if_exists = False
@@ -87,6 +89,8 @@ def stmt_eval(p): # p is the parsed statement subtree / program
     stype = p[0] # node type of parse tree
     global if_check
     global if_exists
+    global struct_dictionary
+    global object_dictionary
     if stype == 'PRINT':
         exp = p[1]
         result = exp_eval(exp)
@@ -104,8 +108,10 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 print("type not matched")
         else:
             print("redeclaration error")
+        
         # print (variable_dictionary)p[4]
     elif stype == "STRUCTDEC":
+        
         # print ("here bro", p)
         if p[1] not in struct_dictionary:
             struct_dictionary[p[1]] = {}
@@ -117,16 +123,33 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 # print("struct_dictionary", struct_dictionary)
         else:
             print("struct", p[1], " already defined")
+        # print ("object_dictionary struct_dec", object_dictionary)
+        # print("struct_dictionary struct_dec", struct_dictionary)
+
     elif stype == "OBJDEC":
+        print("struct_dictionary objdec 1", struct_dictionary)
+        print ("object_dictionary obgdec 1", object_dictionary)
+        z = struct_dictionary[p[1]]
+
         if p[1] in struct_dictionary:
             if p[2] not in object_dictionary:
-                object_dictionary[p[2]] = struct_dictionary[p[1]]
-                print("object_dictionary", object_dictionary)
+                print("struct_dictionary objdec 2", struct_dictionary)
+                print ("object_dictionary obgdec 2", object_dictionary)
+                # object_dictionary[p[2]] = struct_dictionary[p[1]]
+                print("z", z)
+                object_dictionary[p[2]] = z
+                print("struct_dictionary objdec 3", struct_dictionary)
+                print ("object_dictionary obgdec 3", object_dictionary)
+                # print("object_dictionaryyyy", object_dictionary)
                 for keys in object_dictionary[p[2]]:
                     if object_dictionary[p[2]][keys] == 'int':
                         object_dictionary[p[2]][keys] = 0
                     elif object_dictionary[p[2]][keys] == 'string':
+                        print("struct_dictionary objdec 4", struct_dictionary)
+                        print ("object_dictionary obgdec 4", object_dictionary)
                         object_dictionary[p[2]][keys] = "s"
+                        print("struct_dictionary objdec 5", struct_dictionary)
+                        print ("object_dictionary obgdec 5", object_dictionary)
                     elif object_dictionary[p[2]][keys] == 'char':
                         object_dictionary[p[2]][keys] = 's'
                     elif object_dictionary[p[2]][keys] == 'float':
@@ -139,8 +162,49 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 print ("object", p[2], "already defined")
         else:
             print("invalid data type")
+        print("struct_dictionary objdec n", struct_dictionary)
+        print ("object_dictionary obgdec n", object_dictionary)
     elif stype == "OBJASSIGN":
+
+        # ('OBJASSIGN', NAME, NAME, VALUE)
+
+        if p[1] in object_dictionary:
+            # print("before", object_dictionary)
+            if p[2] in object_dictionary[p[1]]:
+                if type(object_dictionary[p[1]][p[2]]) == type(exp_eval(p[3])):
+                    object_dictionary[p[1]][p[2]] = exp_eval(p[3])
+                    # print(p[1], p[2], "found")
+                    # print("here", object_dictionary[p[1]][p[2]])
+                    # print("after", object_dictionary)
+
+                else:
+                    print("TypeError")
+
+        else:
+            print("object", p[1], "does not exist")
+
+        # print ("object_dictionary objassign", object_dictionary)
+        # print("struct_dictionary objassign", struct_dictionary)
+
+
+
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         # if p[1] in object_dictionary:
         #     if p[2] in object_dictionary[p[1]]:
         #         print("p1", p[1], "p2", p[2], "obj[p[1]]", object_dictionary[p[1]])
@@ -199,7 +263,9 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 variable_dictionary[p[1]] = ['int', 0]
         for i in range (start, stop):
             variable_dictionary[p[1]] = ['int', i]
-            stmt_eval(p[4])
+            for j in range(0, len(statement)):
+                statements = statement[j]
+                stmt_eval(statements)
 
     elif stype == "CONDITIONAL":
         if_exists = True
@@ -209,8 +275,10 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         statement = p[3]
         result = exp_eval(condition)
         if result == True:
-            stype = statement[0]
-            stmt_eval(p[3])
+            for i in range(0, len(statement)):
+                statements = statement[i]
+                stype = statements[0]
+                stmt_eval(statements)
         else:
             if_check = False
     elif stype == "CONDITIONALELSE":
@@ -218,8 +286,10 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             if if_check == False:
                 local_variable_dictionary = {}
                 statement = p[1]
-                stype = statement[0]
-                stmt_eval(p[1])
+                for i in range(0, len(statement)):
+                    statements = statement[i]
+                    stype = statements[0]
+                    stmt_eval(statements)
                 if_check = True
             if_exists = False
         else:
