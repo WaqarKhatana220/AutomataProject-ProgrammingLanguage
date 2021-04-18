@@ -1,8 +1,8 @@
-int x = 1;
+struct BookStruct{
+    string title;
+}
 
 
-for a = 1 to 10
-print(a);
-print ("yes");
-print (x);
-next
+BookStruct Booki;
+
+Book1->title = "hello";

@@ -156,6 +156,13 @@ def p_exp_not(p):
     """
     p[0] = (p[1], p[2])
 
+def p_exp_unaryminus(p):
+    """
+    exp : MINUS INT
+        | MINUS NAME
+    """
+    p[0] = ('UNARYMINUS', p[2])
+
 def p_exp_comma(p):
     """ 
     exp : exp COMMA exp

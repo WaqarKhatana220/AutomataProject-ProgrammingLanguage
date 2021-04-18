@@ -81,7 +81,8 @@ def exp_eval(p): # evaluate expression
         print ("TypeError")
         exit(1)
     except Exception as e:
-        return e
+        print (e)
+        exit(1)
         
 
 
@@ -106,8 +107,10 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 variable_dictionary[p[2]] = [p[1], result]
             else:
                 print("type not matched")
+                exit(1)
         else:
             print("redeclaration error")
+            exit(1)
         
         # print (variable_dictionary)p[4]
     elif stype == "STRUCTDEC":
@@ -123,6 +126,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                 # print("struct_dictionary", struct_dictionary)
         else:
             print("struct", p[1], " already defined")
+            exit(1)
         # print ("object_dictionary struct_dec", object_dictionary)
         # print("struct_dictionary struct_dec", struct_dictionary)
 
@@ -130,14 +134,14 @@ def stmt_eval(p): # p is the parsed statement subtree / program
         print("struct_dictionary objdec 1", struct_dictionary)
         print ("object_dictionary obgdec 1", object_dictionary)
         z = struct_dictionary[p[1]]
-
+        print("z here", z)
         if p[1] in struct_dictionary:
             if p[2] not in object_dictionary:
                 print("struct_dictionary objdec 2", struct_dictionary)
                 print ("object_dictionary obgdec 2", object_dictionary)
                 # object_dictionary[p[2]] = struct_dictionary[p[1]]
+                object_dictionary[p[2]] = struct_dictionary[p[1]]
                 print("z", z)
-                object_dictionary[p[2]] = z
                 print("struct_dictionary objdec 3", struct_dictionary)
                 print ("object_dictionary obgdec 3", object_dictionary)
                 # print("object_dictionaryyyy", object_dictionary)
@@ -148,6 +152,7 @@ def stmt_eval(p): # p is the parsed statement subtree / program
                         print("struct_dictionary objdec 4", struct_dictionary)
                         print ("object_dictionary obgdec 4", object_dictionary)
                         object_dictionary[p[2]][keys] = "s"
+                        print("z is", z)
                         print("struct_dictionary objdec 5", struct_dictionary)
                         print ("object_dictionary obgdec 5", object_dictionary)
                     elif object_dictionary[p[2]][keys] == 'char':
@@ -160,8 +165,11 @@ def stmt_eval(p): # p is the parsed statement subtree / program
 
             else:
                 print ("object", p[2], "already defined")
+                exit(1)
+
         else:
             print("invalid data type")
+            exit(1)
         print("struct_dictionary objdec n", struct_dictionary)
         print ("object_dictionary obgdec n", object_dictionary)
     elif stype == "OBJASSIGN":
@@ -179,29 +187,14 @@ def stmt_eval(p): # p is the parsed statement subtree / program
 
                 else:
                     print("TypeError")
+                    exit(1)
 
         else:
             print("object", p[1], "does not exist")
+            exit(1)
 
-        # print ("object_dictionary objassign", object_dictionary)
-        # print("struct_dictionary objassign", struct_dictionary)
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
+        print ("object_dictionary objassign", object_dictionary)
+        print("struct_dictionary objassign", struct_dictionary)
 
 
 
@@ -239,10 +232,14 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             # print("after assignment", variable_dictionary)
         else:
             print("variable '", p[1], "' used but not defined")
+            exit(1)
     elif stype == "INC_DEC":
         if p[1] in variable_dictionary:
             result = inc_dec_calculator(p[1], p[2])
             variable_dictionary[p[1]][1] = result
+        else:
+            print("variable '", p[1], "' used but not defined")
+            exit(1)
     elif stype == "FOR":
         start = p[2]
         stop = p[3]
@@ -294,6 +291,8 @@ def stmt_eval(p): # p is the parsed statement subtree / program
             if_exists = False
         else:
             print("else without if")
+            exit(1)
+
 
     # print(variable_dictionary)   
 

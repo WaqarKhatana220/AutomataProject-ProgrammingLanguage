@@ -40,54 +40,56 @@ Rule 30    exp -> exp OR exp
 Rule 31    exp -> NAME ARROW NAME
 Rule 32    exp -> LPAREN exp RPAREN
 Rule 33    exp -> NOT exp
-Rule 34    exp -> exp COMMA exp
-Rule 35    exp -> INT
-Rule 36    exp -> FLOAT
-Rule 37    exp -> STRING
-Rule 38    exp -> CHAR
-Rule 39    exp -> BOOL
-Rule 40    exp -> NAME
-Rule 41    stmt -> DTYPE NAME EQUAL exp SEMICOLON
-Rule 42    DTYPE -> int
-Rule 43    DTYPE -> string
-Rule 44    DTYPE -> float
-Rule 45    DTYPE -> bool
-Rule 46    DTYPE -> char
-Rule 47    stmt -> NAME EQUAL exp SEMICOLON
-Rule 48    stmt -> FOR NAME EQUAL FROM TO END stmts NEXT
-Rule 49    FROM -> INT
-Rule 50    FROM -> NAME
-Rule 51    END -> INT
-Rule 52    END -> NAME
+Rule 34    exp -> MINUS INT
+Rule 35    exp -> MINUS NAME
+Rule 36    exp -> exp COMMA exp
+Rule 37    exp -> INT
+Rule 38    exp -> FLOAT
+Rule 39    exp -> STRING
+Rule 40    exp -> CHAR
+Rule 41    exp -> BOOL
+Rule 42    exp -> NAME
+Rule 43    stmt -> DTYPE NAME EQUAL exp SEMICOLON
+Rule 44    DTYPE -> int
+Rule 45    DTYPE -> string
+Rule 46    DTYPE -> float
+Rule 47    DTYPE -> bool
+Rule 48    DTYPE -> char
+Rule 49    stmt -> NAME EQUAL exp SEMICOLON
+Rule 50    stmt -> FOR NAME EQUAL FROM TO END stmts NEXT
+Rule 51    FROM -> INT
+Rule 52    FROM -> NAME
+Rule 53    END -> INT
+Rule 54    END -> NAME
 
 Terminals, with rules where they appear
 
 AND                  : 29
 ARROW                : 7 31
-BOOL                 : 39
-CHAR                 : 38
-COMMA                : 34
+BOOL                 : 41
+CHAR                 : 40
+COMMA                : 36
 DIVIDE               : 19
 ELIF                 : 15
 ELSE                 : 12
-EQUAL                : 7 41 47 48
+EQUAL                : 7 43 49 50
 EQUALEQUAL           : 28
-FLOAT                : 36
-FOR                  : 48
+FLOAT                : 38
+FOR                  : 50
 GREATERTHAN          : 24
 GREATERTHANEQUALTO   : 25
 IF                   : 11
-INT                  : 35 49 51
+INT                  : 34 37 51 53
 LCBRACKET            : 3 11 12 15
 LESSTHAN             : 23
 LESSTHANEQUALTO      : 26
 LPAREN               : 11 15 16 32
-MINUS                : 18
+MINUS                : 18 34 35
 MINUSMINUS           : 10
 MODULUS              : 21
 MULTIPLY             : 20
-NAME                 : 3 4 6 6 7 7 8 31 31 40 41 47 48 50 52
-NEXT                 : 48
+NAME                 : 3 4 6 6 7 7 8 31 31 35 42 43 49 50 52 54
+NEXT                 : 50
 NOT                  : 33
 NOTEQUAL             : 27
 OR                   : 30
@@ -97,29 +99,29 @@ POWER                : 22
 PRINT                : 16
 RCBRACKET            : 3 11 12 15
 RPAREN               : 11 15 16 32
-SEMICOLON            : 4 6 7 8 16 41 47
+SEMICOLON            : 4 6 7 8 16 43 49
 STEP                 : 
-STRING               : 37
+STRING               : 39
 STRUCT               : 3
-TO                   : 48
-bool                 : 45
-char                 : 46
+TO                   : 50
+bool                 : 47
+char                 : 48
 error                : 
-float                : 44
-int                  : 42
-string               : 43
+float                : 46
+int                  : 44
+string               : 45
 
 Nonterminals, with rules where they appear
 
-DTYPE                : 4 41
-END                  : 48
-FROM                 : 48
+DTYPE                : 4 43
+END                  : 50
+FROM                 : 50
 S                    : 1 0
-exp                  : 7 11 15 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 32 33 34 34 41 47
+exp                  : 7 11 15 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 32 33 36 36 43 49
 operator             : 8
 statement            : 3 4
 stmt                 : 1 13 15
-stmts                : 11 12 13 48
+stmts                : 11 12 13 50
 
 Parsing method: LALR
 
@@ -136,14 +138,14 @@ state 0
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     $end            reduce using rule 2 (S -> .)
     STRUCT          shift and go to state 3
@@ -182,14 +184,14 @@ state 2
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     $end            reduce using rule 2 (S -> .)
     STRUCT          shift and go to state 3
@@ -221,7 +223,7 @@ state 4
     (6) stmt -> NAME . NAME SEMICOLON
     (7) stmt -> NAME . ARROW NAME EQUAL exp SEMICOLON
     (8) stmt -> NAME . operator SEMICOLON
-    (47) stmt -> NAME . EQUAL exp SEMICOLON
+    (49) stmt -> NAME . EQUAL exp SEMICOLON
     (9) operator -> . PLUSPLUS
     (10) operator -> . MINUSMINUS
 
@@ -263,51 +265,51 @@ state 8
 
 state 9
 
-    (41) stmt -> DTYPE . NAME EQUAL exp SEMICOLON
+    (43) stmt -> DTYPE . NAME EQUAL exp SEMICOLON
 
     NAME            shift and go to state 28
 
 
 state 10
 
-    (48) stmt -> FOR . NAME EQUAL FROM TO END stmts NEXT
+    (50) stmt -> FOR . NAME EQUAL FROM TO END stmts NEXT
 
     NAME            shift and go to state 29
 
 
 state 11
 
-    (42) DTYPE -> int .
+    (44) DTYPE -> int .
 
-    NAME            reduce using rule 42 (DTYPE -> int .)
+    NAME            reduce using rule 44 (DTYPE -> int .)
 
 
 state 12
 
-    (43) DTYPE -> string .
+    (45) DTYPE -> string .
 
-    NAME            reduce using rule 43 (DTYPE -> string .)
+    NAME            reduce using rule 45 (DTYPE -> string .)
 
 
 state 13
 
-    (44) DTYPE -> float .
+    (46) DTYPE -> float .
 
-    NAME            reduce using rule 44 (DTYPE -> float .)
+    NAME            reduce using rule 46 (DTYPE -> float .)
 
 
 state 14
 
-    (45) DTYPE -> bool .
+    (47) DTYPE -> bool .
 
-    NAME            reduce using rule 45 (DTYPE -> bool .)
+    NAME            reduce using rule 47 (DTYPE -> bool .)
 
 
 state 15
 
-    (46) DTYPE -> char .
+    (48) DTYPE -> char .
 
-    NAME            reduce using rule 46 (DTYPE -> char .)
+    NAME            reduce using rule 48 (DTYPE -> char .)
 
 
 state 16
@@ -340,7 +342,7 @@ state 19
 
 state 20
 
-    (47) stmt -> NAME EQUAL . exp SEMICOLON
+    (49) stmt -> NAME EQUAL . exp SEMICOLON
     (17) exp -> . exp PLUS exp
     (18) exp -> . exp MINUS exp
     (19) exp -> . exp DIVIDE exp
@@ -358,22 +360,25 @@ state 20
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
     exp                            shift and go to state 34
 
@@ -381,7 +386,7 @@ state 21
 
     (8) stmt -> NAME operator . SEMICOLON
 
-    SEMICOLON       shift and go to state 42
+    SEMICOLON       shift and go to state 43
 
 
 state 22
@@ -418,24 +423,27 @@ state 24
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 43
+    exp                            shift and go to state 44
 
 state 25
 
@@ -450,14 +458,14 @@ state 25
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     RCBRACKET       reduce using rule 14 (stmts -> .)
     STRUCT          shift and go to state 3
@@ -473,8 +481,8 @@ state 25
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    stmts                          shift and go to state 44
-    stmt                           shift and go to state 45
+    stmts                          shift and go to state 45
+    stmt                           shift and go to state 46
     DTYPE                          shift and go to state 9
 
 state 26
@@ -497,24 +505,27 @@ state 26
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 46
+    exp                            shift and go to state 47
 
 state 27
 
@@ -536,37 +547,40 @@ state 27
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 47
+    exp                            shift and go to state 48
 
 state 28
 
-    (41) stmt -> DTYPE NAME . EQUAL exp SEMICOLON
+    (43) stmt -> DTYPE NAME . EQUAL exp SEMICOLON
 
-    EQUAL           shift and go to state 48
+    EQUAL           shift and go to state 49
 
 
 state 29
 
-    (48) stmt -> FOR NAME . EQUAL FROM TO END stmts NEXT
+    (50) stmt -> FOR NAME . EQUAL FROM TO END stmts NEXT
 
-    EQUAL           shift and go to state 49
+    EQUAL           shift and go to state 50
 
 
 state 30
@@ -574,11 +588,11 @@ state 30
     (3) stmt -> STRUCT NAME LCBRACKET . statement RCBRACKET
     (4) statement -> . DTYPE NAME SEMICOLON statement
     (5) statement -> .
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     RCBRACKET       reduce using rule 5 (statement -> .)
     int             shift and go to state 11
@@ -587,8 +601,8 @@ state 30
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    statement                      shift and go to state 50
-    DTYPE                          shift and go to state 51
+    statement                      shift and go to state 51
+    DTYPE                          shift and go to state 52
 
 state 31
 
@@ -615,37 +629,37 @@ state 32
 
     (7) stmt -> NAME ARROW NAME . EQUAL exp SEMICOLON
 
-    EQUAL           shift and go to state 52
+    EQUAL           shift and go to state 53
 
 
 state 33
 
     (31) exp -> NAME . ARROW NAME
-    (40) exp -> NAME .
+    (42) exp -> NAME .
 
-    ARROW           shift and go to state 53
-    SEMICOLON       reduce using rule 40 (exp -> NAME .)
-    PLUS            reduce using rule 40 (exp -> NAME .)
-    MINUS           reduce using rule 40 (exp -> NAME .)
-    DIVIDE          reduce using rule 40 (exp -> NAME .)
-    MULTIPLY        reduce using rule 40 (exp -> NAME .)
-    MODULUS         reduce using rule 40 (exp -> NAME .)
-    POWER           reduce using rule 40 (exp -> NAME .)
-    LESSTHAN        reduce using rule 40 (exp -> NAME .)
-    GREATERTHAN     reduce using rule 40 (exp -> NAME .)
-    GREATERTHANEQUALTO reduce using rule 40 (exp -> NAME .)
-    LESSTHANEQUALTO reduce using rule 40 (exp -> NAME .)
-    NOTEQUAL        reduce using rule 40 (exp -> NAME .)
-    EQUALEQUAL      reduce using rule 40 (exp -> NAME .)
-    AND             reduce using rule 40 (exp -> NAME .)
-    OR              reduce using rule 40 (exp -> NAME .)
-    COMMA           reduce using rule 40 (exp -> NAME .)
-    RPAREN          reduce using rule 40 (exp -> NAME .)
+    ARROW           shift and go to state 54
+    SEMICOLON       reduce using rule 42 (exp -> NAME .)
+    PLUS            reduce using rule 42 (exp -> NAME .)
+    MINUS           reduce using rule 42 (exp -> NAME .)
+    DIVIDE          reduce using rule 42 (exp -> NAME .)
+    MULTIPLY        reduce using rule 42 (exp -> NAME .)
+    MODULUS         reduce using rule 42 (exp -> NAME .)
+    POWER           reduce using rule 42 (exp -> NAME .)
+    LESSTHAN        reduce using rule 42 (exp -> NAME .)
+    GREATERTHAN     reduce using rule 42 (exp -> NAME .)
+    GREATERTHANEQUALTO reduce using rule 42 (exp -> NAME .)
+    LESSTHANEQUALTO reduce using rule 42 (exp -> NAME .)
+    NOTEQUAL        reduce using rule 42 (exp -> NAME .)
+    EQUALEQUAL      reduce using rule 42 (exp -> NAME .)
+    AND             reduce using rule 42 (exp -> NAME .)
+    OR              reduce using rule 42 (exp -> NAME .)
+    COMMA           reduce using rule 42 (exp -> NAME .)
+    RPAREN          reduce using rule 42 (exp -> NAME .)
 
 
 state 34
 
-    (47) stmt -> NAME EQUAL exp . SEMICOLON
+    (49) stmt -> NAME EQUAL exp . SEMICOLON
     (17) exp -> exp . PLUS exp
     (18) exp -> exp . MINUS exp
     (19) exp -> exp . DIVIDE exp
@@ -660,27 +674,36 @@ state 34
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    SEMICOLON       shift and go to state 54
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    SEMICOLON       shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
 state 35
+
+    (34) exp -> MINUS . INT
+    (35) exp -> MINUS . NAME
+
+    INT             shift and go to state 71
+    NAME            shift and go to state 72
+
+
+state 36
 
     (32) exp -> LPAREN . exp RPAREN
     (17) exp -> . exp PLUS exp
@@ -700,26 +723,29 @@ state 35
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 70
+    exp                            shift and go to state 73
 
-state 36
+state 37
 
     (33) exp -> NOT . exp
     (17) exp -> . exp PLUS exp
@@ -739,141 +765,144 @@ state 36
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 71
-
-state 37
-
-    (35) exp -> INT .
-
-    SEMICOLON       reduce using rule 35 (exp -> INT .)
-    PLUS            reduce using rule 35 (exp -> INT .)
-    MINUS           reduce using rule 35 (exp -> INT .)
-    DIVIDE          reduce using rule 35 (exp -> INT .)
-    MULTIPLY        reduce using rule 35 (exp -> INT .)
-    MODULUS         reduce using rule 35 (exp -> INT .)
-    POWER           reduce using rule 35 (exp -> INT .)
-    LESSTHAN        reduce using rule 35 (exp -> INT .)
-    GREATERTHAN     reduce using rule 35 (exp -> INT .)
-    GREATERTHANEQUALTO reduce using rule 35 (exp -> INT .)
-    LESSTHANEQUALTO reduce using rule 35 (exp -> INT .)
-    NOTEQUAL        reduce using rule 35 (exp -> INT .)
-    EQUALEQUAL      reduce using rule 35 (exp -> INT .)
-    AND             reduce using rule 35 (exp -> INT .)
-    OR              reduce using rule 35 (exp -> INT .)
-    COMMA           reduce using rule 35 (exp -> INT .)
-    RPAREN          reduce using rule 35 (exp -> INT .)
-
+    exp                            shift and go to state 74
 
 state 38
 
-    (36) exp -> FLOAT .
+    (37) exp -> INT .
 
-    SEMICOLON       reduce using rule 36 (exp -> FLOAT .)
-    PLUS            reduce using rule 36 (exp -> FLOAT .)
-    MINUS           reduce using rule 36 (exp -> FLOAT .)
-    DIVIDE          reduce using rule 36 (exp -> FLOAT .)
-    MULTIPLY        reduce using rule 36 (exp -> FLOAT .)
-    MODULUS         reduce using rule 36 (exp -> FLOAT .)
-    POWER           reduce using rule 36 (exp -> FLOAT .)
-    LESSTHAN        reduce using rule 36 (exp -> FLOAT .)
-    GREATERTHAN     reduce using rule 36 (exp -> FLOAT .)
-    GREATERTHANEQUALTO reduce using rule 36 (exp -> FLOAT .)
-    LESSTHANEQUALTO reduce using rule 36 (exp -> FLOAT .)
-    NOTEQUAL        reduce using rule 36 (exp -> FLOAT .)
-    EQUALEQUAL      reduce using rule 36 (exp -> FLOAT .)
-    AND             reduce using rule 36 (exp -> FLOAT .)
-    OR              reduce using rule 36 (exp -> FLOAT .)
-    COMMA           reduce using rule 36 (exp -> FLOAT .)
-    RPAREN          reduce using rule 36 (exp -> FLOAT .)
+    SEMICOLON       reduce using rule 37 (exp -> INT .)
+    PLUS            reduce using rule 37 (exp -> INT .)
+    MINUS           reduce using rule 37 (exp -> INT .)
+    DIVIDE          reduce using rule 37 (exp -> INT .)
+    MULTIPLY        reduce using rule 37 (exp -> INT .)
+    MODULUS         reduce using rule 37 (exp -> INT .)
+    POWER           reduce using rule 37 (exp -> INT .)
+    LESSTHAN        reduce using rule 37 (exp -> INT .)
+    GREATERTHAN     reduce using rule 37 (exp -> INT .)
+    GREATERTHANEQUALTO reduce using rule 37 (exp -> INT .)
+    LESSTHANEQUALTO reduce using rule 37 (exp -> INT .)
+    NOTEQUAL        reduce using rule 37 (exp -> INT .)
+    EQUALEQUAL      reduce using rule 37 (exp -> INT .)
+    AND             reduce using rule 37 (exp -> INT .)
+    OR              reduce using rule 37 (exp -> INT .)
+    COMMA           reduce using rule 37 (exp -> INT .)
+    RPAREN          reduce using rule 37 (exp -> INT .)
 
 
 state 39
 
-    (37) exp -> STRING .
+    (38) exp -> FLOAT .
 
-    SEMICOLON       reduce using rule 37 (exp -> STRING .)
-    PLUS            reduce using rule 37 (exp -> STRING .)
-    MINUS           reduce using rule 37 (exp -> STRING .)
-    DIVIDE          reduce using rule 37 (exp -> STRING .)
-    MULTIPLY        reduce using rule 37 (exp -> STRING .)
-    MODULUS         reduce using rule 37 (exp -> STRING .)
-    POWER           reduce using rule 37 (exp -> STRING .)
-    LESSTHAN        reduce using rule 37 (exp -> STRING .)
-    GREATERTHAN     reduce using rule 37 (exp -> STRING .)
-    GREATERTHANEQUALTO reduce using rule 37 (exp -> STRING .)
-    LESSTHANEQUALTO reduce using rule 37 (exp -> STRING .)
-    NOTEQUAL        reduce using rule 37 (exp -> STRING .)
-    EQUALEQUAL      reduce using rule 37 (exp -> STRING .)
-    AND             reduce using rule 37 (exp -> STRING .)
-    OR              reduce using rule 37 (exp -> STRING .)
-    COMMA           reduce using rule 37 (exp -> STRING .)
-    RPAREN          reduce using rule 37 (exp -> STRING .)
+    SEMICOLON       reduce using rule 38 (exp -> FLOAT .)
+    PLUS            reduce using rule 38 (exp -> FLOAT .)
+    MINUS           reduce using rule 38 (exp -> FLOAT .)
+    DIVIDE          reduce using rule 38 (exp -> FLOAT .)
+    MULTIPLY        reduce using rule 38 (exp -> FLOAT .)
+    MODULUS         reduce using rule 38 (exp -> FLOAT .)
+    POWER           reduce using rule 38 (exp -> FLOAT .)
+    LESSTHAN        reduce using rule 38 (exp -> FLOAT .)
+    GREATERTHAN     reduce using rule 38 (exp -> FLOAT .)
+    GREATERTHANEQUALTO reduce using rule 38 (exp -> FLOAT .)
+    LESSTHANEQUALTO reduce using rule 38 (exp -> FLOAT .)
+    NOTEQUAL        reduce using rule 38 (exp -> FLOAT .)
+    EQUALEQUAL      reduce using rule 38 (exp -> FLOAT .)
+    AND             reduce using rule 38 (exp -> FLOAT .)
+    OR              reduce using rule 38 (exp -> FLOAT .)
+    COMMA           reduce using rule 38 (exp -> FLOAT .)
+    RPAREN          reduce using rule 38 (exp -> FLOAT .)
 
 
 state 40
 
-    (38) exp -> CHAR .
+    (39) exp -> STRING .
 
-    SEMICOLON       reduce using rule 38 (exp -> CHAR .)
-    PLUS            reduce using rule 38 (exp -> CHAR .)
-    MINUS           reduce using rule 38 (exp -> CHAR .)
-    DIVIDE          reduce using rule 38 (exp -> CHAR .)
-    MULTIPLY        reduce using rule 38 (exp -> CHAR .)
-    MODULUS         reduce using rule 38 (exp -> CHAR .)
-    POWER           reduce using rule 38 (exp -> CHAR .)
-    LESSTHAN        reduce using rule 38 (exp -> CHAR .)
-    GREATERTHAN     reduce using rule 38 (exp -> CHAR .)
-    GREATERTHANEQUALTO reduce using rule 38 (exp -> CHAR .)
-    LESSTHANEQUALTO reduce using rule 38 (exp -> CHAR .)
-    NOTEQUAL        reduce using rule 38 (exp -> CHAR .)
-    EQUALEQUAL      reduce using rule 38 (exp -> CHAR .)
-    AND             reduce using rule 38 (exp -> CHAR .)
-    OR              reduce using rule 38 (exp -> CHAR .)
-    COMMA           reduce using rule 38 (exp -> CHAR .)
-    RPAREN          reduce using rule 38 (exp -> CHAR .)
+    SEMICOLON       reduce using rule 39 (exp -> STRING .)
+    PLUS            reduce using rule 39 (exp -> STRING .)
+    MINUS           reduce using rule 39 (exp -> STRING .)
+    DIVIDE          reduce using rule 39 (exp -> STRING .)
+    MULTIPLY        reduce using rule 39 (exp -> STRING .)
+    MODULUS         reduce using rule 39 (exp -> STRING .)
+    POWER           reduce using rule 39 (exp -> STRING .)
+    LESSTHAN        reduce using rule 39 (exp -> STRING .)
+    GREATERTHAN     reduce using rule 39 (exp -> STRING .)
+    GREATERTHANEQUALTO reduce using rule 39 (exp -> STRING .)
+    LESSTHANEQUALTO reduce using rule 39 (exp -> STRING .)
+    NOTEQUAL        reduce using rule 39 (exp -> STRING .)
+    EQUALEQUAL      reduce using rule 39 (exp -> STRING .)
+    AND             reduce using rule 39 (exp -> STRING .)
+    OR              reduce using rule 39 (exp -> STRING .)
+    COMMA           reduce using rule 39 (exp -> STRING .)
+    RPAREN          reduce using rule 39 (exp -> STRING .)
 
 
 state 41
 
-    (39) exp -> BOOL .
+    (40) exp -> CHAR .
 
-    SEMICOLON       reduce using rule 39 (exp -> BOOL .)
-    PLUS            reduce using rule 39 (exp -> BOOL .)
-    MINUS           reduce using rule 39 (exp -> BOOL .)
-    DIVIDE          reduce using rule 39 (exp -> BOOL .)
-    MULTIPLY        reduce using rule 39 (exp -> BOOL .)
-    MODULUS         reduce using rule 39 (exp -> BOOL .)
-    POWER           reduce using rule 39 (exp -> BOOL .)
-    LESSTHAN        reduce using rule 39 (exp -> BOOL .)
-    GREATERTHAN     reduce using rule 39 (exp -> BOOL .)
-    GREATERTHANEQUALTO reduce using rule 39 (exp -> BOOL .)
-    LESSTHANEQUALTO reduce using rule 39 (exp -> BOOL .)
-    NOTEQUAL        reduce using rule 39 (exp -> BOOL .)
-    EQUALEQUAL      reduce using rule 39 (exp -> BOOL .)
-    AND             reduce using rule 39 (exp -> BOOL .)
-    OR              reduce using rule 39 (exp -> BOOL .)
-    COMMA           reduce using rule 39 (exp -> BOOL .)
-    RPAREN          reduce using rule 39 (exp -> BOOL .)
+    SEMICOLON       reduce using rule 40 (exp -> CHAR .)
+    PLUS            reduce using rule 40 (exp -> CHAR .)
+    MINUS           reduce using rule 40 (exp -> CHAR .)
+    DIVIDE          reduce using rule 40 (exp -> CHAR .)
+    MULTIPLY        reduce using rule 40 (exp -> CHAR .)
+    MODULUS         reduce using rule 40 (exp -> CHAR .)
+    POWER           reduce using rule 40 (exp -> CHAR .)
+    LESSTHAN        reduce using rule 40 (exp -> CHAR .)
+    GREATERTHAN     reduce using rule 40 (exp -> CHAR .)
+    GREATERTHANEQUALTO reduce using rule 40 (exp -> CHAR .)
+    LESSTHANEQUALTO reduce using rule 40 (exp -> CHAR .)
+    NOTEQUAL        reduce using rule 40 (exp -> CHAR .)
+    EQUALEQUAL      reduce using rule 40 (exp -> CHAR .)
+    AND             reduce using rule 40 (exp -> CHAR .)
+    OR              reduce using rule 40 (exp -> CHAR .)
+    COMMA           reduce using rule 40 (exp -> CHAR .)
+    RPAREN          reduce using rule 40 (exp -> CHAR .)
 
 
 state 42
+
+    (41) exp -> BOOL .
+
+    SEMICOLON       reduce using rule 41 (exp -> BOOL .)
+    PLUS            reduce using rule 41 (exp -> BOOL .)
+    MINUS           reduce using rule 41 (exp -> BOOL .)
+    DIVIDE          reduce using rule 41 (exp -> BOOL .)
+    MULTIPLY        reduce using rule 41 (exp -> BOOL .)
+    MODULUS         reduce using rule 41 (exp -> BOOL .)
+    POWER           reduce using rule 41 (exp -> BOOL .)
+    LESSTHAN        reduce using rule 41 (exp -> BOOL .)
+    GREATERTHAN     reduce using rule 41 (exp -> BOOL .)
+    GREATERTHANEQUALTO reduce using rule 41 (exp -> BOOL .)
+    LESSTHANEQUALTO reduce using rule 41 (exp -> BOOL .)
+    NOTEQUAL        reduce using rule 41 (exp -> BOOL .)
+    EQUALEQUAL      reduce using rule 41 (exp -> BOOL .)
+    AND             reduce using rule 41 (exp -> BOOL .)
+    OR              reduce using rule 41 (exp -> BOOL .)
+    COMMA           reduce using rule 41 (exp -> BOOL .)
+    RPAREN          reduce using rule 41 (exp -> BOOL .)
+
+
+state 43
 
     (8) stmt -> NAME operator SEMICOLON .
 
@@ -894,7 +923,7 @@ state 42
     NEXT            reduce using rule 8 (stmt -> NAME operator SEMICOLON .)
 
 
-state 43
+state 44
 
     (11) stmt -> IF LPAREN exp . RPAREN LCBRACKET stmts RCBRACKET
     (17) exp -> exp . PLUS exp
@@ -911,34 +940,34 @@ state 43
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    RPAREN          shift and go to state 72
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
-
-
-state 44
-
-    (12) stmt -> ELSE LCBRACKET stmts . RCBRACKET
-
-    RCBRACKET       shift and go to state 73
+    RPAREN          shift and go to state 75
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
 state 45
+
+    (12) stmt -> ELSE LCBRACKET stmts . RCBRACKET
+
+    RCBRACKET       shift and go to state 76
+
+
+state 46
 
     (13) stmts -> stmt . stmts
     (13) stmts -> . stmt stmts
@@ -951,14 +980,14 @@ state 45
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     RCBRACKET       reduce using rule 14 (stmts -> .)
     NEXT            reduce using rule 14 (stmts -> .)
@@ -975,11 +1004,11 @@ state 45
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    stmt                           shift and go to state 45
-    stmts                          shift and go to state 74
+    stmt                           shift and go to state 46
+    stmts                          shift and go to state 77
     DTYPE                          shift and go to state 9
 
-state 46
+state 47
 
     (15) stmt -> ELIF LPAREN exp . RPAREN LCBRACKET stmt RCBRACKET
     (17) exp -> exp . PLUS exp
@@ -996,27 +1025,27 @@ state 46
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    RPAREN          shift and go to state 75
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    RPAREN          shift and go to state 78
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
-state 47
+state 48
 
     (16) stmt -> PRINT LPAREN exp . RPAREN SEMICOLON
     (17) exp -> exp . PLUS exp
@@ -1033,29 +1062,29 @@ state 47
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    RPAREN          shift and go to state 76
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    RPAREN          shift and go to state 79
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
-state 48
+state 49
 
-    (41) stmt -> DTYPE NAME EQUAL . exp SEMICOLON
+    (43) stmt -> DTYPE NAME EQUAL . exp SEMICOLON
     (17) exp -> . exp PLUS exp
     (18) exp -> . exp MINUS exp
     (19) exp -> . exp DIVIDE exp
@@ -1073,51 +1102,54 @@ state 48
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 77
-
-state 49
-
-    (48) stmt -> FOR NAME EQUAL . FROM TO END stmts NEXT
-    (49) FROM -> . INT
-    (50) FROM -> . NAME
-
-    INT             shift and go to state 80
-    NAME            shift and go to state 78
-
-    FROM                           shift and go to state 79
+    exp                            shift and go to state 80
 
 state 50
 
-    (3) stmt -> STRUCT NAME LCBRACKET statement . RCBRACKET
+    (50) stmt -> FOR NAME EQUAL . FROM TO END stmts NEXT
+    (51) FROM -> . INT
+    (52) FROM -> . NAME
 
-    RCBRACKET       shift and go to state 81
+    INT             shift and go to state 83
+    NAME            shift and go to state 81
 
+    FROM                           shift and go to state 82
 
 state 51
 
-    (4) statement -> DTYPE . NAME SEMICOLON statement
+    (3) stmt -> STRUCT NAME LCBRACKET statement . RCBRACKET
 
-    NAME            shift and go to state 82
+    RCBRACKET       shift and go to state 84
 
 
 state 52
+
+    (4) statement -> DTYPE . NAME SEMICOLON statement
+
+    NAME            shift and go to state 85
+
+
+state 53
 
     (7) stmt -> NAME ARROW NAME EQUAL . exp SEMICOLON
     (17) exp -> . exp PLUS exp
@@ -1137,54 +1169,57 @@ state 52
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 83
-
-state 53
-
-    (31) exp -> NAME ARROW . NAME
-
-    NAME            shift and go to state 84
-
+    exp                            shift and go to state 86
 
 state 54
 
-    (47) stmt -> NAME EQUAL exp SEMICOLON .
+    (31) exp -> NAME ARROW . NAME
 
-    STRUCT          reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    NAME            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    IF              reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    ELSE            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    ELIF            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    PRINT           reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    FOR             reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    int             reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    string          reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    float           reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    bool            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    char            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    $end            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    RCBRACKET       reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
-    NEXT            reduce using rule 47 (stmt -> NAME EQUAL exp SEMICOLON .)
+    NAME            shift and go to state 87
 
 
 state 55
+
+    (49) stmt -> NAME EQUAL exp SEMICOLON .
+
+    STRUCT          reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    NAME            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    IF              reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    ELSE            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    ELIF            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    PRINT           reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    FOR             reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    int             reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    string          reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    float           reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    bool            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    char            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    $end            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    RCBRACKET       reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+    NEXT            reduce using rule 49 (stmt -> NAME EQUAL exp SEMICOLON .)
+
+
+state 56
 
     (17) exp -> exp PLUS . exp
     (17) exp -> . exp PLUS exp
@@ -1204,26 +1239,29 @@ state 55
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 85
+    exp                            shift and go to state 88
 
-state 56
+state 57
 
     (18) exp -> exp MINUS . exp
     (17) exp -> . exp PLUS exp
@@ -1243,26 +1281,29 @@ state 56
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 86
+    exp                            shift and go to state 89
 
-state 57
+state 58
 
     (19) exp -> exp DIVIDE . exp
     (17) exp -> . exp PLUS exp
@@ -1282,26 +1323,29 @@ state 57
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 87
+    exp                            shift and go to state 90
 
-state 58
+state 59
 
     (20) exp -> exp MULTIPLY . exp
     (17) exp -> . exp PLUS exp
@@ -1321,26 +1365,29 @@ state 58
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 88
+    exp                            shift and go to state 91
 
-state 59
+state 60
 
     (21) exp -> exp MODULUS . exp
     (17) exp -> . exp PLUS exp
@@ -1360,26 +1407,29 @@ state 59
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 89
+    exp                            shift and go to state 92
 
-state 60
+state 61
 
     (22) exp -> exp POWER . exp
     (17) exp -> . exp PLUS exp
@@ -1399,26 +1449,29 @@ state 60
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 90
+    exp                            shift and go to state 93
 
-state 61
+state 62
 
     (23) exp -> exp LESSTHAN . exp
     (17) exp -> . exp PLUS exp
@@ -1438,26 +1491,29 @@ state 61
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 91
+    exp                            shift and go to state 94
 
-state 62
+state 63
 
     (24) exp -> exp GREATERTHAN . exp
     (17) exp -> . exp PLUS exp
@@ -1477,26 +1533,29 @@ state 62
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 92
+    exp                            shift and go to state 95
 
-state 63
+state 64
 
     (25) exp -> exp GREATERTHANEQUALTO . exp
     (17) exp -> . exp PLUS exp
@@ -1516,26 +1575,29 @@ state 63
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 93
+    exp                            shift and go to state 96
 
-state 64
+state 65
 
     (26) exp -> exp LESSTHANEQUALTO . exp
     (17) exp -> . exp PLUS exp
@@ -1555,26 +1617,29 @@ state 64
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 94
+    exp                            shift and go to state 97
 
-state 65
+state 66
 
     (27) exp -> exp NOTEQUAL . exp
     (17) exp -> . exp PLUS exp
@@ -1594,26 +1659,29 @@ state 65
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 95
+    exp                            shift and go to state 98
 
-state 66
+state 67
 
     (28) exp -> exp EQUALEQUAL . exp
     (17) exp -> . exp PLUS exp
@@ -1633,26 +1701,29 @@ state 66
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 96
+    exp                            shift and go to state 99
 
-state 67
+state 68
 
     (29) exp -> exp AND . exp
     (17) exp -> . exp PLUS exp
@@ -1672,26 +1743,29 @@ state 67
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 97
+    exp                            shift and go to state 100
 
-state 68
+state 69
 
     (30) exp -> exp OR . exp
     (17) exp -> . exp PLUS exp
@@ -1711,28 +1785,31 @@ state 68
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 98
+    exp                            shift and go to state 101
 
-state 69
+state 70
 
-    (34) exp -> exp COMMA . exp
+    (36) exp -> exp COMMA . exp
     (17) exp -> . exp PLUS exp
     (18) exp -> . exp MINUS exp
     (19) exp -> . exp DIVIDE exp
@@ -1750,26 +1827,75 @@ state 69
     (31) exp -> . NAME ARROW NAME
     (32) exp -> . LPAREN exp RPAREN
     (33) exp -> . NOT exp
-    (34) exp -> . exp COMMA exp
-    (35) exp -> . INT
-    (36) exp -> . FLOAT
-    (37) exp -> . STRING
-    (38) exp -> . CHAR
-    (39) exp -> . BOOL
-    (40) exp -> . NAME
+    (34) exp -> . MINUS INT
+    (35) exp -> . MINUS NAME
+    (36) exp -> . exp COMMA exp
+    (37) exp -> . INT
+    (38) exp -> . FLOAT
+    (39) exp -> . STRING
+    (40) exp -> . CHAR
+    (41) exp -> . BOOL
+    (42) exp -> . NAME
 
     NAME            shift and go to state 33
-    LPAREN          shift and go to state 35
-    NOT             shift and go to state 36
-    INT             shift and go to state 37
-    FLOAT           shift and go to state 38
-    STRING          shift and go to state 39
-    CHAR            shift and go to state 40
-    BOOL            shift and go to state 41
+    LPAREN          shift and go to state 36
+    NOT             shift and go to state 37
+    MINUS           shift and go to state 35
+    INT             shift and go to state 38
+    FLOAT           shift and go to state 39
+    STRING          shift and go to state 40
+    CHAR            shift and go to state 41
+    BOOL            shift and go to state 42
 
-    exp                            shift and go to state 99
+    exp                            shift and go to state 102
 
-state 70
+state 71
+
+    (34) exp -> MINUS INT .
+
+    SEMICOLON       reduce using rule 34 (exp -> MINUS INT .)
+    PLUS            reduce using rule 34 (exp -> MINUS INT .)
+    MINUS           reduce using rule 34 (exp -> MINUS INT .)
+    DIVIDE          reduce using rule 34 (exp -> MINUS INT .)
+    MULTIPLY        reduce using rule 34 (exp -> MINUS INT .)
+    MODULUS         reduce using rule 34 (exp -> MINUS INT .)
+    POWER           reduce using rule 34 (exp -> MINUS INT .)
+    LESSTHAN        reduce using rule 34 (exp -> MINUS INT .)
+    GREATERTHAN     reduce using rule 34 (exp -> MINUS INT .)
+    GREATERTHANEQUALTO reduce using rule 34 (exp -> MINUS INT .)
+    LESSTHANEQUALTO reduce using rule 34 (exp -> MINUS INT .)
+    NOTEQUAL        reduce using rule 34 (exp -> MINUS INT .)
+    EQUALEQUAL      reduce using rule 34 (exp -> MINUS INT .)
+    AND             reduce using rule 34 (exp -> MINUS INT .)
+    OR              reduce using rule 34 (exp -> MINUS INT .)
+    COMMA           reduce using rule 34 (exp -> MINUS INT .)
+    RPAREN          reduce using rule 34 (exp -> MINUS INT .)
+
+
+state 72
+
+    (35) exp -> MINUS NAME .
+
+    SEMICOLON       reduce using rule 35 (exp -> MINUS NAME .)
+    PLUS            reduce using rule 35 (exp -> MINUS NAME .)
+    MINUS           reduce using rule 35 (exp -> MINUS NAME .)
+    DIVIDE          reduce using rule 35 (exp -> MINUS NAME .)
+    MULTIPLY        reduce using rule 35 (exp -> MINUS NAME .)
+    MODULUS         reduce using rule 35 (exp -> MINUS NAME .)
+    POWER           reduce using rule 35 (exp -> MINUS NAME .)
+    LESSTHAN        reduce using rule 35 (exp -> MINUS NAME .)
+    GREATERTHAN     reduce using rule 35 (exp -> MINUS NAME .)
+    GREATERTHANEQUALTO reduce using rule 35 (exp -> MINUS NAME .)
+    LESSTHANEQUALTO reduce using rule 35 (exp -> MINUS NAME .)
+    NOTEQUAL        reduce using rule 35 (exp -> MINUS NAME .)
+    EQUALEQUAL      reduce using rule 35 (exp -> MINUS NAME .)
+    AND             reduce using rule 35 (exp -> MINUS NAME .)
+    OR              reduce using rule 35 (exp -> MINUS NAME .)
+    COMMA           reduce using rule 35 (exp -> MINUS NAME .)
+    RPAREN          reduce using rule 35 (exp -> MINUS NAME .)
+
+
+state 73
 
     (32) exp -> LPAREN exp . RPAREN
     (17) exp -> exp . PLUS exp
@@ -1786,27 +1912,27 @@ state 70
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    RPAREN          shift and go to state 100
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    RPAREN          shift and go to state 103
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
-state 71
+state 74
 
     (33) exp -> NOT exp .
     (17) exp -> exp . PLUS exp
@@ -1823,7 +1949,7 @@ state 71
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1842,21 +1968,21 @@ state 71
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 33 (exp -> NOT exp .)
     RPAREN          reduce using rule 33 (exp -> NOT exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 33 (exp -> NOT exp .) ]
   ! MINUS           [ reduce using rule 33 (exp -> NOT exp .) ]
@@ -1875,14 +2001,14 @@ state 71
   ! COMMA           [ reduce using rule 33 (exp -> NOT exp .) ]
 
 
-state 72
+state 75
 
     (11) stmt -> IF LPAREN exp RPAREN . LCBRACKET stmts RCBRACKET
 
-    LCBRACKET       shift and go to state 101
+    LCBRACKET       shift and go to state 104
 
 
-state 73
+state 76
 
     (12) stmt -> ELSE LCBRACKET stmts RCBRACKET .
 
@@ -1903,7 +2029,7 @@ state 73
     NEXT            reduce using rule 12 (stmt -> ELSE LCBRACKET stmts RCBRACKET .)
 
 
-state 74
+state 77
 
     (13) stmts -> stmt stmts .
 
@@ -1911,23 +2037,23 @@ state 74
     NEXT            reduce using rule 13 (stmts -> stmt stmts .)
 
 
-state 75
+state 78
 
     (15) stmt -> ELIF LPAREN exp RPAREN . LCBRACKET stmt RCBRACKET
 
-    LCBRACKET       shift and go to state 102
+    LCBRACKET       shift and go to state 105
 
 
-state 76
+state 79
 
     (16) stmt -> PRINT LPAREN exp RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 103
+    SEMICOLON       shift and go to state 106
 
 
-state 77
+state 80
 
-    (41) stmt -> DTYPE NAME EQUAL exp . SEMICOLON
+    (43) stmt -> DTYPE NAME EQUAL exp . SEMICOLON
     (17) exp -> exp . PLUS exp
     (18) exp -> exp . MINUS exp
     (19) exp -> exp . DIVIDE exp
@@ -1942,48 +2068,48 @@ state 77
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    SEMICOLON       shift and go to state 104
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
-
-
-state 78
-
-    (50) FROM -> NAME .
-
-    TO              reduce using rule 50 (FROM -> NAME .)
-
-
-state 79
-
-    (48) stmt -> FOR NAME EQUAL FROM . TO END stmts NEXT
-
-    TO              shift and go to state 105
-
-
-state 80
-
-    (49) FROM -> INT .
-
-    TO              reduce using rule 49 (FROM -> INT .)
+    SEMICOLON       shift and go to state 107
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
 state 81
+
+    (52) FROM -> NAME .
+
+    TO              reduce using rule 52 (FROM -> NAME .)
+
+
+state 82
+
+    (50) stmt -> FOR NAME EQUAL FROM . TO END stmts NEXT
+
+    TO              shift and go to state 108
+
+
+state 83
+
+    (51) FROM -> INT .
+
+    TO              reduce using rule 51 (FROM -> INT .)
+
+
+state 84
 
     (3) stmt -> STRUCT NAME LCBRACKET statement RCBRACKET .
 
@@ -2004,14 +2130,14 @@ state 81
     NEXT            reduce using rule 3 (stmt -> STRUCT NAME LCBRACKET statement RCBRACKET .)
 
 
-state 82
+state 85
 
     (4) statement -> DTYPE NAME . SEMICOLON statement
 
-    SEMICOLON       shift and go to state 106
+    SEMICOLON       shift and go to state 109
 
 
-state 83
+state 86
 
     (7) stmt -> NAME ARROW NAME EQUAL exp . SEMICOLON
     (17) exp -> exp . PLUS exp
@@ -2028,27 +2154,27 @@ state 83
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
-    SEMICOLON       shift and go to state 107
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    SEMICOLON       shift and go to state 110
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
 
-state 84
+state 87
 
     (31) exp -> NAME ARROW NAME .
 
@@ -2071,7 +2197,7 @@ state 84
     RPAREN          reduce using rule 31 (exp -> NAME ARROW NAME .)
 
 
-state 85
+state 88
 
     (17) exp -> exp PLUS exp .
     (17) exp -> exp . PLUS exp
@@ -2088,7 +2214,7 @@ state 85
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2107,21 +2233,21 @@ state 85
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 17 (exp -> exp PLUS exp .)
     RPAREN          reduce using rule 17 (exp -> exp PLUS exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 17 (exp -> exp PLUS exp .) ]
   ! MINUS           [ reduce using rule 17 (exp -> exp PLUS exp .) ]
@@ -2140,7 +2266,7 @@ state 85
   ! COMMA           [ reduce using rule 17 (exp -> exp PLUS exp .) ]
 
 
-state 86
+state 89
 
     (18) exp -> exp MINUS exp .
     (17) exp -> exp . PLUS exp
@@ -2157,7 +2283,7 @@ state 86
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2176,21 +2302,21 @@ state 86
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 18 (exp -> exp MINUS exp .)
     RPAREN          reduce using rule 18 (exp -> exp MINUS exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 18 (exp -> exp MINUS exp .) ]
   ! MINUS           [ reduce using rule 18 (exp -> exp MINUS exp .) ]
@@ -2209,7 +2335,7 @@ state 86
   ! COMMA           [ reduce using rule 18 (exp -> exp MINUS exp .) ]
 
 
-state 87
+state 90
 
     (19) exp -> exp DIVIDE exp .
     (17) exp -> exp . PLUS exp
@@ -2226,7 +2352,7 @@ state 87
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2245,21 +2371,21 @@ state 87
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 19 (exp -> exp DIVIDE exp .)
     RPAREN          reduce using rule 19 (exp -> exp DIVIDE exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 19 (exp -> exp DIVIDE exp .) ]
   ! MINUS           [ reduce using rule 19 (exp -> exp DIVIDE exp .) ]
@@ -2278,7 +2404,7 @@ state 87
   ! COMMA           [ reduce using rule 19 (exp -> exp DIVIDE exp .) ]
 
 
-state 88
+state 91
 
     (20) exp -> exp MULTIPLY exp .
     (17) exp -> exp . PLUS exp
@@ -2295,7 +2421,7 @@ state 88
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2314,21 +2440,21 @@ state 88
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 20 (exp -> exp MULTIPLY exp .)
     RPAREN          reduce using rule 20 (exp -> exp MULTIPLY exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 20 (exp -> exp MULTIPLY exp .) ]
   ! MINUS           [ reduce using rule 20 (exp -> exp MULTIPLY exp .) ]
@@ -2347,7 +2473,7 @@ state 88
   ! COMMA           [ reduce using rule 20 (exp -> exp MULTIPLY exp .) ]
 
 
-state 89
+state 92
 
     (21) exp -> exp MODULUS exp .
     (17) exp -> exp . PLUS exp
@@ -2364,7 +2490,7 @@ state 89
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2383,21 +2509,21 @@ state 89
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 21 (exp -> exp MODULUS exp .)
     RPAREN          reduce using rule 21 (exp -> exp MODULUS exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 21 (exp -> exp MODULUS exp .) ]
   ! MINUS           [ reduce using rule 21 (exp -> exp MODULUS exp .) ]
@@ -2416,7 +2542,7 @@ state 89
   ! COMMA           [ reduce using rule 21 (exp -> exp MODULUS exp .) ]
 
 
-state 90
+state 93
 
     (22) exp -> exp POWER exp .
     (17) exp -> exp . PLUS exp
@@ -2433,7 +2559,7 @@ state 90
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2452,21 +2578,21 @@ state 90
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 22 (exp -> exp POWER exp .)
     RPAREN          reduce using rule 22 (exp -> exp POWER exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 22 (exp -> exp POWER exp .) ]
   ! MINUS           [ reduce using rule 22 (exp -> exp POWER exp .) ]
@@ -2485,7 +2611,7 @@ state 90
   ! COMMA           [ reduce using rule 22 (exp -> exp POWER exp .) ]
 
 
-state 91
+state 94
 
     (23) exp -> exp LESSTHAN exp .
     (17) exp -> exp . PLUS exp
@@ -2502,7 +2628,7 @@ state 91
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2521,21 +2647,21 @@ state 91
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 23 (exp -> exp LESSTHAN exp .)
     RPAREN          reduce using rule 23 (exp -> exp LESSTHAN exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 23 (exp -> exp LESSTHAN exp .) ]
   ! MINUS           [ reduce using rule 23 (exp -> exp LESSTHAN exp .) ]
@@ -2554,7 +2680,7 @@ state 91
   ! COMMA           [ reduce using rule 23 (exp -> exp LESSTHAN exp .) ]
 
 
-state 92
+state 95
 
     (24) exp -> exp GREATERTHAN exp .
     (17) exp -> exp . PLUS exp
@@ -2571,7 +2697,7 @@ state 92
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2590,21 +2716,21 @@ state 92
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 24 (exp -> exp GREATERTHAN exp .)
     RPAREN          reduce using rule 24 (exp -> exp GREATERTHAN exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 24 (exp -> exp GREATERTHAN exp .) ]
   ! MINUS           [ reduce using rule 24 (exp -> exp GREATERTHAN exp .) ]
@@ -2623,7 +2749,7 @@ state 92
   ! COMMA           [ reduce using rule 24 (exp -> exp GREATERTHAN exp .) ]
 
 
-state 93
+state 96
 
     (25) exp -> exp GREATERTHANEQUALTO exp .
     (17) exp -> exp . PLUS exp
@@ -2640,7 +2766,7 @@ state 93
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2659,21 +2785,21 @@ state 93
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 25 (exp -> exp GREATERTHANEQUALTO exp .)
     RPAREN          reduce using rule 25 (exp -> exp GREATERTHANEQUALTO exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 25 (exp -> exp GREATERTHANEQUALTO exp .) ]
   ! MINUS           [ reduce using rule 25 (exp -> exp GREATERTHANEQUALTO exp .) ]
@@ -2692,7 +2818,7 @@ state 93
   ! COMMA           [ reduce using rule 25 (exp -> exp GREATERTHANEQUALTO exp .) ]
 
 
-state 94
+state 97
 
     (26) exp -> exp LESSTHANEQUALTO exp .
     (17) exp -> exp . PLUS exp
@@ -2709,7 +2835,7 @@ state 94
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2728,21 +2854,21 @@ state 94
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 26 (exp -> exp LESSTHANEQUALTO exp .)
     RPAREN          reduce using rule 26 (exp -> exp LESSTHANEQUALTO exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 26 (exp -> exp LESSTHANEQUALTO exp .) ]
   ! MINUS           [ reduce using rule 26 (exp -> exp LESSTHANEQUALTO exp .) ]
@@ -2761,7 +2887,7 @@ state 94
   ! COMMA           [ reduce using rule 26 (exp -> exp LESSTHANEQUALTO exp .) ]
 
 
-state 95
+state 98
 
     (27) exp -> exp NOTEQUAL exp .
     (17) exp -> exp . PLUS exp
@@ -2778,7 +2904,7 @@ state 95
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2797,21 +2923,21 @@ state 95
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 27 (exp -> exp NOTEQUAL exp .)
     RPAREN          reduce using rule 27 (exp -> exp NOTEQUAL exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 27 (exp -> exp NOTEQUAL exp .) ]
   ! MINUS           [ reduce using rule 27 (exp -> exp NOTEQUAL exp .) ]
@@ -2830,7 +2956,7 @@ state 95
   ! COMMA           [ reduce using rule 27 (exp -> exp NOTEQUAL exp .) ]
 
 
-state 96
+state 99
 
     (28) exp -> exp EQUALEQUAL exp .
     (17) exp -> exp . PLUS exp
@@ -2847,7 +2973,7 @@ state 96
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2866,21 +2992,21 @@ state 96
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 28 (exp -> exp EQUALEQUAL exp .)
     RPAREN          reduce using rule 28 (exp -> exp EQUALEQUAL exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 28 (exp -> exp EQUALEQUAL exp .) ]
   ! MINUS           [ reduce using rule 28 (exp -> exp EQUALEQUAL exp .) ]
@@ -2899,7 +3025,7 @@ state 96
   ! COMMA           [ reduce using rule 28 (exp -> exp EQUALEQUAL exp .) ]
 
 
-state 97
+state 100
 
     (29) exp -> exp AND exp .
     (17) exp -> exp . PLUS exp
@@ -2916,7 +3042,7 @@ state 97
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -2935,21 +3061,21 @@ state 97
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 29 (exp -> exp AND exp .)
     RPAREN          reduce using rule 29 (exp -> exp AND exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 29 (exp -> exp AND exp .) ]
   ! MINUS           [ reduce using rule 29 (exp -> exp AND exp .) ]
@@ -2968,7 +3094,7 @@ state 97
   ! COMMA           [ reduce using rule 29 (exp -> exp AND exp .) ]
 
 
-state 98
+state 101
 
     (30) exp -> exp OR exp .
     (17) exp -> exp . PLUS exp
@@ -2985,7 +3111,7 @@ state 98
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -3004,21 +3130,21 @@ state 98
   ! shift/reduce conflict for COMMA resolved as shift
     SEMICOLON       reduce using rule 30 (exp -> exp OR exp .)
     RPAREN          reduce using rule 30 (exp -> exp OR exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
   ! PLUS            [ reduce using rule 30 (exp -> exp OR exp .) ]
   ! MINUS           [ reduce using rule 30 (exp -> exp OR exp .) ]
@@ -3037,9 +3163,9 @@ state 98
   ! COMMA           [ reduce using rule 30 (exp -> exp OR exp .) ]
 
 
-state 99
+state 102
 
-    (34) exp -> exp COMMA exp .
+    (36) exp -> exp COMMA exp .
     (17) exp -> exp . PLUS exp
     (18) exp -> exp . MINUS exp
     (19) exp -> exp . DIVIDE exp
@@ -3054,7 +3180,7 @@ state 99
     (28) exp -> exp . EQUALEQUAL exp
     (29) exp -> exp . AND exp
     (30) exp -> exp . OR exp
-    (34) exp -> exp . COMMA exp
+    (36) exp -> exp . COMMA exp
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -3071,42 +3197,42 @@ state 99
   ! shift/reduce conflict for AND resolved as shift
   ! shift/reduce conflict for OR resolved as shift
   ! shift/reduce conflict for COMMA resolved as shift
-    SEMICOLON       reduce using rule 34 (exp -> exp COMMA exp .)
-    RPAREN          reduce using rule 34 (exp -> exp COMMA exp .)
-    PLUS            shift and go to state 55
-    MINUS           shift and go to state 56
-    DIVIDE          shift and go to state 57
-    MULTIPLY        shift and go to state 58
-    MODULUS         shift and go to state 59
-    POWER           shift and go to state 60
-    LESSTHAN        shift and go to state 61
-    GREATERTHAN     shift and go to state 62
-    GREATERTHANEQUALTO shift and go to state 63
-    LESSTHANEQUALTO shift and go to state 64
-    NOTEQUAL        shift and go to state 65
-    EQUALEQUAL      shift and go to state 66
-    AND             shift and go to state 67
-    OR              shift and go to state 68
-    COMMA           shift and go to state 69
+    SEMICOLON       reduce using rule 36 (exp -> exp COMMA exp .)
+    RPAREN          reduce using rule 36 (exp -> exp COMMA exp .)
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    DIVIDE          shift and go to state 58
+    MULTIPLY        shift and go to state 59
+    MODULUS         shift and go to state 60
+    POWER           shift and go to state 61
+    LESSTHAN        shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    GREATERTHANEQUALTO shift and go to state 64
+    LESSTHANEQUALTO shift and go to state 65
+    NOTEQUAL        shift and go to state 66
+    EQUALEQUAL      shift and go to state 67
+    AND             shift and go to state 68
+    OR              shift and go to state 69
+    COMMA           shift and go to state 70
 
-  ! PLUS            [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! MINUS           [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! DIVIDE          [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! MULTIPLY        [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! MODULUS         [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! POWER           [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! LESSTHAN        [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! GREATERTHAN     [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! GREATERTHANEQUALTO [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! LESSTHANEQUALTO [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! NOTEQUAL        [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! EQUALEQUAL      [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! AND             [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! OR              [ reduce using rule 34 (exp -> exp COMMA exp .) ]
-  ! COMMA           [ reduce using rule 34 (exp -> exp COMMA exp .) ]
+  ! PLUS            [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! MINUS           [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! DIVIDE          [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! MULTIPLY        [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! MODULUS         [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! POWER           [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! LESSTHAN        [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! GREATERTHAN     [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! GREATERTHANEQUALTO [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! LESSTHANEQUALTO [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! NOTEQUAL        [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! EQUALEQUAL      [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! AND             [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! OR              [ reduce using rule 36 (exp -> exp COMMA exp .) ]
+  ! COMMA           [ reduce using rule 36 (exp -> exp COMMA exp .) ]
 
 
-state 100
+state 103
 
     (32) exp -> LPAREN exp RPAREN .
 
@@ -3129,7 +3255,7 @@ state 100
     RPAREN          reduce using rule 32 (exp -> LPAREN exp RPAREN .)
 
 
-state 101
+state 104
 
     (11) stmt -> IF LPAREN exp RPAREN LCBRACKET . stmts RCBRACKET
     (13) stmts -> . stmt stmts
@@ -3142,14 +3268,14 @@ state 101
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     RCBRACKET       reduce using rule 14 (stmts -> .)
     STRUCT          shift and go to state 3
@@ -3165,11 +3291,11 @@ state 101
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    stmts                          shift and go to state 108
-    stmt                           shift and go to state 45
+    stmts                          shift and go to state 111
+    stmt                           shift and go to state 46
     DTYPE                          shift and go to state 9
 
-state 102
+state 105
 
     (15) stmt -> ELIF LPAREN exp RPAREN LCBRACKET . stmt RCBRACKET
     (3) stmt -> . STRUCT NAME LCBRACKET statement RCBRACKET
@@ -3180,14 +3306,14 @@ state 102
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     STRUCT          shift and go to state 3
     NAME            shift and go to state 4
@@ -3202,10 +3328,10 @@ state 102
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    stmt                           shift and go to state 109
+    stmt                           shift and go to state 112
     DTYPE                          shift and go to state 9
 
-state 103
+state 106
 
     (16) stmt -> PRINT LPAREN exp RPAREN SEMICOLON .
 
@@ -3226,48 +3352,48 @@ state 103
     NEXT            reduce using rule 16 (stmt -> PRINT LPAREN exp RPAREN SEMICOLON .)
 
 
-state 104
+state 107
 
-    (41) stmt -> DTYPE NAME EQUAL exp SEMICOLON .
+    (43) stmt -> DTYPE NAME EQUAL exp SEMICOLON .
 
-    STRUCT          reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    NAME            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    IF              reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    ELSE            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    ELIF            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    PRINT           reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    FOR             reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    int             reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    string          reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    float           reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    bool            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    char            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    $end            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    RCBRACKET       reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
-    NEXT            reduce using rule 41 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    STRUCT          reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    NAME            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    IF              reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    ELSE            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    ELIF            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    PRINT           reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    FOR             reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    int             reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    string          reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    float           reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    bool            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    char            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    $end            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    RCBRACKET       reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
+    NEXT            reduce using rule 43 (stmt -> DTYPE NAME EQUAL exp SEMICOLON .)
 
 
-state 105
+state 108
 
-    (48) stmt -> FOR NAME EQUAL FROM TO . END stmts NEXT
-    (51) END -> . INT
-    (52) END -> . NAME
+    (50) stmt -> FOR NAME EQUAL FROM TO . END stmts NEXT
+    (53) END -> . INT
+    (54) END -> . NAME
 
-    INT             shift and go to state 112
-    NAME            shift and go to state 110
+    INT             shift and go to state 115
+    NAME            shift and go to state 113
 
-    END                            shift and go to state 111
+    END                            shift and go to state 114
 
-state 106
+state 109
 
     (4) statement -> DTYPE NAME SEMICOLON . statement
     (4) statement -> . DTYPE NAME SEMICOLON statement
     (5) statement -> .
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     RCBRACKET       reduce using rule 5 (statement -> .)
     int             shift and go to state 11
@@ -3276,10 +3402,10 @@ state 106
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    DTYPE                          shift and go to state 51
-    statement                      shift and go to state 113
+    DTYPE                          shift and go to state 52
+    statement                      shift and go to state 116
 
-state 107
+state 110
 
     (7) stmt -> NAME ARROW NAME EQUAL exp SEMICOLON .
 
@@ -3300,42 +3426,42 @@ state 107
     NEXT            reduce using rule 7 (stmt -> NAME ARROW NAME EQUAL exp SEMICOLON .)
 
 
-state 108
+state 111
 
     (11) stmt -> IF LPAREN exp RPAREN LCBRACKET stmts . RCBRACKET
 
-    RCBRACKET       shift and go to state 114
+    RCBRACKET       shift and go to state 117
 
 
-state 109
+state 112
 
     (15) stmt -> ELIF LPAREN exp RPAREN LCBRACKET stmt . RCBRACKET
 
-    RCBRACKET       shift and go to state 115
+    RCBRACKET       shift and go to state 118
 
 
-state 110
+state 113
 
-    (52) END -> NAME .
+    (54) END -> NAME .
 
-    STRUCT          reduce using rule 52 (END -> NAME .)
-    NAME            reduce using rule 52 (END -> NAME .)
-    IF              reduce using rule 52 (END -> NAME .)
-    ELSE            reduce using rule 52 (END -> NAME .)
-    ELIF            reduce using rule 52 (END -> NAME .)
-    PRINT           reduce using rule 52 (END -> NAME .)
-    FOR             reduce using rule 52 (END -> NAME .)
-    int             reduce using rule 52 (END -> NAME .)
-    string          reduce using rule 52 (END -> NAME .)
-    float           reduce using rule 52 (END -> NAME .)
-    bool            reduce using rule 52 (END -> NAME .)
-    char            reduce using rule 52 (END -> NAME .)
-    NEXT            reduce using rule 52 (END -> NAME .)
+    STRUCT          reduce using rule 54 (END -> NAME .)
+    NAME            reduce using rule 54 (END -> NAME .)
+    IF              reduce using rule 54 (END -> NAME .)
+    ELSE            reduce using rule 54 (END -> NAME .)
+    ELIF            reduce using rule 54 (END -> NAME .)
+    PRINT           reduce using rule 54 (END -> NAME .)
+    FOR             reduce using rule 54 (END -> NAME .)
+    int             reduce using rule 54 (END -> NAME .)
+    string          reduce using rule 54 (END -> NAME .)
+    float           reduce using rule 54 (END -> NAME .)
+    bool            reduce using rule 54 (END -> NAME .)
+    char            reduce using rule 54 (END -> NAME .)
+    NEXT            reduce using rule 54 (END -> NAME .)
 
 
-state 111
+state 114
 
-    (48) stmt -> FOR NAME EQUAL FROM TO END . stmts NEXT
+    (50) stmt -> FOR NAME EQUAL FROM TO END . stmts NEXT
     (13) stmts -> . stmt stmts
     (14) stmts -> .
     (3) stmt -> . STRUCT NAME LCBRACKET statement RCBRACKET
@@ -3346,14 +3472,14 @@ state 111
     (12) stmt -> . ELSE LCBRACKET stmts RCBRACKET
     (15) stmt -> . ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET
     (16) stmt -> . PRINT LPAREN exp RPAREN SEMICOLON
-    (41) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
-    (47) stmt -> . NAME EQUAL exp SEMICOLON
-    (48) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
-    (42) DTYPE -> . int
-    (43) DTYPE -> . string
-    (44) DTYPE -> . float
-    (45) DTYPE -> . bool
-    (46) DTYPE -> . char
+    (43) stmt -> . DTYPE NAME EQUAL exp SEMICOLON
+    (49) stmt -> . NAME EQUAL exp SEMICOLON
+    (50) stmt -> . FOR NAME EQUAL FROM TO END stmts NEXT
+    (44) DTYPE -> . int
+    (45) DTYPE -> . string
+    (46) DTYPE -> . float
+    (47) DTYPE -> . bool
+    (48) DTYPE -> . char
 
     NEXT            reduce using rule 14 (stmts -> .)
     STRUCT          shift and go to state 3
@@ -3369,37 +3495,37 @@ state 111
     bool            shift and go to state 14
     char            shift and go to state 15
 
-    stmts                          shift and go to state 116
-    stmt                           shift and go to state 45
+    stmts                          shift and go to state 119
+    stmt                           shift and go to state 46
     DTYPE                          shift and go to state 9
 
-state 112
+state 115
 
-    (51) END -> INT .
+    (53) END -> INT .
 
-    STRUCT          reduce using rule 51 (END -> INT .)
-    NAME            reduce using rule 51 (END -> INT .)
-    IF              reduce using rule 51 (END -> INT .)
-    ELSE            reduce using rule 51 (END -> INT .)
-    ELIF            reduce using rule 51 (END -> INT .)
-    PRINT           reduce using rule 51 (END -> INT .)
-    FOR             reduce using rule 51 (END -> INT .)
-    int             reduce using rule 51 (END -> INT .)
-    string          reduce using rule 51 (END -> INT .)
-    float           reduce using rule 51 (END -> INT .)
-    bool            reduce using rule 51 (END -> INT .)
-    char            reduce using rule 51 (END -> INT .)
-    NEXT            reduce using rule 51 (END -> INT .)
+    STRUCT          reduce using rule 53 (END -> INT .)
+    NAME            reduce using rule 53 (END -> INT .)
+    IF              reduce using rule 53 (END -> INT .)
+    ELSE            reduce using rule 53 (END -> INT .)
+    ELIF            reduce using rule 53 (END -> INT .)
+    PRINT           reduce using rule 53 (END -> INT .)
+    FOR             reduce using rule 53 (END -> INT .)
+    int             reduce using rule 53 (END -> INT .)
+    string          reduce using rule 53 (END -> INT .)
+    float           reduce using rule 53 (END -> INT .)
+    bool            reduce using rule 53 (END -> INT .)
+    char            reduce using rule 53 (END -> INT .)
+    NEXT            reduce using rule 53 (END -> INT .)
 
 
-state 113
+state 116
 
     (4) statement -> DTYPE NAME SEMICOLON statement .
 
     RCBRACKET       reduce using rule 4 (statement -> DTYPE NAME SEMICOLON statement .)
 
 
-state 114
+state 117
 
     (11) stmt -> IF LPAREN exp RPAREN LCBRACKET stmts RCBRACKET .
 
@@ -3420,7 +3546,7 @@ state 114
     NEXT            reduce using rule 11 (stmt -> IF LPAREN exp RPAREN LCBRACKET stmts RCBRACKET .)
 
 
-state 115
+state 118
 
     (15) stmt -> ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET .
 
@@ -3441,96 +3567,51 @@ state 115
     NEXT            reduce using rule 15 (stmt -> ELIF LPAREN exp RPAREN LCBRACKET stmt RCBRACKET .)
 
 
-state 116
+state 119
 
-    (48) stmt -> FOR NAME EQUAL FROM TO END stmts . NEXT
+    (50) stmt -> FOR NAME EQUAL FROM TO END stmts . NEXT
 
-    NEXT            shift and go to state 117
+    NEXT            shift and go to state 120
 
 
-state 117
+state 120
 
-    (48) stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .
+    (50) stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .
 
-    STRUCT          reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    NAME            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    IF              reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    ELSE            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    ELIF            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    PRINT           reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    FOR             reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    int             reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    string          reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    float           reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    bool            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    char            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    $end            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    RCBRACKET       reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
-    NEXT            reduce using rule 48 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    STRUCT          reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    NAME            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    IF              reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    ELSE            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    ELIF            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    PRINT           reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    FOR             reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    int             reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    string          reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    float           reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    bool            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    char            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    $end            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    RCBRACKET       reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
+    NEXT            reduce using rule 50 (stmt -> FOR NAME EQUAL FROM TO END stmts NEXT .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 71 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 71 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 71 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 71 resolved as shift
-WARNING: shift/reduce conflict for MODULUS in state 71 resolved as shift
-WARNING: shift/reduce conflict for POWER in state 71 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 71 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 71 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 71 resolved as shift
-WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 71 resolved as shift
-WARNING: shift/reduce conflict for NOTEQUAL in state 71 resolved as shift
-WARNING: shift/reduce conflict for EQUALEQUAL in state 71 resolved as shift
-WARNING: shift/reduce conflict for AND in state 71 resolved as shift
-WARNING: shift/reduce conflict for OR in state 71 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 71 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 85 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 85 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 85 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 85 resolved as shift
-WARNING: shift/reduce conflict for MODULUS in state 85 resolved as shift
-WARNING: shift/reduce conflict for POWER in state 85 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 85 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 85 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 85 resolved as shift
-WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 85 resolved as shift
-WARNING: shift/reduce conflict for NOTEQUAL in state 85 resolved as shift
-WARNING: shift/reduce conflict for EQUALEQUAL in state 85 resolved as shift
-WARNING: shift/reduce conflict for AND in state 85 resolved as shift
-WARNING: shift/reduce conflict for OR in state 85 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 85 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 86 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 86 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 86 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 86 resolved as shift
-WARNING: shift/reduce conflict for MODULUS in state 86 resolved as shift
-WARNING: shift/reduce conflict for POWER in state 86 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 86 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 86 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 86 resolved as shift
-WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 86 resolved as shift
-WARNING: shift/reduce conflict for NOTEQUAL in state 86 resolved as shift
-WARNING: shift/reduce conflict for EQUALEQUAL in state 86 resolved as shift
-WARNING: shift/reduce conflict for AND in state 86 resolved as shift
-WARNING: shift/reduce conflict for OR in state 86 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 86 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 87 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 87 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 87 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 87 resolved as shift
-WARNING: shift/reduce conflict for MODULUS in state 87 resolved as shift
-WARNING: shift/reduce conflict for POWER in state 87 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 87 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 87 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 87 resolved as shift
-WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 87 resolved as shift
-WARNING: shift/reduce conflict for NOTEQUAL in state 87 resolved as shift
-WARNING: shift/reduce conflict for EQUALEQUAL in state 87 resolved as shift
-WARNING: shift/reduce conflict for AND in state 87 resolved as shift
-WARNING: shift/reduce conflict for OR in state 87 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 87 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 74 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 74 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 74 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 74 resolved as shift
+WARNING: shift/reduce conflict for MODULUS in state 74 resolved as shift
+WARNING: shift/reduce conflict for POWER in state 74 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 74 resolved as shift
+WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 74 resolved as shift
+WARNING: shift/reduce conflict for NOTEQUAL in state 74 resolved as shift
+WARNING: shift/reduce conflict for EQUALEQUAL in state 74 resolved as shift
+WARNING: shift/reduce conflict for AND in state 74 resolved as shift
+WARNING: shift/reduce conflict for OR in state 74 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 74 resolved as shift
 WARNING: shift/reduce conflict for PLUS in state 88 resolved as shift
 WARNING: shift/reduce conflict for MINUS in state 88 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 88 resolved as shift
@@ -3711,3 +3792,48 @@ WARNING: shift/reduce conflict for EQUALEQUAL in state 99 resolved as shift
 WARNING: shift/reduce conflict for AND in state 99 resolved as shift
 WARNING: shift/reduce conflict for OR in state 99 resolved as shift
 WARNING: shift/reduce conflict for COMMA in state 99 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 100 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 100 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 100 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 100 resolved as shift
+WARNING: shift/reduce conflict for MODULUS in state 100 resolved as shift
+WARNING: shift/reduce conflict for POWER in state 100 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 100 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 100 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 100 resolved as shift
+WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 100 resolved as shift
+WARNING: shift/reduce conflict for NOTEQUAL in state 100 resolved as shift
+WARNING: shift/reduce conflict for EQUALEQUAL in state 100 resolved as shift
+WARNING: shift/reduce conflict for AND in state 100 resolved as shift
+WARNING: shift/reduce conflict for OR in state 100 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 100 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 101 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 101 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 101 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 101 resolved as shift
+WARNING: shift/reduce conflict for MODULUS in state 101 resolved as shift
+WARNING: shift/reduce conflict for POWER in state 101 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 101 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 101 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 101 resolved as shift
+WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 101 resolved as shift
+WARNING: shift/reduce conflict for NOTEQUAL in state 101 resolved as shift
+WARNING: shift/reduce conflict for EQUALEQUAL in state 101 resolved as shift
+WARNING: shift/reduce conflict for AND in state 101 resolved as shift
+WARNING: shift/reduce conflict for OR in state 101 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 101 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 102 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 102 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 102 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 102 resolved as shift
+WARNING: shift/reduce conflict for MODULUS in state 102 resolved as shift
+WARNING: shift/reduce conflict for POWER in state 102 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 102 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 102 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHANEQUALTO in state 102 resolved as shift
+WARNING: shift/reduce conflict for LESSTHANEQUALTO in state 102 resolved as shift
+WARNING: shift/reduce conflict for NOTEQUAL in state 102 resolved as shift
+WARNING: shift/reduce conflict for EQUALEQUAL in state 102 resolved as shift
+WARNING: shift/reduce conflict for AND in state 102 resolved as shift
+WARNING: shift/reduce conflict for OR in state 102 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 102 resolved as shift
