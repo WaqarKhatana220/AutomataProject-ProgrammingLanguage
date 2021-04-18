@@ -1,15 +1,6 @@
-# FOR (INT i = 0; i < 2; i++)
-# {
-# FOR (INT j = 0; j <= 1; j = j + 1)
-# {
-# FOR (INT k = 0; k <= 1; k++)
-# {
-# PRINT(“(”, i, “,”, j, “,”, k, “)”)
-# }
-# }
-# }
-
-for i in range (0, 2):
-    for j in range (0,1):
-        for k in range (0,1):
-            print("(", i, ",", j, ",", k, ")")
+a = {}
+a[1] = {"waqar":21, "raza":15}
+a[1]["rida"] = 45
+a[2] = {"maryam": 15}
+a[2]["ham"] = 16
+print (a)

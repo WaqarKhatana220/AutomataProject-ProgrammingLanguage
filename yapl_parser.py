@@ -28,7 +28,38 @@ def p_start(p): # non-terminal, starting
     S : stmt S
     """
     p[0] = [p[1]] + p[2] # list comprehension used to solve recursive grammar, added/appending as well
-    
+
+def p_start_empty(p):
+    """
+    S :
+    """
+    p[0] = []
+
+def p_struct_dec(p):
+    """
+    stmt : STRUCT NAME LCBRACKET statement RCBRACKET
+    """
+    p[0] = ('STRUCTDEC', p[2], p[4])    # ('STRUCT', NAME, stmt)
+
+def p_struct_dec_statement(p):
+    """
+    statement : DTYPE NAME SEMICOLON
+    """
+    p[0] = (p[1], p[2])
+
+def p_obj_dec(p):
+    """
+    stmt : NAME NAME SEMICOLON
+    """
+    p[0] = ('OBJDEC', p[1], p[2])
+
+def p_obj_assignment(p):
+    """
+    stmt : NAME ARROW NAME EQUAL exp SEMICOLON
+    """
+    p[0] = ('OBJASSIGN', p[1], p[3], p[5]) # ('OBJASSIGN', NAME, NAME, VALUE)
+
+
 
 def p_inc_dec_rement(p):
     """
@@ -43,11 +74,7 @@ def p_operator(p):
     """
     p[0] = p[1]
 
-def p_start_empty(p):
-    """
-    S :
-    """
-    p[0] = []
+
 
 
 def p_conditional_if(p):
@@ -93,6 +120,12 @@ def p_exp_bin(p):
         | exp OR exp
     """
     p[0] = (p[2], p[1], p[3]) # '1+2' -> ('+', '1', '2')
+
+def p_exp_obj(p):
+    """
+    exp : NAME ARROW NAME
+    """
+    p[0] = ('OBJPRINT', p[1], p[3])
 
 def p_exp_parens(p):
     """
