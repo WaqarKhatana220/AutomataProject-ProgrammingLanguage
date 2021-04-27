@@ -27,12 +27,4 @@ data-type variableName = value;
 ```
 The following data types are supported;
 
-int
-
-float
-
-string
-
-char
-
-bool
+`int`, `float`, `string`, `char`, `bool`
