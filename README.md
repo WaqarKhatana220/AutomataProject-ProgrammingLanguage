@@ -79,8 +79,9 @@ structName objectName;
 
 assign values to attributes as;
 
+
 ```
 objectName -> attributeName = value;
 ```
 
-sa
+yes
