@@ -45,7 +45,9 @@ if (condition)
 {if block}
 else
 {else block}
-```
+```You can run the YAPL interpreter with the command
+87
+
 
 Logical operators `And` `Or` and `Not` are supported.
 
@@ -89,4 +91,4 @@ Download the files in your local machine. Open the terminal in the directory whe
 python3 yapl_interpreter.py filename.txt
 ```
 
-There are a number of test files in the testcases directory which you can give at the command line to run. Alternatively, you can also create a custom txt file and test it using the same command.
+There are a number of test files in the `test_cases` directory which you can give at the command line to run. Alternatively, you can also create a custom .txt file and test it using the same command.
