@@ -81,5 +81,12 @@ assign values to attributes as;
 objectName -> attributeName = value;
 ```
 
+## Run
 
+Download the files in your local machine. Open the terminal in the directory where you have downloaded the files and give the following command;
 
+```
+python3 yapl_interpreter.py filename.txt
+```
+
+There are a number of test files in the testcases directory which you can give at the command line to run. Alternatively, you can also create a custom txt file and test it using the same command.
