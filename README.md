@@ -27,4 +27,19 @@ data-type variableName = value;
 ```
 The following data types are supported;
 
-`int`, `float`, `string`, `char`, `bool`
+`int` `float` `string` `char` `bool`
+After declaration, you can reassign a value to a variable as;
+```
+variableName = new value;
+```
+
+Conditional:
+YAPL supports if else only, the syntax is as follows;
+```
+if (condition)
+{if block}
+else
+{else block}
+```
+Logical operators `And` `Or` and `Not` are supported.
+
