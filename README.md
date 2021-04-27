@@ -11,3 +11,11 @@ The language supports following features;
 **For loops**
 
 **Struct**
+
+## Syntax
+
+Print Statement:
+
+```
+print ("hello");
+```
