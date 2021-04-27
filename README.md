@@ -45,9 +45,7 @@ if (condition)
 {if block}
 else
 {else block}
-```You can run the YAPL interpreter with the command
-87
-
+```
 
 Logical operators `And` `Or` and `Not` are supported.
 
