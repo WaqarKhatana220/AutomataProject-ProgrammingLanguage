@@ -6,7 +6,7 @@ The language supports following features;
 
 **Variable declaration and assignment**
 
-**Conditional (if/else)**
+**Conditionals (if/else)**
 
 **For loops**
 
@@ -19,3 +19,20 @@ Print Statement:
 ```
 print ("hello");
 ```
+
+Variable Declaration:
+
+```
+data-type variableName = value;
+```
+The following data types are supported;
+
+int
+
+float
+
+string
+
+char
+
+bool
