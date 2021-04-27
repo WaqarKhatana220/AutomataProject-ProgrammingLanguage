@@ -5,6 +5,9 @@ I built a custom programming language called YAPL (Yet Another Programming Langu
 The language supports following features;
 
 **Variable declaration and assignment**
+
 **Conditional (if/else)**
+
 **For loops**
+
 **Struct**
